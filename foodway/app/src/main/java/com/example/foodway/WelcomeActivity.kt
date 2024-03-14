@@ -1,4 +1,4 @@
-package com.example.foodway_app
+package com.example.foodway
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -32,15 +32,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway_app.ui.theme.ButtonColor
-import com.example.foodway_app.ui.theme.FoodWay_appTheme
+import com.example.foodway.ui.theme.ButtonColor
+import com.example.foodway.ui.theme.FoodwayTheme
 
 
-class MainActivity : ComponentActivity() {
+
+class WelcomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            FoodWay_appTheme {
+            FoodwayTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -128,7 +129,7 @@ fun AppWelcome(){
            horizontalAlignment = Alignment.CenterHorizontally,
            verticalArrangement = Arrangement.Center){
            Text(text = "Bem-vindo ao Foodway!",
-               style = androidx.compose.ui.text.TextStyle(color = Color.Black,
+               style = TextStyle(color = Color.Black,
                    fontSize = 25.sp,
                    fontWeight = FontWeight.Bold),
                    modifier = Modifier
@@ -169,7 +170,7 @@ fun AppWelcome(){
 @Preview(showBackground = true)
 @Composable
 fun AppPreview() {
-    FoodWay_appTheme {
+    FoodwayTheme {
         Surface (modifier = Modifier.fillMaxSize()) {
             AppWelcome()
 
