@@ -154,8 +154,7 @@ fun AppWelcome(){
                .width(170.dp)
                .height(45.dp)
                .align(Alignment.Center)
-               .offset(y = (200).dp)
-               .background(Color.White),
+               .offset(y = (200).dp),
            colors = ButtonColor()
            )
        {
