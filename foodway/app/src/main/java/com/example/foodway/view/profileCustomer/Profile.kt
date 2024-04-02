@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -56,7 +57,7 @@ fun Profile() {
                         .width(36.dp)
                         .height(6.dp),
                     color = Color.Green,
-                    trackColor = Color.LightGray,
+                    trackColor = colorResource(id = R.color.ligth_gray),
                     strokeCap = StrokeCap.Round,
                 )
             }

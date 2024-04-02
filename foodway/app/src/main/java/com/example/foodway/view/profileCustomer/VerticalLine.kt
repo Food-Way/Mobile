@@ -7,11 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.foodway.R
 
 @Composable
 fun VerticalLine() {
+    val color = colorResource(id = R.color.black)
     Canvas(modifier = Modifier.height(100.dp)) {
         val startX = size.width / 2
         val startY = 0f
@@ -19,7 +22,7 @@ fun VerticalLine() {
         val endY = size.height
 
         drawLine(
-            color = Color.Black,
+            color = color,
             start = Offset(startX, startY),
             end = Offset(endX, endY),
             strokeWidth = 2.dp.toPx(),
