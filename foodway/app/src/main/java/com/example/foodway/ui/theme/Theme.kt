@@ -68,11 +68,11 @@ fun FoodwayTheme(
     )
 }
 @Composable
-fun ButtonColor() = ButtonDefaults.buttonColors(
+fun PrimaryButton() = ButtonDefaults.buttonColors(
     containerColor = Red
 )
 
 @Composable
-fun ButtonSignUp() = ButtonDefaults.buttonColors(
+fun SecondaryButton() = ButtonDefaults.buttonColors(
     containerColor = Black
 )

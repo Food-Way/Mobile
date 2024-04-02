@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">foodway</string>
-    <string name="level">Nv.</string>
-    <string name="hi">Olá</string>
+    <string name="level">Nv. %d</string>
+    <string name="hi">Olá, %s 👋</string>
+    <string name="your_profile">Esse é seu perfil</string>
+    <string name="comments">Comentários</string>
+    <string name="upvotes">Upvotes</string>
+    <string name="recent">Recentes</string>
+    <string name="favorites">Favoritos</string>
+    <string name="experience_acronym">XP</string>
+    <string name="backgroud_image">Imagem de Fundo</string>
+    <string name="image_profile">Imagem de Perfil</string>
+    <string name="start">Começar</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Voltar</string>
+    <string name="info_user">Informações do Usuário</string>
+    <string name="welcome_title">Bem-vindo ao Foodway!</string>
+    <string name="welcome_text">"Sua jornada gastronômica começa aqui.\n "
+                        "Explore restaurantes, descubra ofertas exclusivas\n"
+                        " e compartilhe suas experiências."</string>
 </resources>
