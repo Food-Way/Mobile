@@ -1,4 +1,4 @@
-package com.example.foodway.components
+package com.example.foodway.view.components
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

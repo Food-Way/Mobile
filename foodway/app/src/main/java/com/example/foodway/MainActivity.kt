@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.foodway.screens.ProfileCustomerScreen
+import com.example.foodway.view.profileCustomer.ProfileCustomerScreen
 import com.example.foodway.ui.theme.FoodwayTheme
 
 class MainActivity : ComponentActivity() {
