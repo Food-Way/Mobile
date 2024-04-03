@@ -1,4 +1,4 @@
-package com.example.foodway.view.signUp.establishment
+package com.example.foodway.view.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

@@ -33,7 +33,7 @@ fun SquareCard() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.imgmc),
-                contentDescription = stringResource(id = R.string.backgroud_image),
+                contentDescription = stringResource(id = R.string.backgroud_image_desc),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )

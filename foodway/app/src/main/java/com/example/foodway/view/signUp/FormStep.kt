@@ -1,4 +1,4 @@
-package com.example.foodway.view.signUp.establishment
+package com.example.foodway.view.signUp
 
 //@Composable
 //fun FormStep(
