@@ -8,8 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Input(inputLabel: String, icon: Int) {
     var label by remember { mutableStateOf("") }
@@ -42,7 +41,7 @@ fun Input(inputLabel: String, icon: Int) {
                 Text(inputLabel)
             }
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
+        colors = OutlinedTextFieldDefaults.colors(
             focusedLabelColor = colorResource(id = R.color.black),
             unfocusedLabelColor = colorResource(id = R.color.black),
         ),

@@ -65,8 +65,7 @@ fun StepOneActivity() {
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false
-                ) {
-                }
+                ) {}
             }
         }
     }

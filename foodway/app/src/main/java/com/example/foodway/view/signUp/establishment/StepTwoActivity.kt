@@ -60,6 +60,9 @@ fun StepTwoActivity() {
                     inputLabel = stringResource(id = R.string.number),
                     icon = R.drawable.number_icon
                 )
+
+//                TextField(value = "Teste", onValueChange = {}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email))
+
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
                     width = 250.dp,
@@ -71,6 +74,7 @@ fun StepTwoActivity() {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
