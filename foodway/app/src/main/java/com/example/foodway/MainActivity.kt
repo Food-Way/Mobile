@@ -3,14 +3,16 @@ package com.example.foodway
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.foodway.view.profileCustomer.ProfileCustomerScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.foodway.ui.theme.FoodwayTheme
+import com.example.foodway.view.signUp.establishment.StepFourActivity
+import com.example.foodway.view.signUp.establishment.StepOneActivity
+import com.example.foodway.view.signUp.establishment.StepThreeActivity
+import com.example.foodway.view.signUp.establishment.StepTwoActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,15 +25,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainApp() {
+    val navController = rememberNavController()
     FoodwayTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+        NavHost(
+            navController = navController,
+            startDestination = "StepOne"
         ) {
-            ProfileCustomerScreen()
+            composable("StepOne"){ StepOneActivity(navController = navController)}
+            composable("StepTwo"){ StepTwoActivity(navController = navController)}
+            composable("StepThree"){ StepThreeActivity(navController = navController)}
+            composable("StepFour"){ StepFourActivity(navController = navController)}
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

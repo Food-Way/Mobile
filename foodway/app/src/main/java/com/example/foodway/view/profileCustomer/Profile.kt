@@ -65,7 +65,7 @@ fun Profile() {
 
         Image(
             painter = painterResource(id = R.drawable.goku),
-            contentDescription = stringResource(id = R.string.image_profile),
+            contentDescription = stringResource(id = R.string.image_profile_desc),
             modifier = Modifier
                 .size(75.dp)
                 .clip(CircleShape)

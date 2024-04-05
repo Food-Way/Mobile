@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">foodway</string>
+
+    <!-- Other Texts -->
     <string name="level">Nv. %d</string>
     <string name="hi">Olá, %s 👋</string>
     <string name="your_profile">Esse é seu perfil</string>
@@ -8,14 +10,39 @@
     <string name="recent">Recentes</string>
     <string name="favorites">Favoritos</string>
     <string name="experience_acronym">XP</string>
-    <string name="backgroud_image">Imagem de Fundo</string>
-    <string name="image_profile">Imagem de Perfil</string>
-    <string name="start">Começar</string>
-    <string name="next">Próximo</string>
-    <string name="previous">Voltar</string>
+
+    <!-- Titles -->
     <string name="info_user">Informações do Usuário</string>
+    <string name="info_establishments">Informações do usuário</string>
+    <string name="conclusion_title">Conclusão</string>
+    <string name="sign_up_sucess_title">Cadastro realizado com sucesso!</string>
     <string name="welcome_title">Bem-vindo ao Foodway!</string>
-    <string name="welcome_text">"Sua jornada gastronômica começa aqui.\n "
-                        "Explore restaurantes, descubra ofertas exclusivas\n"
-                        " e compartilhe suas experiências."</string>
+
+    <!-- Large Texts -->
+    <string name="welcome_text">Sua jornada gastronômica começa aqui.\nExplore restaurantes, descubra ofertas exclusivas\ne compartilhe suas experiências.</string>
+    <string name="congrat_text">Parabéns! Seu cadastro no FoodWay\nfoi concluído com sucesso. Agora\nvocê está pronto para descobrir os\nmelhores restaurantes e sabores incríveis perto de você.</string>
+
+    <!-- Descriptions -->
+    <string name="backgroud_image_desc">Imagem de Fundo</string>
+    <string name="image_profile_desc">Imagem de Perfil</string>
+    <string name="conclusion_image_desc">Imagem de conclusão de cadastro</string>
+
+    <!-- Buttons -->
+    <string name="conclusion_button">Concluir</string>
+    <string name="next">Próximo</string>
+    <string name="start">Começar</string>
+    <string name="previous">Voltar</string>
+
+    <!-- Registration data -->
+    <string name="fantasy_name">Nome Fantasia</string>
+    <string name="responsible">Responsável</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="conf_password">Confirmar Senha</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="cep">CEP</string>
+    <string name="address">Endereço</string>
+    <string name="state">Estado</string>
+    <string name="number">Número</string>
+
 </resources>
