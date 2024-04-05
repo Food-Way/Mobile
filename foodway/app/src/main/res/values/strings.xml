@@ -24,6 +24,7 @@
     <string name="conclusion_title">Conclusão</string>
     <string name="sign_up_sucess_title">Cadastro realizado com sucesso!</string>
     <string name="congrat_text">Parabéns! Seu cadastro no FoodWay\nfoi concluído com sucesso. Agora\nvocê está pronto para descobrir os\nmelhores restaurantes e sabores incríveis perto de você.</string>
+    <string name="category_selection">Seleção de Categorias</string>
     <string name="fantasy_name">Nome Fantasia</string>
     <string name="responsible">Responsável</string>
     <string name="email">Email</string>
@@ -38,6 +39,7 @@
 
     <!--Sign Up Customer-->
     <string name="info_user">Informações do Usuário</string>
+    <string name="taste_selection">Seleção de Gostos</string>
 
     <!--Welcome-->
     <string name="welcome_title">Bem-vindo ao Foodway!</string>

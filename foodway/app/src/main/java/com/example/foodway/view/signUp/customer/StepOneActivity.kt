@@ -42,7 +42,7 @@ class SignUpActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SignUpCustomer()
+                    StepOneActivity()
                 }
             }
         }
@@ -50,7 +50,7 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun SignUpCustomer() {
+fun StepOneActivity() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -128,10 +128,10 @@ fun SignUpCustomer() {
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpAppPreview() {
+fun StepOneActivityPreview() {
     FoodwayTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            SignUpCustomer()
+            StepOneActivity()
         }
     }
 }
