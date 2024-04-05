@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
@@ -23,7 +23,7 @@ import com.example.foodway.view.components.Input
 import com.example.foodway.view.components.ScreenBorder
 
 @Composable
-fun StepOneActivity() {
+fun StepOneActivity(navController: NavController) {
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -65,14 +65,16 @@ fun StepOneActivity() {
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false
-                ) {}
+                ) {
+                    navController.navigate("StepTwo")
+                }
             }
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun StepOneActivityPreview() {
-    StepOneActivity()
-}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun StepOneActivityPreview() {
+//    StepOneActivity()
+//}

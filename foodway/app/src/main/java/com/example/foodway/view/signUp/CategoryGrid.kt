@@ -18,7 +18,6 @@ fun CategoryGrid(categories: List<String>) {
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         userScrollEnabled = true
-
     ) {
         items(categories.size) { index ->
             CategoryCard(categories[index])
@@ -29,5 +28,5 @@ fun CategoryGrid(categories: List<String>) {
 //@Preview(showBackground = true)
 //@Composable
 //fun CategoryGridPreview() {
-//    CategoryGrid(categories = listOf("Categoria 1", "Categoria 2", "Categoria 3"),)
+//    CategoryGrid(categories = listOf("Categoria 1", "Categoria 2", "Categoria 3"))
 //}

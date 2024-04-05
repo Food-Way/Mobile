@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
@@ -21,7 +21,7 @@ import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.view.signUp.CategoryGrid
 
 @Composable
-fun StepThreeActivity() {
+fun StepThreeActivity(navController: NavController) {
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -30,8 +30,7 @@ fun StepThreeActivity() {
                     .fillMaxHeight()
                     .padding(20.dp, 21.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-
-                ) {
+            ) {
                 Text(
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
@@ -46,20 +45,8 @@ fun StepThreeActivity() {
                         "Categoria 4",
                         "Categoria 5",
                         "Categoria 6",
-                        "Categoria 7",
-                        "Categoria 8",
-                        "Categoria 9",
-                        "Categoria 10",
-                        "Categoria 11",
-                        "Categoria 12",
-                        "Categoria 13",
-                        "Categoria 14",
-                        "Categoria 15",
-                        "Categoria 16",
-                        "Categoria 17",
-                        "Categoria 18",
-                        "Categoria 19",
-                        "Categoria 20"
+                        "Categoria 6",
+                        "Categoria 6",
                     )
                 )
                 ButtonGeneric(
@@ -67,16 +54,16 @@ fun StepThreeActivity() {
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false
-                ) {}
-
-
+                ) {
+                    navController.navigate("StepFour")
+                }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun StepThreeActivityPreview() {
-    StepThreeActivity()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun StepThreeActivityPreview() {
+//    StepThreeActivity()
+//}

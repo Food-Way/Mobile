@@ -57,7 +57,6 @@ fun CategoryCard(category: String) {
                 )
             )
         }
-
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -71,3 +70,9 @@ fun CategoryCard(category: String) {
         }
     }
 }
+
+//@Preview(showBackground =true)
+//@Composable
+//fun CategoryCardPreview() {
+//    CategoryCard(category = "Brasileira")
+//}
