@@ -57,7 +57,7 @@ fun Profile() {
                         .width(36.dp)
                         .height(6.dp),
                     color = Color.Green,
-                    trackColor = colorResource(id = R.color.ligth_gray),
+                    trackColor = colorResource(id = R.color.light_gray),
                     strokeCap = StrokeCap.Round,
                 )
             }
