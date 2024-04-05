@@ -65,7 +65,7 @@ fun CategoryCard(category: String) {
         ) {
             Text(
                 text = category,
-                color = Color.White,
+                color = colorResource(id = R.color.white),
             )
         }
     }
