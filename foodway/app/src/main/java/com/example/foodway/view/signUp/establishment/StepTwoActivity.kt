@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,13 +18,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.foodway.R
+import com.example.foodway.model.Input
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.Input
+import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.ScreenBorder
 
 @Composable
 fun StepTwoActivity(navController: NavController) {
+    val inputList = listOf(
+        Input(
+            inputLabel = stringResource(id = R.string.cnpj),
+            icon = R.drawable.badge_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.cep),
+            icon = R.drawable.location_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.address),
+            icon = R.drawable.location_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.state),
+            icon = R.drawable.location_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.number),
+            icon = R.drawable.number_icon
+        )
+    )
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -40,28 +64,15 @@ fun StepTwoActivity(navController: NavController) {
                     textAlign = TextAlign.Center,
                     text = stringResource(id = R.string.info_establishments)
                 )
-                Input(
-                    inputLabel = stringResource(id = R.string.cnpj),
-                    icon = R.drawable.badge_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.cep),
-                    icon = R.drawable.location_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.address),
-                    icon = R.drawable.location_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.state),
-                    icon = R.drawable.location_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.number),
-                    icon = R.drawable.number_icon
-                )
 
-//                TextField(value = "Teste", onValueChange = {}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email))
+                LazyColumn {
+                    items(inputList.size) { index ->
+                        InputGeneric(
+                            inputLabel = inputList[index].inputLabel,
+                            icon = inputList[index].icon
+                        )
+                    }
+                }
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
