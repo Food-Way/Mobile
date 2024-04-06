@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,13 +18,38 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.foodway.R
+import com.example.foodway.model.Input
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.Input
+import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.ScreenBorder
 
 @Composable
 fun StepOneActivity(navController: NavController) {
+
+    val inputList = listOf(
+        Input(
+            inputLabel = stringResource(id = R.string.fantasy_name),
+            icon = R.drawable.person_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.responsible),
+            icon = R.drawable.person_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.email),
+            icon = R.drawable.person_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.password),
+            icon = R.drawable.lock_icon
+        ),
+        Input(
+            inputLabel = stringResource(id = R.string.conf_password),
+            icon = R.drawable.lock_icon
+        ),
+    )
+
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -40,26 +66,16 @@ fun StepOneActivity(navController: NavController) {
                     textAlign = TextAlign.Center,
                     text = stringResource(id = R.string.info_establishments)
                 )
-                Input(
-                    inputLabel = stringResource(id = R.string.fantasy_name),
-                    icon = R.drawable.person_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.responsible),
-                    icon = R.drawable.person_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.email),
-                    icon = R.drawable.email_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.password),
-                    icon = R.drawable.lock_icon
-                )
-                Input(
-                    inputLabel = stringResource(id = R.string.conf_password),
-                    icon = R.drawable.lock_icon
-                )
+
+                LazyColumn {
+                    items(inputList.size) { item ->
+                        InputGeneric(
+                            inputLabel = inputList[item].inputLabel,
+                            icon = inputList[item].icon
+                        )
+                    }
+                }
+
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
                     width = 250.dp,
