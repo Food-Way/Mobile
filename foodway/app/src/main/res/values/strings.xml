@@ -19,7 +19,7 @@
     <string name="start">Começar</string>
     <string name="previous">Voltar</string>
     <string name="name_costumer">Nome</string>
-    <string name="last_name_costumer">Nome</string>
+    <string name="last_name_costumer">Sobrenome</string>
     <string name="cpf_costumer">CPF</string>
 
     <!--Sign Up Establishment-->
