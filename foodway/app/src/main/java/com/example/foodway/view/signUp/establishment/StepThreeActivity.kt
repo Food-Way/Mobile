@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,13 +18,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.foodway.R
+import com.example.foodway.api.ApiService
+import com.example.foodway.model.Culinary
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.view.signUp.CategoryGrid
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
-fun StepThreeActivity(navController: NavController) {
+fun StepThreeActivity(navController: NavController, apiService: ApiService) {
+    val culinaries = remember { mutableStateOf(listOf<Culinary>()) }
+    LaunchedEffect(true) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val fetchedCulinaries = apiService.getCulinaries()
+            culinaries.value = fetchedCulinaries
+        }
+    }
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -37,17 +52,22 @@ fun StepThreeActivity(navController: NavController) {
                     textAlign = TextAlign.Center,
                     text = stringResource(id = R.string.category_selection)
                 )
+
                 CategoryGrid(
-                    categories = listOf(
-                        "Categoria 1",
-                        "Categoria 2",
-                        "Categoria 3",
-                        "Categoria 4",
-                        "Categoria 5",
-                        "Categoria 6",
-                        "Categoria 6",
-                        "Categoria 6",
-                    )
+                    culinaries = culinaries.value
+
+//
+//
+//                    categories = listOf(
+//                        "Categoria 1",
+//                        "Categoria 2",
+//                        "Categoria 3",
+//                        "Categoria 4",
+//                        "Categoria 5",
+//                        "Categoria 6",
+//                        "Categoria 6",
+//                        "Categoria 6",
+//                    )
                 )
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),

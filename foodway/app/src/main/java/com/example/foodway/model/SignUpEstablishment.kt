@@ -19,6 +19,6 @@ data class SignUpEstablishment(
     )
 
     data class ThirdStep(
-        val categories: List<Category>
+        val categories: List<Culinary>
     )
 }

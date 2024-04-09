@@ -25,9 +25,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.model.Culinary
 
 @Composable
-fun CategoryCard(category: String) {
+fun CategoryCard(culinary: Culinary) {
     var isChecked by remember { mutableStateOf(false) }
 
     Box(
@@ -39,7 +40,7 @@ fun CategoryCard(category: String) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.category_image),
-            contentDescription = category,
+            contentDescription = culinary.culinaryName,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
@@ -64,7 +65,7 @@ fun CategoryCard(category: String) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = category,
+                text = culinary.culinaryName,
                 color = colorResource(id = R.color.white),
             )
         }

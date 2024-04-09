@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.foodway.api.RetrofitInstance
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.signUp.establishment.StepFourActivity
 import com.example.foodway.view.signUp.establishment.StepOneActivity
@@ -33,7 +34,7 @@ fun MainApp() {
         ) {
             composable("StepOne"){ StepOneActivity(navController = navController)}
             composable("StepTwo"){ StepTwoActivity(navController = navController)}
-            composable("StepThree"){ StepThreeActivity(navController = navController)}
+            composable("StepThree"){ StepThreeActivity(navController = navController, apiService = RetrofitInstance.api)}
             composable("StepFour"){ StepFourActivity(navController = navController)}
         }
     }
