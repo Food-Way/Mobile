@@ -73,15 +73,27 @@ fun EditAccountEstablishment() {
                 Column(
                     horizontalAlignment = Alignment.Start
                 ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Left,
+                            text = stringResource(id = R.string.edit_account)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.edit_icon),
+                            contentDescription = stringResource(id = R.string.image_profile_desc),
+                            modifier = Modifier
+                                .size(24.dp)
+                                .clip(CircleShape)
+                                .padding(start = 8.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
                     Text(
-                        fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
-                        textAlign = TextAlign.Left,
-                        text = stringResource(id = R.string.edit_account)
-                    )
-                    Text(
-                        fontSize = 16.sp,
-                        text = stringResource(id = R.string.edit_account)
+                        text = stringResource(id = R.string.adjust)
                     )
                 }
 
@@ -89,12 +101,12 @@ fun EditAccountEstablishment() {
                     painter = painterResource(id = R.drawable.goku),
                     contentDescription = stringResource(id = R.string.image_profile_desc),
                     modifier = Modifier
-                        .size(75.dp)
+                        .size(70.dp)
                         .clip(CircleShape)
-                        .padding(0.dp),
-                    contentScale = ContentScale.Fit
+                        .padding(0.dp)
                 )
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
