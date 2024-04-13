@@ -26,10 +26,10 @@ import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.view.signUp.CategoryGrid
-import com.example.foodway.viewModel.CulinarySelectViewModel
+import com.example.foodway.viewModel.SignUpViewModel
 
 @Composable
-fun StepThreeActivity(navController: NavController, vm: CulinarySelectViewModel) {
+fun StepThreeActivity(navController: NavController, vm: SignUpViewModel) {
 
     val isLoading by vm.isLoading.observeAsState()
     val isError by vm.isError.observeAsState()

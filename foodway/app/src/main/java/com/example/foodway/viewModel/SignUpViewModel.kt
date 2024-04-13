@@ -9,7 +9,7 @@ import com.example.foodway.service.CulinariesService
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class CulinarySelectViewModel : ViewModel() {
+class SignUpViewModel : ViewModel() {
     var isLoading = MutableLiveData(false)
         private set
 
