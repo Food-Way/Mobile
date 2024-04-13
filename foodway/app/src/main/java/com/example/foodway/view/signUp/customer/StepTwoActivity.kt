@@ -18,7 +18,6 @@ import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
-import com.example.foodway.view.signUp.CategoryGrid
 
 @Composable
 fun StepTwoActivity() {
@@ -37,18 +36,18 @@ fun StepTwoActivity() {
                     textAlign = TextAlign.Center,
                     text = stringResource(id = R.string.taste_selection)
                 )
-                CategoryGrid(
-                    categories = listOf(
-                        "Categoria 1",
-                        "Categoria 2",
-                        "Categoria 3",
-                        "Categoria 4",
-                        "Categoria 5",
-                        "Categoria 6",
-                        "Categoria 6",
-                        "Categoria 6",
-                    )
-                )
+//                CategoryGrid(
+//                    categories = listOf(
+//                        "Categoria 1",
+//                        "Categoria 2",
+//                        "Categoria 3",
+//                        "Categoria 4",
+//                        "Categoria 5",
+//                        "Categoria 6",
+//                        "Categoria 6",
+//                        "Categoria 6",
+//                    )
+//                )
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
                     width = 250.dp,
