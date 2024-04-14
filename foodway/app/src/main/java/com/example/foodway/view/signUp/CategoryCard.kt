@@ -32,7 +32,7 @@ import com.example.foodway.R
 import com.example.foodway.model.Culinary
 
 @Composable
-fun CategoryCard(culinary: Culinary) {
+fun CategoryCard(data: Culinary) {
     var isChecked by remember { mutableStateOf(false) }
     initializeCoil(LocalContext.current)
     Box(
@@ -43,8 +43,8 @@ fun CategoryCard(culinary: Culinary) {
             .clickable { isChecked = !isChecked }
     ) {
         AsyncImage(
-            model = culinary.urlImage,
-            contentDescription = culinary.culinaryName,
+            model = data.photo,
+            contentDescription = data.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
@@ -69,7 +69,7 @@ fun CategoryCard(culinary: Culinary) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = culinary.culinaryName,
+                text = data.name,
                 color = colorResource(id = R.color.white),
             )
         }

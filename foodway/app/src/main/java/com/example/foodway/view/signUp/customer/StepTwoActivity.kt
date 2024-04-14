@@ -1,5 +1,8 @@
 package com.example.foodway.view.signUp.customer
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
@@ -19,8 +21,19 @@ import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 
+class StepTwoActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            StepTwoCustomerActivity()
+        }
+    }
+}
+
 @Composable
-fun StepTwoActivity() {
+fun StepTwoCustomerActivity(
+    onNavigateNextStep: () -> Unit = {}
+) {
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -53,14 +66,10 @@ fun StepTwoActivity() {
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false
-                ) {}
+                ) {
+                    onNavigateNextStep()
+                }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun StepTwoActivityPreview(){
-    StepTwoActivity()
 }

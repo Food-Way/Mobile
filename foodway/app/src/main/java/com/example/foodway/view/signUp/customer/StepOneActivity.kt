@@ -33,7 +33,7 @@ import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.ui.theme.SecondaryButton
 
-class SignUpActivity : ComponentActivity() {
+class StepOneActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,7 +42,7 @@ class SignUpActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    StepOneActivity()
+                    StepOneCustomerActivity()
                 }
             }
         }
@@ -50,7 +50,9 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun StepOneActivity() {
+fun StepOneCustomerActivity(
+
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -131,7 +133,7 @@ fun StepOneActivity() {
 fun StepOneActivityPreview() {
     FoodwayTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            StepOneActivity()
+            StepOneCustomerActivity()
         }
     }
 }

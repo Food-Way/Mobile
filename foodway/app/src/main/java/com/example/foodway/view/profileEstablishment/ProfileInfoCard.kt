@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.foodway.view.components.RateUser
 
 @Composable
 fun ProfileInfoCard() {
@@ -35,7 +36,7 @@ fun ProfileInfoCard() {
                 fontWeight = FontWeight.Normal,
                 fontSize = 10.sp
             )
-//            RateUser(rate = 5.0)
+            RateUser(rate = 5.0)
             Text(
                 text = "Ótimo lugar para ter novas experiências com amigos e parentes. Venha conferir nossas delícias",
             )
