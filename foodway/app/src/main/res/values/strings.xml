@@ -53,4 +53,8 @@
     <string name="title_activity_step_four">StepFourActivity</string>
     <string name="title_activity_step_two_customer">StepTwoCustomerActivity</string>
     <string name="title_activity_profile_establishment">ProfileEstablishmentActivity</string>
+
+    <!--Profile Establishment-->
+    <string name="menu">Cardápio</string>
+
 </resources>

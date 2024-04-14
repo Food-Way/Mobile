@@ -103,10 +103,9 @@ fun StepOneCustomerActivity(
                     text = stringResource(id = R.string.next),
                     width = 250.dp,
                     height = 45.dp,
-                    isPrimary = false
-                ) {
-                    onNavigateNextStep()
-                }
+                    isPrimary = false,
+                    onClick = {onNavigateNextStep()}
+                )
             }
         }
     }

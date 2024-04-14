@@ -78,10 +78,9 @@ fun StepFourEstablishmentActivity(
                     text = stringResource(id = R.string.conclusion_button),
                     width = 250.dp,
                     height = 45.dp,
-                    isPrimary = true
-                ) {
-                    onNavigateNextStep()
-                }
+                    isPrimary = true,
+                    onClick = {onNavigateNextStep()}
+                )
             }
         }
     }
