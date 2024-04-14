@@ -31,7 +31,7 @@ fun LoadingBar(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Carregando suas músicas",
+            text = "Carregando culinárias",
         )
     }
 }
