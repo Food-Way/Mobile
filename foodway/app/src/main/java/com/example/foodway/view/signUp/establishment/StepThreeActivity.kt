@@ -42,7 +42,7 @@ class StepThreeActivity : ComponentActivity() {
                 ) {
                     val vm = viewModel<SignUpViewModel>()
                     vm.getAllCulinaries()
-//                    StepThreeEstablishmentActivity(vm)
+                    StepThreeEstablishmentActivity(vm)
                 }
             }
         }
@@ -51,7 +51,7 @@ class StepThreeActivity : ComponentActivity() {
 
 @Composable
 fun StepThreeEstablishmentActivity(
-    onNavigateNextStep: () -> Unit = {},
+//    onNavigateNextStep: () -> Unit = {},
     vm: SignUpViewModel
 ) {
 
@@ -82,9 +82,7 @@ fun StepThreeEstablishmentActivity(
                 }
             } else {
                 isSuccess?.let { culinaryList ->
-                    if (true) {
-                        CategoryGrid(culinaries = culinaryList)
-                    }
+                    CategoryGrid(culinaries = culinaryList)
                 }
             }
 
@@ -94,7 +92,7 @@ fun StepThreeEstablishmentActivity(
                 height = 45.dp,
                 isPrimary = false
             ) {
-                onNavigateNextStep()
+//                onNavigateNextStep()
             }
         }
     }

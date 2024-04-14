@@ -70,7 +70,7 @@ fun CategoryCard(data: Culinary) {
         ) {
             Text(
                 text = data.name,
-                color = colorResource(id = R.color.white),
+                color = colorResource(id = R.color.black),
             )
         }
     }

@@ -65,9 +65,9 @@ fun MainApp() {
             }
             composable(AppDestination.StepThreeSignUpEstablishment.route) {
                 StepThreeEstablishmentActivity(
-                    onNavigateNextStep = {
-                        navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
-                    },
+//                    onNavigateNextStep = {
+//                        navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
+//                    },
                     vm = SignUpViewModel()
                 )
             }

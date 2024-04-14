@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.ui.theme.PrimaryButton
+import com.example.foodway.view.components.ButtonGeneric
 
 class WelcomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,12 +65,9 @@ fun AppWelcome() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(y = (50).dp)
-                .offset(x = (50).dp),
+                .padding(top = 50.dp, start = 50.dp),
             horizontalAlignment = Alignment.Start
-
-        )
-        {
+        ) {
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -79,20 +78,16 @@ fun AppWelcome() {
                     painter = painterResource(id = R.drawable.foodway_logo),
                     contentDescription = null,
                     modifier = Modifier
-                        .offset(x = (10).dp)
-                        .offset(y = (10).dp)
+                        .padding(10.dp)
                 )
             }
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(y = (150).dp)
-                .offset(x = (-40).dp),
+                .padding(top = 150.dp, end = 40.dp),
             horizontalAlignment = Alignment.End
-
-        )
-        {
+        ) {
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -103,29 +98,29 @@ fun AppWelcome() {
                     painter = painterResource(id = R.drawable.support_outline),
                     contentDescription = null,
                     modifier = Modifier
-                        .offset(y = (10).dp)
-                        .fillMaxSize()
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(300.dp)
-                    .background(Color.Transparent)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.cake_slice),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .offset(x = (-20).dp)
-                        .offset(y = (-280).dp)
+                        .padding(top = 10.dp)
                         .fillMaxSize()
                 )
             }
         }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent)
+                .align(Alignment.Center) // Alinha o Box no centro
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.cake_slice),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(start = 50.dp, top = 30.dp)
+                    .size(300.dp)
+            )
+        }
         Column(
             modifier = Modifier
                 .align(Alignment.Center)
-                .offset(y = (100).dp),
+                .padding(top = 100.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -137,17 +132,17 @@ fun AppWelcome() {
                     fontWeight = FontWeight.Bold
                 ),
                 modifier = Modifier
-                    .offset(y = (-55).dp)
+                    .padding(bottom = 55.dp)
             )
             Spacer(modifier = Modifier.size(16.dp))
             Text(
                 text = stringResource(id = R.string.welcome_text),
                 style = TextStyle(
                     textAlign = TextAlign.Center,
-                    fontSize = 15.sp
+                    fontSize = 16.sp
                 ),
                 modifier = Modifier
-                    .offset(y = (-45).dp)
+                    .padding(bottom = 45.dp)
             )
         }
         Button(
@@ -155,9 +150,9 @@ fun AppWelcome() {
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
                 .width(170.dp)
-                .height(45.dp)
-                .align(Alignment.Center)
-                .offset(y = (200).dp),
+                .height(170.dp)
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 120.dp),
             colors = PrimaryButton()
         )
         {
@@ -168,6 +163,8 @@ fun AppWelcome() {
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
