@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">foodway</string>
 
+    <!--Login-->
+    <string name="logo">Logo FoodWay</string>
+
     <!--Profile Customer-->
     <string name="hi">Olá, %s 👋</string>
     <string name="level">Nv. %d</string>
