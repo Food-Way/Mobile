@@ -8,9 +8,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.foodway.model.Culinary
 
 @Composable
-fun CategoryGrid(categories: List<String>) {
+fun CategoryGrid(culinaries: List<Culinary>) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth(),
@@ -19,8 +20,8 @@ fun CategoryGrid(categories: List<String>) {
         verticalArrangement = Arrangement.spacedBy(4.dp),
         userScrollEnabled = true
     ) {
-        items(categories.size) { index ->
-            CategoryCard(categories[index])
+        items(culinaries.size) { index ->
+            CategoryCard(culinaries[index])
         }
     }
 }

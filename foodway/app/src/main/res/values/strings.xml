@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">foodway</string>
 
+    <!--Login-->
+    <string name="logo">Logo FoodWay</string>
+
     <!--Profile Customer-->
     <string name="hi">Olá, %s 👋</string>
     <string name="level">Nv. %d</string>
@@ -47,11 +50,20 @@
     <!--Welcome-->
     <string name="welcome_title">Bem-vindo ao Foodway!</string>
     <string name="welcome_text">Sua jornada gastronômica começa aqui.\nExplore restaurantes, descubra ofertas exclusivas\ne compartilhe suas experiências.</string>
-
+  
     <!--Edit Account Establishment-->
     <string name="save_button">Salvar</string>
     <string name="edit_account">Editar Conta</string>
     <string name="adjust">Ajuste o necessário</string>
+    <string name="title_activity_step_two">StepTwoActivity</string>
+    <string name="title_activity_step_one">StepOneActivity</string>
+    <string name="title_activity_step_three">StepThreeActivity</string>
+    <string name="title_activity_step_four">StepFourActivity</string>
+    <string name="title_activity_step_two_customer">StepTwoCustomerActivity</string>
+    <string name="title_activity_profile_establishment">ProfileEstablishmentActivity</string>
+
+    <!--Profile Establishment-->
+    <string name="menu">Cardápio</string>
 
 </resources>
 
