@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,7 +29,7 @@ import androidx.compose.ui.zIndex
 import com.example.foodway.R
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.Indicator
-import com.example.foodway.view.components.RateUser
+import com.example.foodway.view.components.RatingBar
 
 @Composable
 fun ProfileInfoCard(modifier: Modifier) {
@@ -65,7 +67,14 @@ fun ProfileInfoCard(modifier: Modifier) {
                     fontWeight = FontWeight.Normal,
                     fontSize = 10.sp
                 )
-                RateUser(rate = 5.0)
+                RatingBar(
+                    modifier = Modifier
+                        .size(20.dp),
+                    rating = 3.5,
+                    onRatingChanged = {},
+                    starsColor = Color.Yellow,
+                    editable = false
+                )
                 Text(
                     text = "Ótimo lugar para ter novas experiências com amigos e parentes. Venha conferir nossas delícias",
                 )

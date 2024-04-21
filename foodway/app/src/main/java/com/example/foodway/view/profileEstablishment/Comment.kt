@@ -1,7 +1,6 @@
 package com.example.foodway.view.profileEstablishment
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,18 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.view.components.Indicator
 import com.example.foodway.view.components.ProfileImage
-import com.example.foodway.view.components.RateUser
+import com.example.foodway.view.components.RatingBar
 
 @Composable
 fun Comment(width: Dp, height: Dp, isChild: Boolean) {
@@ -60,10 +58,29 @@ fun Comment(width: Dp, height: Dp, isChild: Boolean) {
                         text = "Samuel De Oliveira",
                         fontWeight = FontWeight.Bold,
                     )
+                    Indicator(
+                        quantity = 100,
+                        hasQuantity = false,
+                        icon = R.drawable.upvote,
+                        description = R.string.upvotes
+                    )
+                    Indicator(
+                        quantity = 100,
+                        hasQuantity = false,
+                        icon = R.drawable.comment,
+                        description = R.string.comments
+                    )
                 }
-                if (!isChild) {
-                    RateUser(3.8)
-                }
+            }
+            if (!isChild) {
+                RatingBar(
+                    modifier = Modifier
+                        .size(20.dp),
+                    rating = 5.0,
+                    onRatingChanged = {},
+                    starsColor = Color.Yellow,
+                    editable = false
+                )
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -74,37 +91,6 @@ fun Comment(width: Dp, height: Dp, isChild: Boolean) {
             Text(
                 text = "A comida é boa, porém o cara cuspiu em mim",
                 textAlign = TextAlign.Justify
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp, 0.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "100")
-                Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.upvote),
-                    contentDescription = stringResource(id = R.string.upvotes),
-                    modifier = Modifier
-                        .size(20.dp)
-                        .padding(0.dp),
-                    contentScale = ContentScale.Fit
-                )
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.comment),
-                contentDescription = stringResource(id = R.string.comments),
-                modifier = Modifier
-                    .size(20.dp)
-                    .padding(0.dp),
-                contentScale = ContentScale.Fit
             )
         }
     }
