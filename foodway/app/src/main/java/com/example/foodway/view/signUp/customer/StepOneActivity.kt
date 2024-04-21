@@ -29,7 +29,7 @@ import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.ScreenBorder
 
-class SignUpActivity : ComponentActivity() {
+class StepOneActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +38,7 @@ class SignUpActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    StepOneActivity()
+                    StepOneCustomerActivity()
                 }
             }
         }
@@ -46,24 +46,22 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun StepOneActivity() {
+fun StepOneCustomerActivity(
+    onNavigateNextStep: () -> Unit = {}
+) {
 
     val inputList = listOf(
         Input(
-            inputLabel = stringResource(id = R.string.name_costumer),
+            inputLabel = stringResource(id = R.string.fantasy_name),
             icon = R.drawable.person_icon
         ),
         Input(
-            inputLabel = stringResource(id = R.string.last_name_costumer),
+            inputLabel = stringResource(id = R.string.responsible),
             icon = R.drawable.person_icon
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.cpf_costumer),
-            icon = R.drawable.badge_icon
         ),
         Input(
             inputLabel = stringResource(id = R.string.email),
-            icon = R.drawable.email_icon
+            icon = R.drawable.person_icon
         ),
         Input(
             inputLabel = stringResource(id = R.string.password),
@@ -105,21 +103,20 @@ fun StepOneActivity() {
                     text = stringResource(id = R.string.next),
                     width = 250.dp,
                     height = 45.dp,
-                    isPrimary = false
-                ) {
-
-                }
+                    isPrimary = false,
+                    onClick = {onNavigateNextStep()}
+                )
             }
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun StepOneActivityPreview() {
     FoodwayTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-           StepOneActivity()
+            StepOneCustomerActivity()
+
         }
     }
 }

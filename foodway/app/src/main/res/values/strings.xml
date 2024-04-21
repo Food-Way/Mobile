@@ -50,4 +50,14 @@
     <!--Welcome-->
     <string name="welcome_title">Bem-vindo ao Foodway!</string>
     <string name="welcome_text">Sua jornada gastronômica começa aqui.\nExplore restaurantes, descubra ofertas exclusivas\ne compartilhe suas experiências.</string>
+    <string name="title_activity_step_two">StepTwoActivity</string>
+    <string name="title_activity_step_one">StepOneActivity</string>
+    <string name="title_activity_step_three">StepThreeActivity</string>
+    <string name="title_activity_step_four">StepFourActivity</string>
+    <string name="title_activity_step_two_customer">StepTwoCustomerActivity</string>
+    <string name="title_activity_profile_establishment">ProfileEstablishmentActivity</string>
+
+    <!--Profile Establishment-->
+    <string name="menu">Cardápio</string>
+
 </resources>

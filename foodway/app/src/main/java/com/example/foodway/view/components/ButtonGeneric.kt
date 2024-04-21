@@ -7,9 +7,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 import com.example.foodway.ui.theme.PrimaryButton
 import com.example.foodway.ui.theme.SecondaryButton
 
@@ -42,4 +43,25 @@ fun ButtonGeneric(
             fontWeight = FontWeight.Bold
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ButtonGenericTruePreview() {
+    ButtonGeneric(
+        text = "Teste true",
+        width = 150.dp,
+        height = 50.dp,
+        isPrimary = true
+    ) {}
+}
+@Preview(showBackground = true)
+@Composable
+fun ButtonGenericFalsePreview() {
+    ButtonGeneric(
+        text = "Teste false",
+        width = 150.dp,
+        height = 50.dp,
+        isPrimary = false
+    ) {}
 }
