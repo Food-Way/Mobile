@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 import com.example.foodway.ui.theme.PrimaryButton
 import com.example.foodway.ui.theme.SecondaryButton
 
@@ -35,7 +36,12 @@ fun ButtonGeneric(
             .width(width)
             .height(height)
     ) {
-        Text(text = text, color = textColor)
+        Text(
+            text = text,
+            color = textColor,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
