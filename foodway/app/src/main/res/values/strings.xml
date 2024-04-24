@@ -3,6 +3,11 @@
 
     <!--Login-->
     <string name="logo">Logo FoodWay</string>
+    <string name="welcome_login">Bem-vindo</string>
+    <string name="enter">Entrar</string>
+    <string name="forgot_your_password">Esqueceu sua senha?</string>
+    <string name="has_account">Não tem uma conta?</string>
+    <string name="register">Cadastre-se</string>
 
     <!--Profile Customer-->
     <string name="hi">Olá, %s 👋</string>
@@ -50,4 +55,18 @@
     <!--Welcome-->
     <string name="welcome_title">Bem-vindo ao Foodway!</string>
     <string name="welcome_text">Sua jornada gastronômica começa aqui.\nExplore restaurantes, descubra ofertas exclusivas\ne compartilhe suas experiências.</string>
+
+    <!--Edit - User -->
+    <string name="edit_perfil_emoji">Editar perfil 🔧</string>
+    <string name="edit_perfil">Editar perfil</string>
+    <string name="adjust_necessary">Ajuste o necessário</string>
+    <string name="change_profile">Mudar foto de perfil</string>
+    <string name="name">Nome</string>
+    <string name="bio">Bio</string>
+    <string name="save">Salvar</string>
+    <string name="edit_account">Editar conta 🛠️</string>
+
+    <!--Edit - Account -->
+    <string name="surname">Sobrenome</string>
+
 </resources>
