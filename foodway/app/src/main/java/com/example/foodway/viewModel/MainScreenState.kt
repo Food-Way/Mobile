@@ -1,10 +1,10 @@
 package com.example.foodway.viewModel
 
 sealed interface MainScreenState {
-    data object Loading: MainScreenState
+    data object Loading : MainScreenState
 
-    data class Success (
-        val data: List<Any>
+    data class Success<T>(
+        val data: List<T>
     ) : MainScreenState
 
     data class Error(

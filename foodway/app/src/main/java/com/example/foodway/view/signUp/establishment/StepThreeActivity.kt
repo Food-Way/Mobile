@@ -1,6 +1,7 @@
 package com.example.foodway.view.signUp.establishment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -25,18 +26,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coroutine.ErrorView
 import com.example.coroutine.LoadingBar
-import com.example.foodway.MainScreenState
 import com.example.foodway.R
-import com.example.foodway.di.appModule
 import com.example.foodway.model.Culinary
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.view.signUp.CategoryGrid
+import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 class StepThreeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +59,6 @@ fun StepThreeEstablishmentActivity(
 //    onNavigateNextStep: () -> Unit = {},
     vm: SignUpViewModel
 ) {
-
     val state by vm.state.observeAsState()
 
     ScreenBorder {
@@ -81,6 +78,7 @@ fun StepThreeEstablishmentActivity(
 
             when (state) {
                 is MainScreenState.Loading -> {
+                    Log.d("loading", "Vou me matar")
                     LoadingBar()
                 }
 
@@ -109,10 +107,8 @@ fun StepThreeEstablishmentActivity(
                 height = 45.dp,
                 isPrimary = false
             ) {
-//                onNavigateNextStep()
+//                onNavigate()
             }
         }
     }
 }
-
-

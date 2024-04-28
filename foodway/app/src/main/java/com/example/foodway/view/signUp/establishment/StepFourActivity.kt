@@ -37,7 +37,7 @@ class StepFourActivity : ComponentActivity() {
 
 @Composable
 fun StepFourEstablishmentActivity(
-    onNavigateNextStep: () -> Unit = {}
+    onNavigate: () -> Unit = {}
 ) {
     FoodwayTheme {
         ScreenBorder {
@@ -79,7 +79,7 @@ fun StepFourEstablishmentActivity(
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = true,
-                    onClick = {onNavigateNextStep()}
+                    onClick = {onNavigate()}
                 )
             }
         }

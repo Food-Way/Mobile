@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodway.MainScreenState
+import com.example.foodway.model.Culinary
 import com.example.foodway.repository.ICulinaryRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -19,24 +19,26 @@ class SignUpViewModel(
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
-
+                Log.d("SignUpViewModel", "Loading started")
                 val response = repository.getAllCulinaries()
 
                 if (response.isSuccessful) {
-                    val list = response.body() ?: emptyList<Any>()
+                    val list = response.body() ?: emptyList<Culinary>()
                     state.value = MainScreenState.Success(data = list)
-                    Log.e("TAG", "My Object:: $list")
+                    Log.d("SignUpViewModel", "Loading success: $list")
                 } else {
-                    throw Exception("Erro desconhecido")
+                    throw Exception("Erro desconhecido: HTTP ${response.code()}")
                 }
             } catch (e: HttpException) {
+                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
-                    400 -> "Música não encontrada"
+                    400 -> "Culinária não encontrada"
                     404 -> "Parâmetros incorretos"
                     else -> "Erro desconhecido"
                 }
                 state.value = MainScreenState.Error(message)
             } catch (e: Exception) {
+                Log.e("SignUpViewModel", "Exception: ${e.message}")
                 state.value = MainScreenState.Error(
                     e.message ?: "Erro desconhecido"
                 )

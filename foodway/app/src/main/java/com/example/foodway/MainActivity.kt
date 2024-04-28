@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.foodway.di.appModule
-import com.example.foodway.repository.CulinaryRepositoryImpl
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomerActivity
@@ -18,9 +17,11 @@ import com.example.foodway.view.signUp.customer.StepOneCustomerActivity
 import com.example.foodway.view.signUp.establishment.StepFourEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepOneEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActivity
+//import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivity
 import com.example.foodway.view.welcome.WelcomeActivity
 import com.example.foodway.viewModel.SignUpViewModel
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -32,14 +33,16 @@ class MainActivity : ComponentActivity() {
             modules(appModule)
         }
         setContent {
-            MainApp()
+            val navController = rememberNavController()
+            val signUpViewModel: SignUpViewModel by inject()
+
+            MainApp(navController, signUpViewModel)
         }
     }
 }
 
 @Composable
-fun MainApp() {
-    val navController = rememberNavController()
+fun MainApp(navController: NavHostController, signUpViewModel: SignUpViewModel) {
     FoodwayTheme {
         NavHost(
             navController = navController,
@@ -59,29 +62,29 @@ fun MainApp() {
             }
             composable(AppDestination.StepOneSignUpEstablishment.route) {
                 StepOneEstablishmentActivity(
-                    onNavigateNextStep = {
+                    onNavigate = {
                         navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                     }
                 )
             }
             composable(AppDestination.StepTwoSignUpEstablishment.route) {
                 StepTwoEstablishmentActivity(
-                    onNavigateNextStep = {
+                    onNavigate = {
                         navController.navigate(AppDestination.StepThreeSignUpEstablishment.route)
                     }
                 )
             }
             composable(AppDestination.StepThreeSignUpEstablishment.route) {
                 StepThreeEstablishmentActivity(
-//                    onNavigateNextStep = {
+//                    onNavigate = {
 //                        navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
 //                    },
-                    vm = SignUpViewModel(repository = CulinaryRepositoryImpl())
+                    vm = signUpViewModel
                 )
             }
-            composable(AppDestination.StepFourSignUpEstablishment.route){
+            composable(AppDestination.StepFourSignUpEstablishment.route) {
                 StepFourEstablishmentActivity(
-                    onNavigateNextStep = {
+                    onNavigate = {
                         navController.navigate(AppDestination.ProfileCustomer.route)
                     }
                 )
@@ -90,9 +93,9 @@ fun MainApp() {
     }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainApp()
-}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    MainApp()
+//}

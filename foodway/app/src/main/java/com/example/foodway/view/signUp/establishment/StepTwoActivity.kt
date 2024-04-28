@@ -36,7 +36,7 @@ class StepTwoActivity : ComponentActivity() {
 
 @Composable
 fun StepTwoEstablishmentActivity(
-    onNavigateNextStep: () -> Unit = {}
+    onNavigate: () -> Unit = {}
 ) {
     val inputList = listOf(
         Input(
@@ -91,7 +91,7 @@ fun StepTwoEstablishmentActivity(
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false,
-                    onClick = {onNavigateNextStep()}
+                    onClick = {onNavigate()}
                 )
             }
         }
