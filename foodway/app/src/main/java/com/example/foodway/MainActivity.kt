@@ -8,6 +8,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.foodway.di.appModule
+import com.example.foodway.repository.CulinaryRepositoryImpl
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomerActivity
@@ -19,10 +21,16 @@ import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActiv
 import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivity
 import com.example.foodway.view.welcome.WelcomeActivity
 import com.example.foodway.viewModel.SignUpViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startKoin {
+            androidContext(this@MainActivity)
+            modules(appModule)
+        }
         setContent {
             MainApp()
         }
@@ -68,7 +76,7 @@ fun MainApp() {
 //                    onNavigateNextStep = {
 //                        navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
 //                    },
-                    vm = SignUpViewModel()
+                    vm = SignUpViewModel(repository = CulinaryRepositoryImpl())
                 )
             }
             composable(AppDestination.StepFourSignUpEstablishment.route){

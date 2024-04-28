@@ -43,13 +43,13 @@ fun ProfileEstablishment() {
         mutableStateOf(false)
     }
 
-    if (showModal) {
-        CommentDialog(
-            onDismissRequest = {
-                showModal = false
-            }
-        )
-    }
+//    if (showModal) {
+//        CommentDialog(
+//            onDismissRequest = {
+//                showModal = false
+//            }
+//        )
+//    }
 
 
     Scaffold(

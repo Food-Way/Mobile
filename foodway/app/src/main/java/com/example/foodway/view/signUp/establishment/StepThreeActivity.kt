@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -21,15 +23,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.coroutine.ErrorView
 import com.example.coroutine.LoadingBar
+import com.example.foodway.MainScreenState
 import com.example.foodway.R
+import com.example.foodway.di.appModule
+import com.example.foodway.model.Culinary
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.view.signUp.CategoryGrid
 import com.example.foodway.viewModel.SignUpViewModel
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class StepThreeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +47,7 @@ class StepThreeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val vm = viewModel<SignUpViewModel>()
+                    val vm by inject<SignUpViewModel>()
                     vm.getAllCulinaries()
                     StepThreeEstablishmentActivity(vm)
                 }
@@ -55,10 +62,7 @@ fun StepThreeEstablishmentActivity(
     vm: SignUpViewModel
 ) {
 
-    val isLoading by vm.isLoading.observeAsState()
-    val isError by vm.isError.observeAsState()
-    val isSuccess by vm.isSuccess.observeAsState()
-    val errorMessage by vm.errorMessage.observeAsState()
+    val state by vm.state.observeAsState()
 
     ScreenBorder {
         Column(
@@ -74,15 +78,28 @@ fun StepThreeEstablishmentActivity(
                 textAlign = TextAlign.Center,
                 text = stringResource(id = R.string.category_selection)
             )
-            if (isLoading == true) {
-                LoadingBar()
-            } else if (isError == true) {
-                ErrorView() {
-                    vm.getAllCulinaries()
+
+            when (state) {
+                is MainScreenState.Loading -> {
+                    LoadingBar()
                 }
-            } else {
-                isSuccess?.let { culinaryList ->
-                    CategoryGrid(culinaries = culinaryList)
+
+                is MainScreenState.Error, null -> {
+                    val errorMessage = (state as MainScreenState.Error).message
+                    ErrorView(message = errorMessage) {
+                        vm.getAllCulinaries()
+                    }
+                }
+
+                is MainScreenState.Success<*> -> {
+                    val culinaries = (state as MainScreenState.Success<List<Culinary>>).data
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(culinaries) { culinary ->
+                            CategoryGrid(culinaries = culinary)
+                        }
+                    }
                 }
             }
 
