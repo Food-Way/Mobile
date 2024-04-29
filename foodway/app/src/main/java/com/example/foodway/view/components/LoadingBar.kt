@@ -1,4 +1,3 @@
-package com.example.coroutine
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

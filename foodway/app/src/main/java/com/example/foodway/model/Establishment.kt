@@ -14,4 +14,4 @@ data class Establishment(
     val rate: Double,
     val qtdUpvotes: Int,
     val qtdComments: Int
-): User(idUser, name, email, password, typeUser, profilePhoto, culinaries)
+) : User(idUser, name, email, password, typeUser, profilePhoto, culinaries)

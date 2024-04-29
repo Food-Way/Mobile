@@ -22,13 +22,17 @@ class SignUpViewModel(
                 Log.d("SignUpViewModel", "Loading started")
                 val response = repository.getAllCulinaries()
 
+                Log.d("response antes do IF", response.toString())
+
                 if (response.isSuccessful) {
+                    Log.d("response dentro do if", response.toString())
                     val list = response.body() ?: emptyList<Culinary>()
                     state.value = MainScreenState.Success(data = list)
                     Log.d("SignUpViewModel", "Loading success: $list")
                 } else {
                     throw Exception("Erro desconhecido: HTTP ${response.code()}")
                 }
+                Log.d("response depois do if / else", response.toString())
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
