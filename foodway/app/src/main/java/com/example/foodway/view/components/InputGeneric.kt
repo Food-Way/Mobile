@@ -2,7 +2,9 @@ package com.example.foodway.view.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,17 +42,20 @@ fun InputGeneric(inputLabel: String, icon: Int) {
                     painter = painterResource(id = icon),
                     contentDescription = inputLabel
                 )
-                Text(inputLabel)
+                Text(
+                    inputLabel,
+                    modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp)
+                )
             }
         },
         colors = OutlinedTextFieldDefaults.colors(
             focusedLabelColor = colorResource(id = R.color.black),
             unfocusedLabelColor = colorResource(id = R.color.black),
         ),
+
         shape = RoundedCornerShape(25.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
-            .padding(top = 10.dp)
     )
 }

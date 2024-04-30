@@ -57,33 +57,38 @@ fun Login() {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Bem vindo!",
+                    stringResource(id = R.string.welcome_login),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
                 )
 
                 InputGeneric(
-                    inputLabel = "Email",
+                    inputLabel = stringResource(id = R.string.email),
                     icon = R.drawable.email_icon
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
 
                 InputGeneric(
-                    inputLabel = "Senha",
+                    inputLabel = stringResource(id = R.string.password),
                     icon = R.drawable.lock_icon
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                ButtonGeneric(text = "Entrar", width = 270.dp, height = 43.dp, isPrimary = true) {
+                ButtonGeneric(
+                    text = stringResource(id = R.string.enter),
+                    width = 270.dp,
+                    height = 43.dp,
+                    isPrimary = true
+                ) {
 
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Esqueceu sua senha?",
+                    text = stringResource(id = R.string.forgot_your_password),
                     fontSize = 15.sp,
                     modifier = Modifier.clickable {
 
@@ -102,13 +107,13 @@ fun Login() {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Não tem uma conta?",
+                    text = stringResource(id = R.string.has_account),
                     fontSize = 15.sp,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonGeneric(
-                    text = "Cadastre-se",
-                    width = 130.dp,
+                    text = stringResource(id = R.string.register),
+                    width = 150.dp,
                     height = 43.dp,
                     isPrimary = false
                 ) {
