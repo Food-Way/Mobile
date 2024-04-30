@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.NavBarComponent
 
-class ProfileCustomer : ComponentActivity() {
+class ProfileCustomerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

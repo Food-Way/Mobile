@@ -1,5 +1,8 @@
 package com.example.foodway.view.signUp.establishment
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,14 +21,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 
+class StepFourActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            StepFourEstablishmentActivity()
+        }
+    }
+}
+
 @Composable
-fun StepFourActivity(navController: NavController) {
+fun StepFourEstablishmentActivity(
+    onNavigateNextStep: () -> Unit = {}
+) {
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -65,15 +78,10 @@ fun StepFourActivity(navController: NavController) {
                     text = stringResource(id = R.string.conclusion_button),
                     width = 250.dp,
                     height = 45.dp,
-                    isPrimary = true
-                ) {}
+                    isPrimary = true,
+                    onClick = {onNavigateNextStep()}
+                )
             }
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun StepFourActivityPreview() {
-//    StepFourActivity()
-//}
