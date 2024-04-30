@@ -1,4 +1,3 @@
-
 import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -32,7 +31,9 @@ import com.example.foodway.R
 import com.example.foodway.model.Culinary
 
 @Composable
-fun CategoryCard(data: Culinary) {
+fun CategoryCard(
+    data: Culinary
+) {
     var isChecked by remember { mutableStateOf(false) }
     initializeCoil(LocalContext.current)
     Box(

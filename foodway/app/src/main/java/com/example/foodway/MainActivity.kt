@@ -1,6 +1,5 @@
 package com.example.foodway
 
-//import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,15 +10,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.foodway.di.appModule
 import com.example.foodway.ui.theme.FoodwayTheme
+import com.example.foodway.view.establishmentMenu.MenuEstablishment
 import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomerActivity
 import com.example.foodway.view.profileEstablishment.ProfileEstablishmentActivity
 import com.example.foodway.view.signUp.customer.StepOneCustomerActivity
+import com.example.foodway.view.signUp.customer.StepThreeActivity
+import com.example.foodway.view.signUp.customer.StepTwoCustomerActivity
 import com.example.foodway.view.signUp.establishment.StepFourEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepOneEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActivity
 import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivity
 import com.example.foodway.view.welcome.WelcomeActivity
+import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -34,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 MainApp {
                     NavHost(
                         navController = navController,
-                        startDestination = AppDestination.StepOneSignUpEstablishment.route
+                        startDestination = AppDestination.StepOneSignUpCustomer.route
                     ) {
                         composable(AppDestination.Welcome.route) {
                             WelcomeActivity()
@@ -46,7 +49,23 @@ class MainActivity : ComponentActivity() {
                             ProfileEstablishmentActivity()
                         }
                         composable(AppDestination.StepOneSignUpCustomer.route) {
-                            StepOneCustomerActivity()
+                            StepOneCustomerActivity(
+                                onNavigate = {
+                                    navController.navigate(AppDestination.StepTwoSignUpCustomer.route)
+                                }
+                            )
+                        }
+                        composable(AppDestination.StepTwoSignUpCustomer.route) {
+                            val vm by inject<SignUpViewModel>()
+                            StepTwoCustomerActivity(
+                                onNavigate = {
+                                    navController.navigate(AppDestination.StepThreeSignUpCustomer.route)
+                                },
+                                vm = vm
+                            )
+                        }
+                        composable(AppDestination.StepThreeSignUpCustomer.route) {
+                            StepThreeActivity()
                         }
                         composable(AppDestination.StepOneSignUpEstablishment.route) {
                             StepOneEstablishmentActivity(
@@ -76,6 +95,12 @@ class MainActivity : ComponentActivity() {
                                 onNavigate = {
                                     navController.navigate(AppDestination.ProfileCustomer.route)
                                 }
+                            )
+                        }
+                        composable(AppDestination.MenuEstablishment.route) {
+                            val vm by inject<MenuEstablishmentViewModel>()
+                            MenuEstablishment(
+                                vm = vm
                             )
                         }
                     }

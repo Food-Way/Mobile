@@ -1,6 +1,6 @@
-package com.example.foodway.view.signUp.establishment
+package com.example.foodway.view.establishmentMenu
 
-import CategoryCard
+import ErrorView
 import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -18,19 +18,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.coroutine.ErrorView
 import com.example.foodway.R
-import com.example.foodway.model.Culinary
+import com.example.foodway.model.Product
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.CardGrid
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.viewModel.MainScreenState
-import com.example.foodway.viewModel.SignUpViewModel
+import com.example.foodway.viewModel.MenuEstablishmentViewModel
+import java.util.UUID
+
+//class MenuEstablishmentActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            MenuEstablishment()
+//        }
+//    }
+//}
 
 @Composable
-fun StepThreeEstablishmentActivity(
-    onNavigate: () -> Unit = {},
-    vm: SignUpViewModel
+fun MenuEstablishment(
+    vm: MenuEstablishmentViewModel
 ) {
     val state by vm.state.observeAsState()
     ScreenBorder {
@@ -45,31 +53,41 @@ fun StepThreeEstablishmentActivity(
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.category_selection)
+                text = R.string.menu_title.toString()
+            )
+
+            Text(
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+                text = stringResource(id = R.string.establishment_name),
             )
 
             when (state) {
                 is MainScreenState.Loading -> {
                     Log.d("loading", "loading state")
                     LoadingBar(
-                        loadingText = "Carregando culinárias..."
+                        loadingText = stringResource(id = R.string.loading_products)
                     )
-                    vm.getAllCulinaries()
+                    vm.getAllProducts(
+                        idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                    )
                 }
 
                 is MainScreenState.Error, null -> {
                     val errorMessage = (state as MainScreenState.Error).message
                     Log.d("Error", "Error state")
                     ErrorView(message = errorMessage) {
-                        vm.getAllCulinaries()
+                        vm.getAllProducts(
+                            idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                        )
                     }
                 }
 
                 is MainScreenState.Success<*> -> {
-                    val culinaries = (state as MainScreenState.Success<Culinary>).data
+                    val products = (state as MainScreenState.Success<Product>).data
                     Log.d("Success", "Success state")
-                    CardGrid(culinaries, buildAndRenderItem = { culinary ->
-                        CategoryCard(culinary)
+                    CardGrid(products, buildItem = { product ->
+                        ProductCard(product)
                     })
                 }
             }
@@ -80,8 +98,14 @@ fun StepThreeEstablishmentActivity(
                 height = 45.dp,
                 isPrimary = false
             ) {
-                onNavigate()
+//                onNavigate()
             }
         }
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun MenuEstablishmentPreview() {
+//    MenuEstablishment()
+//}

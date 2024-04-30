@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,36 +63,44 @@ fun Login(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Bem vindo!",
+                    text = stringResource(id = R.string.welcome_title),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
                 )
 
                 InputGeneric(
-                    inputLabel = "Email",
-                    icon = R.drawable.email_icon
+                    inputLabel = stringResource(id = R.string.email),
+                    icon = R.drawable.email_icon,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
 
                 InputGeneric(
-                    inputLabel = "Senha",
-                    icon = R.drawable.lock_icon
+                    inputLabel = stringResource(id = R.string.password),
+                    icon = R.drawable.lock_icon,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                ButtonGeneric(text = "Entrar", width = 270.dp, height = 43.dp, isPrimary = true) {
-
-                }
+                ButtonGeneric(
+                    text = stringResource(id = R.string.enter),
+                    width = 270.dp,
+                    height = 43.dp,
+                    isPrimary = true
+                ) {}
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Esqueceu sua senha?",
+                    text = stringResource(id = R.string.forget_password),
                     fontSize = 15.sp,
                     modifier = Modifier.clickable {
-
                     }
                 )
 
@@ -106,12 +116,12 @@ fun Login(
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Não tem uma conta?",
+                    text = stringResource(id = R.string.havent_account),
                     fontSize = 15.sp,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonGeneric(
-                    text = "Cadastre-se",
+                    text = stringResource(id = R.string.signup),
                     width = 130.dp,
                     height = 43.dp,
                     isPrimary = false,

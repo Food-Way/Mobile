@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,27 +40,31 @@ class StepOneActivity : ComponentActivity() {
 fun StepOneEstablishmentActivity(
     onNavigate: () -> Unit = {}
 ) {
-
     val inputList = listOf(
         Input(
             inputLabel = stringResource(id = R.string.fantasy_name),
-            icon = R.drawable.person_icon
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.responsible),
-            icon = R.drawable.person_icon
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.email),
-            icon = R.drawable.person_icon
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Email
         ),
         Input(
             inputLabel = stringResource(id = R.string.password),
-            icon = R.drawable.lock_icon
+            icon = R.drawable.lock_icon,
+            type = KeyboardType.Password
         ),
         Input(
             inputLabel = stringResource(id = R.string.conf_password),
-            icon = R.drawable.lock_icon
+            icon = R.drawable.lock_icon,
+            type = KeyboardType.Password
         ),
     )
 
@@ -83,7 +89,10 @@ fun StepOneEstablishmentActivity(
                     items(inputList.size) { item ->
                         InputGeneric(
                             inputLabel = inputList[item].inputLabel,
-                            icon = inputList[item].icon
+                            icon = inputList[item].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = inputList[item].type
+                            )
                         )
                     }
                 }
@@ -93,7 +102,7 @@ fun StepOneEstablishmentActivity(
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false,
-                    onClick = {onNavigate()}
+                    onClick = { onNavigate() }
                 )
             }
         }

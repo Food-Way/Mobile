@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,23 +43,28 @@ fun StepTwoEstablishmentActivity(
     val inputList = listOf(
         Input(
             inputLabel = stringResource(id = R.string.cnpj),
-            icon = R.drawable.badge_icon
+            icon = R.drawable.badge_icon,
+            KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.cep),
-            icon = R.drawable.location_icon
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.address),
-            icon = R.drawable.location_icon
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.state),
-            icon = R.drawable.location_icon
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
             inputLabel = stringResource(id = R.string.number),
-            icon = R.drawable.number_icon
+            icon = R.drawable.number_icon,
+            KeyboardType.Number
         )
     )
     FoodwayTheme {
@@ -78,10 +85,13 @@ fun StepTwoEstablishmentActivity(
                 )
 
                 LazyColumn {
-                    items(inputList.size) { index ->
+                    items(inputList.size) { item ->
                         InputGeneric(
-                            inputLabel = inputList[index].inputLabel,
-                            icon = inputList[index].icon
+                            inputLabel = inputList[item].inputLabel,
+                            icon = inputList[item].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = inputList[item].type
+                            )
                         )
                     }
                 }
@@ -91,7 +101,7 @@ fun StepTwoEstablishmentActivity(
                     width = 250.dp,
                     height = 45.dp,
                     isPrimary = false,
-                    onClick = {onNavigate()}
+                    onClick = { onNavigate() }
                 )
             }
         }

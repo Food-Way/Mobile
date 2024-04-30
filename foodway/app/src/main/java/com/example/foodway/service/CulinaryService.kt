@@ -4,7 +4,7 @@ import com.example.foodway.model.Culinary
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface CulinariesService {
+interface CulinaryService {
     @GET("culinaries")
     suspend fun getAllCulinaries(): Response<List<Culinary>>
 }
