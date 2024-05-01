@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.foodway.ui.theme.FoodwayTheme
+import com.example.foodway.view.components.Dialog
 
 class ProfileEstablishmentActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,14 +44,14 @@ fun ProfileEstablishment() {
         mutableStateOf(false)
     }
 
-//    if (showModal) {
-//        CommentDialog(
-//            onDismissRequest = {
-//                showModal = false
-//            }
-//        )
-//    }
-
+    if (showModal) {
+        Dialog(
+            onDismissRequest = {
+                showModal = false
+            },
+            content = { CommentDialog() }
+        )
+    }
 
     Scaffold(
         bottomBar = {}

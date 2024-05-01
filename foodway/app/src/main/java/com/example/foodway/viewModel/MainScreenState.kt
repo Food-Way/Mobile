@@ -7,6 +7,10 @@ sealed interface MainScreenState {
         val data: List<T>
     ) : MainScreenState
 
+    data class SuccessSingle<T>(
+        val data: T
+    ) : MainScreenState
+
     data class Error(
         val message: String
     ) : MainScreenState

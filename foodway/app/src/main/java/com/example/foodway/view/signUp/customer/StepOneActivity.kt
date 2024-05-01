@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -107,8 +109,9 @@ fun StepOneCustomerActivity(
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
-                    width = 250.dp,
-                    height = 45.dp,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(45.dp),
                     isPrimary = false,
                     onClick = { onNavigate() }
                 )

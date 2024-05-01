@@ -12,7 +12,7 @@ import com.example.foodway.di.appModule
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.establishmentMenu.MenuEstablishment
 import com.example.foodway.view.navigation.AppDestination
-import com.example.foodway.view.profileCustomer.ProfileCustomerActivity
+import com.example.foodway.view.profileCustomer.ProfileCustomerScreen
 import com.example.foodway.view.profileEstablishment.ProfileEstablishmentActivity
 import com.example.foodway.view.signUp.customer.StepOneCustomerActivity
 import com.example.foodway.view.signUp.customer.StepThreeActivity
@@ -23,6 +23,7 @@ import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActiv
 import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivity
 import com.example.foodway.view.welcome.WelcomeActivity
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
+import com.example.foodway.viewModel.ProfileCustomerViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -37,13 +38,16 @@ class MainActivity : ComponentActivity() {
                 MainApp {
                     NavHost(
                         navController = navController,
-                        startDestination = AppDestination.StepOneSignUpCustomer.route
+                        startDestination = AppDestination.ProfileCustomer.route
                     ) {
                         composable(AppDestination.Welcome.route) {
                             WelcomeActivity()
                         }
                         composable(AppDestination.ProfileCustomer.route) {
-                            ProfileCustomerActivity()
+                            val vm by inject<ProfileCustomerViewModel>()
+                            ProfileCustomerScreen(
+                                vm = vm
+                            )
                         }
                         composable(AppDestination.ProfileEstablishment.route) {
                             ProfileEstablishmentActivity()

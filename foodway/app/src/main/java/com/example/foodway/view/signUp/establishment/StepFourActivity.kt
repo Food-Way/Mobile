@@ -76,10 +76,11 @@ fun StepFourEstablishmentActivity(
                 )
                 ButtonGeneric(
                     text = stringResource(id = R.string.conclusion_button),
-                    width = 250.dp,
-                    height = 45.dp,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(45.dp),
                     isPrimary = true,
-                    onClick = {onNavigate()}
+                    onClick = { onNavigate() }
                 )
             }
         }

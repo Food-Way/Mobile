@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WelcomeProfile() {
+fun WelcomeProfile(
+    name: String,
+    photo: String,
+    level: Int,
+    xp: Double
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -19,13 +23,21 @@ fun WelcomeProfile() {
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Welcome(name = "Samuel")
-        Profile()
+        Welcome(
+            name = name
+        )
+        Profile(
+            photo = photo,
+            level = level,
+            xp = xp
+        )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun WelcomeProfilePreview() {
-    WelcomeProfile()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun WelcomeProfilePreview() {
+//    WelcomeProfile(
+//        name = "Samuel"
+//    )
+//}

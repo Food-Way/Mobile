@@ -1,12 +1,15 @@
 package com.example.foodway.view.signUp.establishment
 
 import CategoryCard
+import ErrorView
 import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.coroutine.ErrorView
 import com.example.foodway.R
 import com.example.foodway.model.Culinary
 import com.example.foodway.view.components.ButtonGeneric
@@ -68,16 +70,21 @@ fun StepThreeEstablishmentActivity(
                 is MainScreenState.Success<*> -> {
                     val culinaries = (state as MainScreenState.Success<Culinary>).data
                     Log.d("Success", "Success state")
-                    CardGrid(culinaries, buildAndRenderItem = { culinary ->
+                    CardGrid(culinaries, buildItem = { culinary ->
                         CategoryCard(culinary)
                     })
+                }
+
+                else -> {
+                    Log.d("State", "Else State")
                 }
             }
 
             ButtonGeneric(
                 text = stringResource(id = R.string.next),
-                width = 250.dp,
-                height = 45.dp,
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(45.dp),
                 isPrimary = false
             ) {
                 onNavigate()

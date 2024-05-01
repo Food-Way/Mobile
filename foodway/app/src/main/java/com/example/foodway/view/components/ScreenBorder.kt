@@ -12,7 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ScreenBorder(content: @Composable () -> Unit) {
+fun ScreenBorder(
+    content: @Composable () -> Unit
+) {
     Surface(
         Modifier
             .padding(30.dp)

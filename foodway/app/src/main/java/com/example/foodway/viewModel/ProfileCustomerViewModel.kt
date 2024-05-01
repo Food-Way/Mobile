@@ -4,33 +4,35 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodway.model.Product
-import com.example.foodway.repository.IProductRepository
+import com.example.foodway.model.ProfileCustomer
+import com.example.foodway.repository.ICustomerRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
 
-class MenuEstablishmentViewModel(
-    private val repository: IProductRepository
+class ProfileCustomerViewModel(
+    private val repository: ICustomerRepository
 ) : ViewModel() {
 
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
-    fun getAllProducts(
-        idEstablishment: UUID
+    fun getCustomerProfile(
+        idCustomer: UUID
     ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SignUpViewModel", "Loading started")
-                val response = repository.getAllProducts(idEstablishment)
+                val response = repository.getCustomerProfile(idCustomer)
 
                 Log.d("response antes do IF", response.toString())
 
                 if (response.isSuccessful) {
                     Log.d("response dentro do if", response.toString())
-                    val response = response.body() ?: emptyList<Product>()
-                    state.value = MainScreenState.Success(data = response)
+
+                    val response = response.body() ?: emptyList<ProfileCustomer>()
+                    state.value = MainScreenState.SuccessSingle(data = response)
+
                     Log.d("SignUpViewModel", "Loading success: $response")
                 } else {
                     throw Exception("Erro desconhecido: HTTP ${response.code()}")
@@ -39,7 +41,7 @@ class MenuEstablishmentViewModel(
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
-                    404 -> "Culinária não encontrada"
+                    404 -> "Perfil não encontrado"
                     400 -> "Parâmetros incorretos"
                     else -> "Erro desconhecido"
                 }

@@ -1,6 +1,5 @@
 package com.example.foodway.view.establishmentMenu
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,38 +12,64 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.Coil
-import coil.ImageLoader
-import coil.compose.AsyncImage
-import coil.request.CachePolicy
 import com.example.foodway.R
 import com.example.foodway.model.Product
+import com.example.foodway.view.components.CoilImage
+import com.example.foodway.view.components.Dialog
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductCard(
     data: Product
 ) {
-    initializeCoil(LocalContext.current)
+    var showModal by remember {
+        mutableStateOf(false)
+    }
+
+    if (showModal) {
+        Dialog(
+            onDismissRequest = {
+                showModal = false
+            },
+            content = { ProductDialog(
+                photo = "https://foodway.s3.amazonaws.com/public-images/product-image.png",
+                description = "teste",
+//                name = "Teste",
+//                price = 20.00,
+                name = data.name,
+//                photo = data.photo,
+//                description = data.description,
+                price = data.value,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                onDismissRequest = { showModal = false}
+            )}
+        )
+    }
+
     OutlinedCard(
-        onClick = { /*TODO*/ },
+        onClick = { showModal = !showModal },
         modifier = Modifier
             .size(width = 200.dp, height = 150.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            AsyncImage(
-                model = data.photo,
-                contentDescription = data.name,
-                contentScale = ContentScale.Crop,
+            CoilImage(
+                photo = data.photo,
+                description = data.name,
                 modifier = Modifier
                     .height(70.dp)
                     .fillMaxWidth()
@@ -68,21 +93,17 @@ fun ProductCard(
     }
 }
 
-fun initializeCoil(context: Context) {
-    Coil.setImageLoader {
-        ImageLoader.Builder(context)
-            .crossfade(true)
-            .allowHardware(false)
-            .diskCachePolicy(CachePolicy.DISABLED)
-            .memoryCachePolicy(CachePolicy.DISABLED)
-            .networkCachePolicy(CachePolicy.ENABLED)
-            .build()
-    }
-}
+@Preview(showBackground = true)
+@Composable
+fun PreviewProductCard() {
+    val sampleProduct = Product(
+        idProduct = UUID.randomUUID(),
+        name = "Cadeira Gamer",
+        description = "Cadeira gamer confortável e ergonômica, ideal para longas horas de jogo.",
+        photo = "https://example.com/photo.jpg",
+        value = 299.99
+    )
 
-//@Preview(showBackground = true)
-//@Composable
-//fun ProductCardPreview() {
-//    ProductCard()
-//}
+    ProductCard(data = sampleProduct)
+}
 

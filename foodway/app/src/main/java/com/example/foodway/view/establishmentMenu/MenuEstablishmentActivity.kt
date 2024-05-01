@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,7 +55,7 @@ fun MenuEstablishment(
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
-                text = R.string.menu_title.toString()
+                text = stringResource(id = R.string.menu_title)
             )
 
             Text(
@@ -90,12 +92,17 @@ fun MenuEstablishment(
                         ProductCard(product)
                     })
                 }
+
+                else -> {
+                    Log.d("State", "Else State")
+                }
             }
 
             ButtonGeneric(
                 text = stringResource(id = R.string.next),
-                width = 250.dp,
-                height = 45.dp,
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(45.dp),
                 isPrimary = false
             ) {
 //                onNavigate()

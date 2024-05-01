@@ -26,9 +26,9 @@ class SignUpViewModel(
 
                 if (response.isSuccessful) {
                     Log.d("response dentro do if", response.toString())
-                    val list = response.body() ?: emptyList<Culinary>()
-                    state.value = MainScreenState.Success(data = list)
-                    Log.d("SignUpViewModel", "Loading success: $list")
+                    val response = response.body() ?: emptyList<Culinary>()
+                    state.value = MainScreenState.Success(data = response)
+                    Log.d("SignUpViewModel", "Loading success: $response")
                 } else {
                     throw Exception("Erro desconhecido: HTTP ${response.code()}")
                 }
@@ -36,8 +36,8 @@ class SignUpViewModel(
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
-                    400 -> "Culinária não encontrada"
-                    404 -> "Parâmetros incorretos"
+                    404 -> "Culinária não encontrada"
+                    400 -> "Parâmetros incorretos"
                     else -> "Erro desconhecido"
                 }
                 state.value = MainScreenState.Error(message)

@@ -90,8 +90,9 @@ fun Login(
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.enter),
-                    width = 270.dp,
-                    height = 43.dp,
+                    modifier = Modifier
+                        .width(270.dp)
+                        .height(43.dp),
                     isPrimary = true
                 ) {}
 
@@ -122,8 +123,9 @@ fun Login(
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonGeneric(
                     text = stringResource(id = R.string.signup),
-                    width = 130.dp,
-                    height = 43.dp,
+                    modifier = Modifier
+                        .width(130.dp)
+                        .height(43.dp),
                     isPrimary = false,
 //                    onClick = {
 //                        coroutineScope.launch {

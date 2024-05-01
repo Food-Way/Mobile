@@ -101,8 +101,9 @@ fun ProfileInfoCard(modifier: Modifier) {
                     )
                     ButtonGeneric(
                         text = stringResource(id = R.string.menu),
-                        width = 75.dp,
-                        height = 15.dp,
+                        modifier = Modifier
+                            .width(75.dp)
+                            .height(15.dp),
                         isPrimary = true,
                         onClick = {}
                     )

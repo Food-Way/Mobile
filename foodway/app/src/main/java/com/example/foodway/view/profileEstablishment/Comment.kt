@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 import com.example.foodway.view.components.Indicator
-import com.example.foodway.view.components.ProfileImage
 import com.example.foodway.view.components.RatingBar
 
 @Composable
@@ -52,7 +51,7 @@ fun Comment(width: Dp, height: Dp, isChild: Boolean) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    ProfileImage(35.dp)
+//                    ProfileImage(35.dp)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "Samuel De Oliveira",
