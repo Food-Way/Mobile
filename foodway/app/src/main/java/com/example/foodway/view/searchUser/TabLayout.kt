@@ -3,6 +3,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,11 +14,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.foodway.R
+import com.example.foodway.view.searchUser.SearchEstablishment
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -32,7 +40,19 @@ private enum class BoxState {
 @ExperimentalPagerApi
 @Composable
 fun TabScreen() {
-    val tabs = listOf("Estabelecimentos", "Clientes")
+    val tabs = listOf("", "", "")
+    val tabsIconsSelected = listOf(
+        painterResource(id = R.drawable.location_white_icon),
+        painterResource(id = R.drawable.person_white_icon),
+        painterResource(id = R.drawable.heart_white_icon)
+    )
+
+    val tabsIconsUnselected = listOf(
+        painterResource(id = R.drawable.location_icon),
+        painterResource(id = R.drawable.person_icon),
+        painterResource(id = R.drawable.heart_icon)
+    )
+
     val pagerState = rememberPagerState(initialPage = 0)
     val scope = rememberCoroutineScope()
 
@@ -42,9 +62,9 @@ fun TabScreen() {
         label = "ColorTransition"
     ) { page ->
         when (page) {
-            0 -> Color.LightGray
-            1 -> Color.Red
-            else -> Color.LightGray
+            0 -> colorResource(id = R.color.light_black)
+            1 -> colorResource(id = R.color.light_black)
+            else -> colorResource(id = R.color.red)
         }
     }
 
@@ -53,36 +73,96 @@ fun TabScreen() {
             modifier = Modifier
                 .pagerTabIndicatorOffset(
                     pagerState = pagerState,
-                    tabPositions = tabPositions
+                    tabPositions = tabPositions,
                 )
-                .fillMaxWidth()
-                .height(2.dp)
-                .background(indicatorColor)
-        )
+                .fillMaxHeight()
+                .background(
+                    indicatorColor,
+                    RoundedCornerShape(50.dp)
+                ),
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(33.dp)
+            ) {
+                Image(
+                    painter = tabsIconsSelected[pagerState.currentPage],
+                    contentDescription = "Icone de" + tabs[pagerState.currentPage],
+                    modifier = Modifier
+                        .size(17.dp)
+                )
+                Spacer(modifier = Modifier.width(1.dp))
+                Text(
+                    text = tabs[pagerState.currentPage],
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .width(300.dp)
+            .fillMaxHeight()
+    ) {
         TabRow(
+            contentColor = colorResource(id = R.color.light_gray),
+            backgroundColor = colorResource(id = R.color.light_gray),
             selectedTabIndex = pagerState.currentPage,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .height(25.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(50.dp))
+                .border(1.dp, Color.Transparent),
             indicator = indicator
         ) {
             tabs.forEachIndexed { index, title ->
                 Tab(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     selected = pagerState.currentPage == index,
                     onClick = {
                         scope.launch {
                             pagerState.animateScrollToPage(index)
                         }
                     },
-                    text = { Text(text = title, color = Color.Black) }
+                    content = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .height(35.dp)
+                        ) {
+                            Image(
+                                painter = tabsIconsUnselected[index],
+                                contentDescription = "Icone de" + tabs[pagerState.currentPage],
+                                modifier = Modifier
+                                    .size(17.dp)
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Text(
+                                text = title,
+                                color = Color.Black,
+                                fontSize = 9.sp
+                            )
+                        }
+                    },
+                    selectedContentColor = Color.Yellow
                 )
             }
         }
 
-        HorizontalPager(state = pagerState, count = tabs.size) { index ->
+        HorizontalPager(
+            state = pagerState,
+            count = tabs.size,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) { index ->
             when (index) {
-                0 -> Text("Conteúdo da aba de Estabelecimentos")
+                0 -> SearchEstablishment()
                 1 -> Text("Conteúdo da aba de Clientes")
                 else -> Text("Conteúdo extra")
             }
