@@ -101,7 +101,9 @@ fun ProfileEstablishment(
                         qtdComments = profile.qtdComments,
                         qtdUpvotes = profile.qtdUpvotes
                     )
-//                    CommentList()
+                    CommentList(
+                        profile.comments
+                    )
                     CommentBoxHandler(
                         showCommentDialog = {
                             showModal = true

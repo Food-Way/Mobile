@@ -20,15 +20,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.model.CommentChild
 import com.example.foodway.view.components.Indicator
+import com.example.foodway.view.components.ProfileImage
 import com.example.foodway.view.components.RatingBar
+import java.util.UUID
 
 @Composable
-fun Comment(
+fun CommentItem(
+    idComment: UUID,
+    name: String,
+    photo: String,
+    comment: String,
+    rate: Double,
+    qtdUpvotes: Int,
+    commentChild: List<CommentChild>,
     width: Dp,
     height: Dp,
     isChild: Boolean
@@ -55,20 +64,23 @@ fun Comment(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-//                    ProfileImage(35.dp)
+                    ProfileImage(
+                        photo = photo,
+                        size = 35.dp
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Samuel De Oliveira",
+                        text = name,
                         fontWeight = FontWeight.Bold,
                     )
                     Indicator(
-                        quantity = 100,
+                        quantity = qtdUpvotes,
                         hasQuantity = false,
                         icon = R.drawable.upvote,
                         description = R.string.upvotes
                     )
                     Indicator(
-                        quantity = 100,
+                        quantity = 0,
                         hasQuantity = false,
                         icon = R.drawable.comment,
                         description = R.string.comments
@@ -79,7 +91,7 @@ fun Comment(
                 RatingBar(
                     modifier = Modifier
                         .size(20.dp),
-                    rating = 5.0,
+                    rating = rate,
                     onRatingChanged = {},
                     starsColor = Color.Yellow,
                     editable = false
@@ -92,15 +104,15 @@ fun Comment(
                 .padding(8.dp)
         ) {
             Text(
-                text = "A comida é boa, porém o cara cuspiu em mim",
+                text = comment,
                 textAlign = TextAlign.Justify
             )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CommentPreview() {
-    Comment(width = 270.dp, height = 160.dp, isChild = false)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CommentPreview() {
+//    Comment(width = 270.dp, height = 160.dp, isChild = false)
+//}

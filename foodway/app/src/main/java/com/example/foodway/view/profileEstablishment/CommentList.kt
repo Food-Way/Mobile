@@ -20,11 +20,20 @@ fun CommentList(
     ) {
         Column(modifier = Modifier.verticalScroll(scrollState)) {
             repeat(comments.size) {
-                Comment(
-                    width = 250.dp,
-                    height = 160.dp,
-                    isChild = false
-                )
+                comments[it].commentChild?.let { commentChild ->
+                    CommentItem(
+                        width = 250.dp,
+                        height = 160.dp,
+                        isChild = false,
+                        idComment = comments[it].idComment,
+                        name = comments[it].name,
+                        photo = comments[it].photo,
+                        comment = comments[it].comment,
+                        rate = comments[it].rate,
+                        qtdUpvotes = comments[it].qtdUpvotes,
+                        commentChild = commentChild
+                    )
+                }
             }
         }
     }

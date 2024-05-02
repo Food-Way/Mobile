@@ -4,7 +4,7 @@ import java.util.UUID
 
 data class Comment(
     val idComment: UUID,
-    val image: String,
+    val photo: String,
     val name: String,
     val comment: String,
     val rate: Double,
