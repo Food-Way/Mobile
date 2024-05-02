@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 class SearchUser : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +43,7 @@ class SearchUser : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SearchUserScreen() {
     FoodwayTheme {
@@ -50,7 +51,9 @@ fun SearchUserScreen() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Column {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -75,7 +78,6 @@ fun SearchUserScreen() {
                         modifier = Modifier
                             .size(75.dp)
                             .clip(CircleShape)
-                            .padding(0.dp)
                             .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(50.dp)),
                         contentScale = ContentScale.Fit
                     )
@@ -83,11 +85,10 @@ fun SearchUserScreen() {
                 TabScreen()
             }
         }
-
     }
 }
 
- @Preview
+@Preview
 @Composable
 fun DefaultPreview() {
     SearchUserScreen()
