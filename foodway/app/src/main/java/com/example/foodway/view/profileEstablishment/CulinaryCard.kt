@@ -12,12 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 
 @Composable
-fun CulinaryCard() {
+fun CulinaryCard(
+    culinary: String
+) {
     Box(
         modifier = Modifier
             .background(
@@ -29,14 +30,8 @@ fun CulinaryCard() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Indiana",
+            text = culinary,
             color = colorResource(id = R.color.white)
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CulinaryCardPreview() {
-    CulinaryCard()
 }

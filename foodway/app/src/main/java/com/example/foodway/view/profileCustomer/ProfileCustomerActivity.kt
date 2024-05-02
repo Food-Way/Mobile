@@ -83,10 +83,11 @@ fun ProfileCustomerScreen(
                         }
                         Column {
                             RecentCard()
-                            FavoriteCard()
+                            FavoriteCard(
+                                favorites = profile.favoriteEstablishment
+                            )
                         }
                         NavBarComponent()
-
                     }
 
                     else -> {

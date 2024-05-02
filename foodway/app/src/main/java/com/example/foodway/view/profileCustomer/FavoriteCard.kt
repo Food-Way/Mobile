@@ -10,12 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.model.EstablishmentCard
 
 @Composable
-fun FavoriteCard() {
+fun FavoriteCard(
+    favorites: List<EstablishmentCard>
+) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -28,15 +30,18 @@ fun FavoriteCard() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            SquareCard()
-            SquareCard()
-            SquareCard()
+            repeat(3) {
+                SquareCard(
+                    name = favorites.get(it).establishmentName,
+                    photo = favorites.get(it).photo
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun FavoriteCardPreview() {
-    FavoriteCard()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun FavoriteCardPreview() {
+//    FavoriteCard()
+//}

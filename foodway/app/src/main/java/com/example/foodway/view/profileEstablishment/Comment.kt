@@ -28,7 +28,11 @@ import com.example.foodway.view.components.Indicator
 import com.example.foodway.view.components.RatingBar
 
 @Composable
-fun Comment(width: Dp, height: Dp, isChild: Boolean) {
+fun Comment(
+    width: Dp,
+    height: Dp,
+    isChild: Boolean
+) {
     OutlinedCard(
         colors = CardDefaults.cardColors(
             containerColor = colorResource(id = R.color.white)

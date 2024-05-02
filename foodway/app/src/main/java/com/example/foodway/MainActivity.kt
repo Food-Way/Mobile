@@ -13,7 +13,7 @@ import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.establishmentMenu.MenuEstablishment
 import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomerScreen
-import com.example.foodway.view.profileEstablishment.ProfileEstablishmentActivity
+import com.example.foodway.view.profileEstablishment.ProfileEstablishment
 import com.example.foodway.view.signUp.customer.StepOneCustomerActivity
 import com.example.foodway.view.signUp.customer.StepThreeActivity
 import com.example.foodway.view.signUp.customer.StepTwoCustomerActivity
@@ -24,6 +24,7 @@ import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivit
 import com.example.foodway.view.welcome.WelcomeActivity
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
+import com.example.foodway.viewModel.ProfileEstablishmentViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 MainApp {
                     NavHost(
                         navController = navController,
-                        startDestination = AppDestination.ProfileCustomer.route
+                        startDestination = AppDestination.ProfileEstablishment.route
                     ) {
                         composable(AppDestination.Welcome.route) {
                             WelcomeActivity()
@@ -50,7 +51,10 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(AppDestination.ProfileEstablishment.route) {
-                            ProfileEstablishmentActivity()
+                            val vm by inject<ProfileEstablishmentViewModel>()
+                            ProfileEstablishment(
+                                vm = vm
+                            )
                         }
                         composable(AppDestination.StepOneSignUpCustomer.route) {
                             StepOneCustomerActivity(
