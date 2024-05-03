@@ -1,6 +1,5 @@
 package com.example.foodway.view.profileEstablishment
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,38 +9,47 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.foodway.R
 import com.example.foodway.view.components.ButtonGeneric
+import com.example.foodway.view.components.CoilImage
 import com.example.foodway.view.components.Indicator
-import com.example.foodway.view.components.RateUser
+import com.example.foodway.view.components.RatingBar
 
 @Composable
-fun ProfileInfoCard(modifier: Modifier) {
+fun ProfileInfoCard(
+    modifier: Modifier,
+    name: String,
+    headerImage: String,
+    culinary: String,
+    rate: Double,
+    description: String,
+    qtdComments: Int,
+    qtdUpvotes: Int
+) {
     Box(
         contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.background_image_establishment),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        CoilImage(
+            photo = headerImage,
+            description = "Foto de capa de $name",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(290.dp)
         )
+
         OutlinedCard(
             modifier = Modifier
                 .width(240.dp)
@@ -56,23 +64,32 @@ fun ProfileInfoCard(modifier: Modifier) {
                     .padding(8.dp)
             ) {
                 Text(
-                    text = "Mc' Donalds",
+                    text = name,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
                 Text(
-                    text = "Culinária Havaiana",
+                    text = "Culinária $culinary",
                     fontWeight = FontWeight.Normal,
                     fontSize = 10.sp
                 )
-                RateUser(rate = 5.0)
+                RatingBar(
+                    modifier = Modifier
+                        .size(20.dp),
+                    rating = rate,
+                    onRatingChanged = {},
+                    starsColor = Color.Yellow,
+                    editable = false
+                )
                 Text(
-                    text = "Ótimo lugar para ter novas experiências com amigos e parentes. Venha conferir nossas delícias",
+                    text = description,
                 )
                 Row(
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    CulinaryCard()
+//                    CulinaryCard(
+//                        culinary = culinary
+//                    )
                 }
                 Spacer(
                     modifier = Modifier.height(40.dp)
@@ -85,20 +102,21 @@ fun ProfileInfoCard(modifier: Modifier) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Indicator(
-                        quantity = 200,
+                        quantity = qtdComments,
                         hasQuantity = true,
                         icon = R.drawable.comment,
                         description = R.string.comments
                     )
                     ButtonGeneric(
                         text = stringResource(id = R.string.menu),
-                        width = 75.dp,
-                        height = 15.dp,
+                        modifier = Modifier
+                            .width(75.dp)
+                            .height(15.dp),
                         isPrimary = true,
                         onClick = {}
                     )
                     Indicator(
-                        quantity = 200,
+                        quantity = qtdUpvotes,
                         hasQuantity = true,
                         icon = R.drawable.upvote,
                         description = R.string.upvotes
@@ -109,8 +127,8 @@ fun ProfileInfoCard(modifier: Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProfileInfoCardPreview() {
-    ProfileInfoCard(modifier = Modifier)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProfileInfoCardPreview() {
+//    ProfileInfoCard(modifier = Modifier)
+//}

@@ -1,5 +1,3 @@
-
-import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,21 +18,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import coil.Coil
-import coil.ImageLoader
-import coil.compose.AsyncImage
-import coil.request.CachePolicy
 import com.example.foodway.R
 import com.example.foodway.model.Culinary
+import com.example.foodway.view.components.CoilImage
 
 @Composable
-fun CategoryCard(data: Culinary) {
+fun CategoryCard(
+    data: Culinary
+) {
     var isChecked by remember { mutableStateOf(false) }
-    initializeCoil(LocalContext.current)
     Box(
         modifier = Modifier
             .width(100.dp)
@@ -42,13 +36,14 @@ fun CategoryCard(data: Culinary) {
             .clip(RoundedCornerShape(5.dp))
             .clickable { isChecked = !isChecked }
     ) {
-        AsyncImage(
-            model = data.photo,
-            contentDescription = data.name,
-            contentScale = ContentScale.Crop,
+
+        CoilImage(
+            photo = data.photo,
+            description = data.name,
             modifier = Modifier
                 .fillMaxSize()
         )
+
         if (isChecked) {
             Checkbox(
                 checked = isChecked,
@@ -70,21 +65,9 @@ fun CategoryCard(data: Culinary) {
         ) {
             Text(
                 text = data.name,
-                color = colorResource(id = R.color.black),
+                color = colorResource(id = R.color.white),
             )
         }
-    }
-}
-
-fun initializeCoil(context: Context) {
-    Coil.setImageLoader {
-        ImageLoader.Builder(context)
-            .crossfade(true)
-            .allowHardware(false)
-            .diskCachePolicy(CachePolicy.DISABLED)
-            .memoryCachePolicy(CachePolicy.DISABLED)
-            .networkCachePolicy(CachePolicy.ENABLED)
-            .build()
     }
 }
 

@@ -12,18 +12,18 @@ import retrofit2.http.Path
 import java.util.UUID
 
 interface EstablishmentService {
-    @GET("/establishments/profile/{idEstablishment}")
+    @GET("establishments/profile/{idEstablishment}")
     suspend fun getEstablishmentProfile(@Path("idEstablishment") idEstablishment: UUID): Response<ProfileEstablishment>
 
-    @GET("/establishments/search")
+    @GET("establishments/search")
     suspend fun searchEstablishments(): Response<List<Establishment>>
 
-    @POST("/establishments")
+    @POST("establishments")
     suspend fun signUpEstablishment(@Body signUpEstablishment: SignUpEstablishment): Response<Unit>
 
-    @PATCH("/establishments/profile/{idEstablishment}")
+    @PATCH("establishments/profile/{idEstablishment}")
     suspend fun updateCustomerProfileInfo(@Path("idEstablishment") idEstablishment: UUID): Response<Unit>
 
-    @PATCH("/establishments/personal/{idEstablishment}")
+    @PATCH("establishments/personal/{idEstablishment}")
     suspend fun updateCustomerPersonalInfo(@Path("idEstablishment") idEstablishment: UUID): Response<Unit>
 }

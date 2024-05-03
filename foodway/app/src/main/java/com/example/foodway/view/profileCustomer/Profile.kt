@@ -15,15 +15,17 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.view.components.ProfileImage
 
 @Composable
-fun Profile() {
-    var levelNum = 999;
+fun Profile(
+    photo: String,
+    level: Int,
+    xp: Double
+) {
     Row(
         modifier = Modifier.width(145.dp),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -33,7 +35,7 @@ fun Profile() {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.level, levelNum)
+                text = stringResource(id = R.string.level, level)
             )
             Row(
                 modifier = Modifier.width(57.dp),
@@ -46,7 +48,7 @@ fun Profile() {
                     fontWeight = FontWeight.Bold
                 )
                 LinearProgressIndicator(
-                    progress = 0.5f,
+                    progress = xp.toFloat(),
                     modifier = Modifier
                         .width(36.dp)
                         .height(6.dp),
@@ -56,12 +58,15 @@ fun Profile() {
                 )
             }
         }
-        ProfileImage(size = 75.dp)
+        ProfileImage(
+            photo = photo,
+            size = 75.dp
+        )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProfilePreview() {
-    Profile()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProfilePreview() {
+//    Profile()
+//}

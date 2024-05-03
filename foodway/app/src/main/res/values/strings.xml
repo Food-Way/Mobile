@@ -81,6 +81,24 @@
 
     <!--Profile Establishment-->
     <string name="menu">Cardápio</string>
+    <string name="title_activity_menu_establishment">MenuEstablishmentActivity</string>
+
+    <!--Error View-->
+    <string name="default_error_message">Um erro inesperado ocorreu</string>
+    <string name="try_again">Tentar novamente</string>
+
+    <!--Menu Establishment-->
+    <string name="menu_title">Cardápio</string>
+    <string name="establishment_name">%s</string>
+    <string name="loading_products">Carregando produtos...</string>
+    <string name="product_price">R$ %.2f</string>
+
+    <!--Login-->
+    <string name="enter">Entrar</string>
+    <string name="forget_password">Esqueceu sua senha?</string>
+    <string name="havent_account">Não tem uma conta?</string>
+    <string name="signup">Cadastre-se</string>
+
 
     <!--Search User-->
     <string name="estab_tab">%d Estabelecimentos</string>

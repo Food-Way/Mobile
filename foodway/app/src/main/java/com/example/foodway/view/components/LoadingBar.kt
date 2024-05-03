@@ -1,4 +1,3 @@
-package com.example.coroutine
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoadingBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    loadingText: String
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -31,7 +31,7 @@ fun LoadingBar(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Carregando culinárias",
+            text = loadingText,
         )
     }
 }
@@ -39,5 +39,7 @@ fun LoadingBar(
 @Preview(showBackground = true)
 @Composable
 fun LoadingBarPreview() {
-    LoadingBar()
+    LoadingBar(
+        loadingText = "Carregando.."
+    )
 }

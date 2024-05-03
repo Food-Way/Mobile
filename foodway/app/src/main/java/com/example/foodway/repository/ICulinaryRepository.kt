@@ -1,11 +1,8 @@
-package com.example.foodway.service
+package com.example.foodway.repository
 
 import com.example.foodway.model.Culinary
 import retrofit2.Response
-import retrofit2.http.GET
 
-interface CulinariesService {
-    @GET("culinaries")
+interface ICulinaryRepository {
     suspend fun getAllCulinaries(): Response<List<Culinary>>
-
 }

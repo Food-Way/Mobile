@@ -1,14 +1,20 @@
 package com.example.foodway.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ProfileCustomer(
     val name: String,
     val bio: String,
-    val photo: String,
+    val profilePhoto: String,
     val level: Int,
     val xp: Double,
-    val rate: Double,
+    val profileRate: Double,
     val qtdComments: Int,
     val qtdUpvotes: Int,
-    val recentEstablishment: List<Establishment>? = null,
-    val favoriteEstablishment: List<Establishment>? = null
+
+    @SerializedName("comments")
+    val recentEstablishment: List<EstablishmentCard>,
+
+    @SerializedName("establishmentDTOs")
+    val favoriteEstablishment: List<EstablishmentCard>
 )

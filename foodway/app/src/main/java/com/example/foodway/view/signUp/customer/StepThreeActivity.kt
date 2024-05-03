@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +23,6 @@ import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
-import com.example.foodway.view.signUp.CategoryGrid
 
 @Composable
 fun StepThreeActivity() {
@@ -65,8 +63,9 @@ fun StepThreeActivity() {
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.conclusion_button),
-                    width = 250.dp,
-                    height = 45.dp,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(45.dp),
                     isPrimary = true
                 ) {}
             }

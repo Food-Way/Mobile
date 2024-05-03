@@ -28,9 +28,9 @@ fun RecentCard() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            SquareCard()
-            SquareCard()
-            SquareCard()
+//            SquareCard()
+//            SquareCard()
+//            SquareCard()
         }
     }
 }
