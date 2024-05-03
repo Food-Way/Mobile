@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,13 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.model.Input
+import com.example.foodway.model.CustomerInputManager
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
@@ -32,34 +32,6 @@ import com.example.foodway.view.components.ScreenBorder
 fun StepOneCustomer(
     onNavigate: () -> Unit = {}
 ) {
-
-    val inputList = listOf(
-        Input(
-            inputLabel = stringResource(id = R.string.fantasy_name),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.responsible),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.email),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Email
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.conf_password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
-        ),
-    )
 
     FoodwayTheme {
         ScreenBorder {
@@ -79,10 +51,13 @@ fun StepOneCustomer(
                 )
 
                 LazyColumn {
-                    items(inputList.size) { item ->
+                    items(CustomerInputManager.personalCustomerInputInfos.size) { item ->
                         InputGeneric(
-                            inputLabel = inputList[item].inputLabel,
-                            icon = inputList[item].icon
+                            inputLabel = CustomerInputManager.personalCustomerInputInfos[item].inputLabel,
+                            icon = CustomerInputManager.personalCustomerInputInfos[item].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = CustomerInputManager.personalCustomerInputInfos[item].type
+                            )
                         )
                     }
                 }

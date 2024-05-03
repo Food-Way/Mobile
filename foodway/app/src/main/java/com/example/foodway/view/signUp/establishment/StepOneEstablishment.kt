@@ -15,12 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.model.Input
+import com.example.foodway.model.EstablishmentInputManager.personalEstablishmentInputInfos
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
@@ -30,34 +29,6 @@ import com.example.foodway.view.components.ScreenBorder
 fun StepOneEstablishment(
     onNavigate: () -> Unit = {}
 ) {
-    val inputList = listOf(
-        Input(
-            inputLabel = stringResource(id = R.string.fantasy_name),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.responsible),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.email),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Email
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.conf_password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
-        ),
-    )
-
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -76,12 +47,12 @@ fun StepOneEstablishment(
                 )
 
                 LazyColumn {
-                    items(inputList.size) { item ->
+                    items(personalEstablishmentInputInfos.size) { item ->
                         InputGeneric(
-                            inputLabel = inputList[item].inputLabel,
-                            icon = inputList[item].icon,
+                            inputLabel = personalEstablishmentInputInfos[item].inputLabel,
+                            icon = personalEstablishmentInputInfos[item].icon,
                             keyboardOptions = KeyboardOptions(
-                                keyboardType = inputList[item].type
+                                keyboardType = personalEstablishmentInputInfos[item].type
                             )
                         )
                     }

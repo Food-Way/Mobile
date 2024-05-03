@@ -15,12 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.model.Input
+import com.example.foodway.model.EstablishmentInputManager.locationEstablishmentInputInfos
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
@@ -30,33 +29,6 @@ import com.example.foodway.view.components.ScreenBorder
 fun StepTwoEstablishment(
     onNavigate: () -> Unit = {}
 ) {
-    val inputList = listOf(
-        Input(
-            inputLabel = stringResource(id = R.string.cnpj),
-            icon = R.drawable.badge_icon,
-            KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.cep),
-            icon = R.drawable.location_icon,
-            KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.address),
-            icon = R.drawable.location_icon,
-            KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.state),
-            icon = R.drawable.location_icon,
-            KeyboardType.Text
-        ),
-        Input(
-            inputLabel = stringResource(id = R.string.number),
-            icon = R.drawable.number_icon,
-            KeyboardType.Number
-        )
-    )
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -75,12 +47,12 @@ fun StepTwoEstablishment(
                 )
 
                 LazyColumn {
-                    items(inputList.size) { item ->
+                    items(locationEstablishmentInputInfos.size) { item ->
                         InputGeneric(
-                            inputLabel = inputList[item].inputLabel,
-                            icon = inputList[item].icon,
+                            inputLabel = locationEstablishmentInputInfos[item].inputLabel,
+                            icon = locationEstablishmentInputInfos[item].icon,
                             keyboardOptions = KeyboardOptions(
-                                keyboardType = inputList[item].type
+                                keyboardType = locationEstablishmentInputInfos[item].type
                             )
                         )
                     }
