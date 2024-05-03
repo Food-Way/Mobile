@@ -1,8 +1,5 @@
 package com.example.foodway.view.signUp.customer
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,24 +28,8 @@ import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.ScreenBorder
 
-class StepOneActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            FoodwayTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    StepOneCustomerActivity()
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun StepOneCustomerActivity(
+fun StepOneCustomer(
     onNavigate: () -> Unit = {}
 ) {
 
@@ -125,8 +105,7 @@ fun StepOneCustomerActivity(
 fun StepOneActivityPreview() {
     FoodwayTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            StepOneCustomerActivity()
-
+            StepOneCustomer()
         }
     }
 }

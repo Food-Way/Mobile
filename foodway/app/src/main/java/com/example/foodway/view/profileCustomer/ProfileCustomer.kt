@@ -22,7 +22,7 @@ import com.example.foodway.viewModel.ProfileCustomerViewModel
 import java.util.UUID
 
 @Composable
-fun ProfileCustomerScreen(
+fun ProfileCustomer(
     vm: ProfileCustomerViewModel
 ) {
     val state by vm.state.observeAsState()

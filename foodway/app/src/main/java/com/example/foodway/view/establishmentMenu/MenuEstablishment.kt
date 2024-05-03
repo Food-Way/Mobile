@@ -29,15 +29,6 @@ import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import java.util.UUID
 
-//class MenuEstablishmentActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            MenuEstablishment()
-//        }
-//    }
-//}
-
 @Composable
 fun MenuEstablishment(
     vm: MenuEstablishmentViewModel
@@ -86,15 +77,11 @@ fun MenuEstablishment(
                 }
 
                 is MainScreenState.Success<*> -> {
-                    val products = (state as MainScreenState.Success<Product>).data
+                    val products = (state as MainScreenState.Success<Product>).data as List<Product>
                     Log.d("Success", "Success state")
                     CardGrid(products, buildItem = { product ->
                         ProductCard(product)
                     })
-                }
-
-                else -> {
-                    Log.d("State", "Else State")
                 }
             }
 

@@ -1,5 +1,6 @@
 package com.example.foodway.view.signUp.establishment
 
+import CategoryCard
 import ErrorView
 import LoadingBar
 import android.util.Log
@@ -21,7 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.model.Culinary
 import com.example.foodway.view.components.ButtonGeneric
+import com.example.foodway.view.components.CardGrid
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.SignUpViewModel
@@ -65,11 +68,11 @@ fun StepThreeEstablishment(
                 }
 
                 is MainScreenState.Success<*> -> {
-                    val culinaries = (state as MainScreenState.Success<*>).data
+                    val culinaries = (state as MainScreenState.Success<Culinary>).data as List<Culinary>
                     Log.d("Success", "Success state")
-//                    CardGrid(culinaries, buildItem = { culinary ->
-//                        CategoryCard(culinary)
-//                    })
+                    CardGrid(culinaries, buildItem = { culinary ->
+                        CategoryCard(culinary)
+                    })
                 }
             }
 
