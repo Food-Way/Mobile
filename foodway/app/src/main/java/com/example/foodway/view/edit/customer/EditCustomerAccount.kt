@@ -1,4 +1,4 @@
-package com.example.foodway.view.edit.user
+package com.example.foodway.view.edit.customer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -21,11 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 
 
 @Composable
-fun EditAccount() {
+fun EditCustomerAccount() {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -111,14 +112,13 @@ fun EditAccount() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-//            ButtonGeneric(
-//                text = stringResource(id = R.string.save),
-//                width = 270.dp,
-//                height = 43.dp,
-//                isPrimary = true
-//            ) {
-//
-//            }
+            ButtonGeneric(
+                text = stringResource(id = R.string.save),
+                modifier = Modifier
+                    .width(270.dp)
+                    .height(43.dp),
+                isPrimary = true
+            ) {}
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -129,5 +129,5 @@ fun EditAccount() {
 @Preview(showBackground = true)
 @Composable
 fun EditAccountPreview() {
-    EditAccount()
+    EditCustomerAccount()
 }

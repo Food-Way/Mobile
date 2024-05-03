@@ -25,7 +25,7 @@ import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 
 @Composable
-fun StepThreeActivity() {
+fun StepThreeCustomer() {
     FoodwayTheme {
         ScreenBorder {
             Column(
@@ -75,6 +75,6 @@ fun StepThreeActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun StepThreeActivityPreview(){
-    StepThreeActivity()
+fun StepThreeCustomerPreview(){
+    StepThreeCustomer()
 }

@@ -1,4 +1,4 @@
-package com.example.foodway.view.edit.user
+package com.example.foodway.view.edit.customer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -20,11 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 
 
 @Composable
-fun EditProfile() {
+fun EditCustomerProfile() {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -89,25 +90,23 @@ fun EditProfile() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-//            ButtonGeneric(
-//                text = stringResource(id = R.string.save),
-//                width = 270.dp,
-//                height = 43.dp,
-//                isPrimary = true
-//            ) {
-//
-//            }
+            ButtonGeneric(
+                text = stringResource(id = R.string.save),
+                modifier = Modifier
+                    .width(270.dp)
+                    .height(43.dp),
+                isPrimary = true
+            ) {}
 
             Spacer(modifier = Modifier.height(20.dp))
 
-//            ButtonGeneric(
-//                text = stringResource(id = R.string.edit_perfil),
-//                width = 270.dp,
-//                height = 43.dp,
-//                isPrimary = false
-//            ) {
-//
-//            }
+            ButtonGeneric(
+                text = stringResource(id = R.string.save),
+                modifier = Modifier
+                    .width(270.dp)
+                    .height(43.dp),
+                isPrimary = true
+            ) {}
         }
     }
 }
@@ -115,5 +114,5 @@ fun EditProfile() {
 @Preview(showBackground = true)
 @Composable
 fun EditProfilePreview() {
-    EditProfile()
+    EditCustomerProfile()
 }

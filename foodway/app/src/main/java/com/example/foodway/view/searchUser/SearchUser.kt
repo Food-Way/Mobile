@@ -1,9 +1,6 @@
 package com.example.foodway.view.searchUser
 
 import TabScreen
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,18 +31,9 @@ import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 
-class SearchUser : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            SearchUserScreen()
-        }
-    }
-}
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun SearchUserScreen() {
+fun SearchUser() {
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -91,5 +79,5 @@ fun SearchUserScreen() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    SearchUserScreen()
+    SearchUser()
 }

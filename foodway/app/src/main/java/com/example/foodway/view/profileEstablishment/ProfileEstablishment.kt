@@ -36,8 +36,7 @@ fun ProfileEstablishment(
         )
     }
 
-    val xpto = state
-    when (xpto) {
+    when (state) {
         is MainScreenState.Loading -> {
             Log.d("loading", "loading state")
             LoadingBar(
@@ -55,7 +54,7 @@ fun ProfileEstablishment(
         }
 
         is MainScreenState.Success<*> -> {
-            val profile = (xpto.data as List<ProfileEstablishment>)[0]
+            val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
             Log.d("Success", "Success state")
 
             Scaffold(
