@@ -1,10 +1,10 @@
 package com.example.foodway.view.components
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,12 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 
 @Composable
 fun InputGeneric(
-    inputLabel: String,
+    @StringRes
+    inputLabel: Int,
+    @DrawableRes
     icon: Int,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
@@ -42,10 +45,10 @@ fun InputGeneric(
             ) {
                 Icon(
                     painter = painterResource(id = icon),
-                    contentDescription = inputLabel
+                    contentDescription = stringResource(id = inputLabel)
                 )
                 Text(
-                    inputLabel,
+                    text = stringResource(id = inputLabel),
                     modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp)
                 )
             }

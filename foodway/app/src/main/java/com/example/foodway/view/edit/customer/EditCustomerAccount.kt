@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.model.CustomerInputManager.personalCustomerInputInfos
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 
@@ -65,64 +68,34 @@ fun EditCustomerAccount() {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Column(
+        LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.name),
-                icon = R.drawable.person_icon
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.last_name_costumer),
-                icon = R.drawable.stars
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.cpf_costumer),
-                icon = R.drawable.person_icon
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.email),
-                icon = R.drawable.stars
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.password),
-                icon = R.drawable.person_icon
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            InputGeneric(
-                inputLabel = stringResource(id = R.string.conf_password),
-                icon = R.drawable.stars
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.save),
-                modifier = Modifier
-                    .width(270.dp)
-                    .height(43.dp),
-                isPrimary = true
-            ) {}
-
-            Spacer(modifier = Modifier.height(20.dp))
-
+            items(personalCustomerInputInfos.size) { item ->
+                InputGeneric(
+                    inputLabel = personalCustomerInputInfos[item].inputLabel,
+                    icon = personalCustomerInputInfos[item].icon,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = personalCustomerInputInfos[item].type
+                    )
+                )
+            }
         }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        ButtonGeneric(
+            text = stringResource(id = R.string.save),
+            modifier = Modifier
+                .width(270.dp)
+                .height(43.dp),
+            isPrimary = true
+        ) {}
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+
     }
 }
 
