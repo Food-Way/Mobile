@@ -21,15 +21,6 @@ import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import java.util.UUID
 
-//class ProfileCustomerActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            ProfileCustomerScreen()
-//        }
-//    }
-//}
-
 @Composable
 fun ProfileCustomerScreen(
     vm: ProfileCustomerViewModel
@@ -62,8 +53,8 @@ fun ProfileCustomerScreen(
                         }
                     }
 
-                    is MainScreenState.SuccessSingle<*> -> {
-                        val profile = (state as MainScreenState.SuccessSingle<ProfileCustomer>).data
+                    is MainScreenState.Success<*> -> {
+                        val profile = (state as MainScreenState.Success<ProfileCustomer>).data
                         Log.d("Success", "Success state")
 
                         WelcomeProfile(
@@ -88,10 +79,6 @@ fun ProfileCustomerScreen(
                             )
                         }
                         NavBarComponent()
-                    }
-
-                    else -> {
-                        Log.d("State", "Else State")
                     }
                 }
             }

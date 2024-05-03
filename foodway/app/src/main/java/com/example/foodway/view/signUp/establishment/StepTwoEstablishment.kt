@@ -1,8 +1,5 @@
 package com.example.foodway.view.signUp.establishment
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -29,47 +26,37 @@ import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.ScreenBorder
 
-class StepOneActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            StepOneEstablishmentActivity()
-        }
-    }
-}
-
 @Composable
-fun StepOneEstablishmentActivity(
+fun StepTwoEstablishment(
     onNavigate: () -> Unit = {}
 ) {
     val inputList = listOf(
         Input(
-            inputLabel = stringResource(id = R.string.fantasy_name),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
+            inputLabel = stringResource(id = R.string.cnpj),
+            icon = R.drawable.badge_icon,
+            KeyboardType.Text
         ),
         Input(
-            inputLabel = stringResource(id = R.string.responsible),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Text
+            inputLabel = stringResource(id = R.string.cep),
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
-            inputLabel = stringResource(id = R.string.email),
-            icon = R.drawable.person_icon,
-            type = KeyboardType.Email
+            inputLabel = stringResource(id = R.string.address),
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
-            inputLabel = stringResource(id = R.string.password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
+            inputLabel = stringResource(id = R.string.state),
+            icon = R.drawable.location_icon,
+            KeyboardType.Text
         ),
         Input(
-            inputLabel = stringResource(id = R.string.conf_password),
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
-        ),
+            inputLabel = stringResource(id = R.string.number),
+            icon = R.drawable.number_icon,
+            KeyboardType.Number
+        )
     )
-
     FoodwayTheme {
         ScreenBorder {
             Column(

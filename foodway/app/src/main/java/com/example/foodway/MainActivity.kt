@@ -17,10 +17,10 @@ import com.example.foodway.view.profileEstablishment.ProfileEstablishment
 import com.example.foodway.view.signUp.customer.StepOneCustomerActivity
 import com.example.foodway.view.signUp.customer.StepThreeActivity
 import com.example.foodway.view.signUp.customer.StepTwoCustomerActivity
-import com.example.foodway.view.signUp.establishment.StepFourEstablishmentActivity
-import com.example.foodway.view.signUp.establishment.StepOneEstablishmentActivity
-import com.example.foodway.view.signUp.establishment.StepThreeEstablishmentActivity
-import com.example.foodway.view.signUp.establishment.StepTwoEstablishmentActivity
+import com.example.foodway.view.signUp.establishment.StepFourEstablishment
+import com.example.foodway.view.signUp.establishment.StepOneEstablishment
+import com.example.foodway.view.signUp.establishment.StepThreeEstablishment
+import com.example.foodway.view.signUp.establishment.StepTwoEstablishment
 import com.example.foodway.view.welcome.WelcomeActivity
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
@@ -76,14 +76,14 @@ class MainActivity : ComponentActivity() {
                             StepThreeActivity()
                         }
                         composable(AppDestination.StepOneSignUpEstablishment.route) {
-                            StepOneEstablishmentActivity(
+                            StepOneEstablishment(
                                 onNavigate = {
                                     navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                                 }
                             )
                         }
                         composable(AppDestination.StepTwoSignUpEstablishment.route) {
-                            StepTwoEstablishmentActivity(
+                            StepTwoEstablishment(
                                 onNavigate = {
                                     navController.navigate(AppDestination.StepThreeSignUpEstablishment.route)
                                 }
@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(AppDestination.StepThreeSignUpEstablishment.route) {
                             val vm by inject<SignUpViewModel>()
-                            StepThreeEstablishmentActivity(
+                            StepThreeEstablishment(
                                 onNavigate = {
                                     navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
                                 },
@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(AppDestination.StepFourSignUpEstablishment.route) {
-                            StepFourEstablishmentActivity(
+                            StepFourEstablishment(
                                 onNavigate = {
                                     navController.navigate(AppDestination.ProfileCustomer.route)
                                 }

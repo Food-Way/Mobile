@@ -11,9 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.foodway.model.ProfileEstablishment
@@ -22,43 +19,25 @@ import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.ProfileEstablishmentViewModel
 import java.util.UUID
 
-//class ProfileEstablishmentActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            FoodwayTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    ProfileEstablishment()
-//                }
-//            }
-//        }
-//    }
-//}
-
 @Composable
 fun ProfileEstablishment(
     vm: ProfileEstablishmentViewModel
 ) {
     val state by vm.state.observeAsState()
 
-    var showModal by remember {
-        mutableStateOf(false)
-    }
+    val showModal by vm.modalState.observeAsState()
 
-    if (showModal) {
+    if (showModal == true) {
         Dialog(
-            onDismissRequest = {
-                showModal = false
-            },
-            content = { CommentDialog() }
+            onDismissRequest = { vm.toggleModal(showModal = false) },
+            content = {
+                CommentDialog { vm.toggleModal(showModal = false) }
+            }
         )
     }
 
-    when (state) {
+    val xpto = state
+    when (xpto) {
         is MainScreenState.Loading -> {
             Log.d("loading", "loading state")
             LoadingBar(
@@ -75,8 +54,8 @@ fun ProfileEstablishment(
             }
         }
 
-        is MainScreenState.SuccessSingle<*> -> {
-            val profile = (state as MainScreenState.SuccessSingle<ProfileEstablishment>).data
+        is MainScreenState.Success<*> -> {
+            val profile = (xpto.data as List<ProfileEstablishment>)[0]
             Log.d("Success", "Success state")
 
             Scaffold(
@@ -106,15 +85,11 @@ fun ProfileEstablishment(
                     )
                     CommentBoxHandler(
                         showCommentDialog = {
-                            showModal = true
+                            vm.toggleModal()
                         }
                     )
                 }
             }
-        }
-
-        else -> {
-            Log.d("State", "Else State")
         }
     }
 }

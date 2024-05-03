@@ -14,6 +14,13 @@ class ProfileEstablishmentViewModel(
     private val repository: IEstablishmentRepository
 ) : ViewModel() {
 
+    var modalState = MutableLiveData(false)
+        private set
+
+    fun toggleModal(showModal: Boolean = true) {
+        modalState.value = showModal
+    }
+
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
     fun getEstablishmentProfile(
@@ -31,7 +38,7 @@ class ProfileEstablishmentViewModel(
                     Log.d("response dentro do if", response.toString())
 
                     val response = response.body() ?: emptyList<ProfileEstablishment>()
-                    state.value = MainScreenState.SuccessSingle(data = response)
+                    state.value = MainScreenState.Success(data = response)
 
                     Log.d("SignUpViewModel", "Loading success: $response")
                 } else {

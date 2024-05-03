@@ -94,7 +94,6 @@
     <string name="product_price">R$ %.2f</string>
 
     <!--Login-->
-    <string name="enter">Entrar</string>
     <string name="forget_password">Esqueceu sua senha?</string>
     <string name="havent_account">Não tem uma conta?</string>
     <string name="signup">Cadastre-se</string>

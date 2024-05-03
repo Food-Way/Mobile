@@ -26,17 +26,8 @@ import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
 
-class StepFourActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            StepFourEstablishmentActivity()
-        }
-    }
-}
-
 @Composable
-fun StepFourEstablishmentActivity(
+fun StepFourEstablishment(
     onNavigate: () -> Unit = {}
 ) {
     FoodwayTheme {
