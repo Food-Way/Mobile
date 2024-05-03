@@ -1,6 +1,5 @@
 package com.example.foodway.view.signUp.customer
 
-import CategoryCard
 import ErrorView
 import LoadingBar
 import android.util.Log
@@ -25,19 +24,9 @@ import com.example.foodway.R
 import com.example.foodway.model.Culinary
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.CardGrid
 import com.example.foodway.view.components.ScreenBorder
 import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.SignUpViewModel
-
-//class StepTwoActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            StepTwoCustomerActivity()
-//        }
-//    }
-//}
 
 @Composable
 fun StepTwoCustomerActivity(
@@ -81,9 +70,9 @@ fun StepTwoCustomerActivity(
                     is MainScreenState.Success<*> -> {
                         val culinaries = (state as MainScreenState.Success<Culinary>).data
                         Log.d("Success", "Success state")
-                        CardGrid(culinaries, buildItem = { culinary ->
-                            CategoryCard(culinary)
-                        })
+//                        CardGrid(culinaries, buildItem = { culinary ->
+//                            CategoryCard(culinary)
+//                        })
                     }
 
                     else -> {

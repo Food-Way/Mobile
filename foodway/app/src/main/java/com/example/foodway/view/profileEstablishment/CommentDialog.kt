@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
@@ -29,7 +30,9 @@ import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.RatingBar
 
 @Composable
-fun CommentDialog() {
+fun CommentDialog(
+    onDismissRequest: () -> Unit,
+) {
     var rating by remember {
         mutableDoubleStateOf(2.5)
     }
@@ -91,12 +94,12 @@ fun CommentDialog() {
             isPrimary = true,
         ) {}
 
-//        TextButton(
-//            onClick = { onDismissRequest() },
-//            modifier = Modifier.padding(top = 8.dp)
-//        ) {
-//            Text(text = "Fechar", fontWeight = FontWeight.Bold, color = redColor)
-//        }
+        TextButton(
+            onClick = { onDismissRequest() },
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text(text = "Fechar", fontWeight = FontWeight.Bold, color = Color.Red)
+        }
     }
 }
 
@@ -104,5 +107,5 @@ fun CommentDialog() {
 @Preview(showBackground = true)
 @Composable
 fun CommentDialogPreview() {
-    CommentDialog()
+    CommentDialog() {}
 }

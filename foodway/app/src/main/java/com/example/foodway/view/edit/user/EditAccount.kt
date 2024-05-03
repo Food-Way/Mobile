@@ -1,9 +1,7 @@
 package com.example.foodway.view.edit.user
 
-import android.support.v4.os.IResultReceiver2.Default
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
 
 
@@ -114,14 +111,14 @@ fun EditAccount() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            ButtonGeneric(
-                text = stringResource(id = R.string.save),
-                width = 270.dp,
-                height = 43.dp,
-                isPrimary = true
-            ) {
-
-            }
+//            ButtonGeneric(
+//                text = stringResource(id = R.string.save),
+//                width = 270.dp,
+//                height = 43.dp,
+//                isPrimary = true
+//            ) {
+//
+//            }
 
             Spacer(modifier = Modifier.height(20.dp))
 
