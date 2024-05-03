@@ -51,7 +51,9 @@ fun SearchUserScreen() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Column {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,7 +78,6 @@ fun SearchUserScreen() {
                         modifier = Modifier
                             .size(75.dp)
                             .clip(CircleShape)
-                            .padding(0.dp)
                             .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(50.dp)),
                         contentScale = ContentScale.Fit
                     )
@@ -84,11 +85,10 @@ fun SearchUserScreen() {
                 TabScreen()
             }
         }
-
     }
 }
 
- @Preview
+@Preview
 @Composable
 fun DefaultPreview() {
     SearchUserScreen()
