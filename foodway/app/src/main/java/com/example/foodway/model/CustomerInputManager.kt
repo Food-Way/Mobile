@@ -17,7 +17,7 @@ object CustomerInputManager {
         ),
         InputInfo(
             inputLabel = R.string.cpf_costumer,
-            icon = R.drawable.person_icon,
+            icon = R.drawable.badge_icon,
             type = KeyboardType.Email
         ),
         InputInfo(
