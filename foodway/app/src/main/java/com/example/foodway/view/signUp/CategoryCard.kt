@@ -26,7 +26,8 @@ import com.example.foodway.view.components.CoilImage
 
 @Composable
 fun CategoryCard(
-    data: Culinary
+    data: Culinary,
+    onClick: (Culinary) -> Unit
 ) {
     var isChecked by remember { mutableStateOf(false) }
     Box(
@@ -34,7 +35,10 @@ fun CategoryCard(
             .width(100.dp)
             .height(100.dp)
             .clip(RoundedCornerShape(5.dp))
-            .clickable { isChecked = !isChecked }
+            .clickable {
+                isChecked = !isChecked
+                onClick(data)
+            }
     ) {
 
         CoilImage(

@@ -8,12 +8,12 @@ object CustomerInputManager {
         InputInfo(
             inputLabel = R.string.name,
             icon = R.drawable.person_icon,
-            type = KeyboardType.Text
+            type = KeyboardType.Text,
         ),
         InputInfo(
             inputLabel = R.string.last_name_costumer,
             icon = R.drawable.person_icon,
-            type = KeyboardType.Text
+            type = KeyboardType.Text,
         ),
         InputInfo(
             inputLabel = R.string.cpf_costumer,

@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,10 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.model.EstablishmentInputManager.personalEstablishmentInputInfos
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.InputGeneric
 import com.example.foodway.view.components.NoBorderScreen
 
 @Composable
@@ -87,17 +83,17 @@ fun EditEstablishmentAccount() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround
             ) {
-                LazyColumn {
-                    items(personalEstablishmentInputInfos.size) { item ->
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[item].inputLabel,
-                            icon = personalEstablishmentInputInfos[item].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[item].type
-                            )
-                        )
-                    }
-                }
+//                LazyColumn {
+//                    items(personalEstablishmentInputInfos.size) { item ->
+//                        InputGeneric(
+//                            inputLabel = personalEstablishmentInputInfos[item].inputLabel,
+//                            icon = personalEstablishmentInputInfos[item].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = personalEstablishmentInputInfos[item].type
+//                            )
+//                        )
+//                    }
+//                }
                 ButtonGeneric(
                     text = stringResource(id = R.string.save_button),
                     modifier = Modifier

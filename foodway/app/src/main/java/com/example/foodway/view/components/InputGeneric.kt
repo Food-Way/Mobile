@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 
@@ -31,13 +32,17 @@ fun InputGeneric(
     inputLabel: Int,
     @DrawableRes
     icon: Int,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    visualTransformation: VisualTransformation,
+    labelState: String,
+    onValueChange: (String) -> Unit
 ) {
-    var label by remember { mutableStateOf("") }
+
+    var mutableLabelState by remember { mutableStateOf("") }
 
     OutlinedTextField(
-        value = label,
-        onValueChange = { label = it },
+        value = labelState,
+        onValueChange = onValueChange,
         label = {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -53,12 +58,12 @@ fun InputGeneric(
                 )
             }
         },
+        visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         colors = OutlinedTextFieldDefaults.colors(
             focusedLabelColor = colorResource(id = R.color.black),
             unfocusedLabelColor = colorResource(id = R.color.black),
         ),
-
         shape = RoundedCornerShape(25.dp),
         modifier = Modifier
             .fillMaxWidth()

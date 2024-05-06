@@ -1,4 +1,4 @@
-package com.example.foodway.view.login
+package com.example.foodway.view.signIn
 
 
 import androidx.compose.foundation.Image
@@ -16,7 +16,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,18 +27,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
+import com.example.foodway.viewModel.SignInViewModel
 
 @Composable
-fun Login(
-    onNavigate: () -> Unit = {}
+fun SignIn(
+    onNavigate: () -> Unit = {},
+    onNavigateSuccessLogin: (String) -> Unit,
+    vm: SignInViewModel
 ) {
-    val coroutineScope = rememberCoroutineScope()
+    var email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    val state by vm.state.observeAsState()
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -65,25 +75,35 @@ fun Login(
                 Text(
                     text = stringResource(id = R.string.welcome_title),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
                 )
 
                 InputGeneric(
-                    inputLabel = stringResource(id = R.string.email),
+                    inputLabel = R.string.email,
                     icon = R.drawable.email_icon,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email
-                    )
+                    ),
+                    visualTransformation = VisualTransformation.None,
+                    labelState = email.value,
+                    onValueChange = {
+                        email.value = it
+                    },
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
 
                 InputGeneric(
-                    inputLabel = stringResource(id = R.string.password),
+                    inputLabel = R.string.password,
                     icon = R.drawable.lock_icon,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password
-                    )
+                    ),
+                    visualTransformation = PasswordVisualTransformation(),
+                    labelState = password.value,
+                    onValueChange = {
+                        password.value = it
+                    },
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -93,8 +113,16 @@ fun Login(
                     modifier = Modifier
                         .width(270.dp)
                         .height(43.dp),
-                    isPrimary = true
-                ) {}
+                    isPrimary = true,
+                    onClick = {
+                        vm.login(
+                            email = email.value,
+                            password = password.value,
+                            onNavigateSuccessLogin = onNavigateSuccessLogin
+
+                        )
+                    }
+                )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -124,14 +152,9 @@ fun Login(
                 ButtonGeneric(
                     text = stringResource(id = R.string.signup),
                     modifier = Modifier
-                        .width(130.dp)
+                        .width(150.dp)
                         .height(43.dp),
                     isPrimary = false,
-//                    onClick = {
-//                        coroutineScope.launch {
-//
-//                        }
-//                    },
                 ) {
                     onNavigate()
                 }
@@ -141,8 +164,8 @@ fun Login(
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Login()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    SignIn()
+//}

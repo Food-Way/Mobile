@@ -2,12 +2,12 @@ package com.example.foodway.model
 
 import java.util.UUID
 
-sealed class User(
-    open val idUser: UUID,
-    open val name: String,
-    open val email: String,
-    open val password: String,
-    open val typeUser: String,
-    open val profilePhoto: String,
-    open val culinaries: List<Culinary>
+data class User(
+    val idUser: UUID,
+    val name: String,
+    val email: String,
+    val password: String,
+    val typeUser: String,
+    val profilePhoto: String,
+    val culinaries: List<Culinary>
 )

@@ -14,6 +14,7 @@ import com.example.foodway.view.establishmentMenu.MenuEstablishment
 import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomer
 import com.example.foodway.view.profileEstablishment.ProfileEstablishment
+import com.example.foodway.view.signIn.SignIn
 import com.example.foodway.view.signUp.customer.StepOneCustomer
 import com.example.foodway.view.signUp.customer.StepThreeCustomer
 import com.example.foodway.view.signUp.customer.StepTwoCustomer
@@ -25,10 +26,13 @@ import com.example.foodway.view.welcome.Welcome
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import com.example.foodway.viewModel.ProfileEstablishmentViewModel
+import com.example.foodway.viewModel.SignInViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import java.util.UUID
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +43,17 @@ class MainActivity : ComponentActivity() {
                 MainApp {
                     NavHost(
                         navController = navController,
-                        startDestination = AppDestination.ProfileEstablishment.route
+                        startDestination = AppDestination.SignIn.route
                     ) {
                         composable(AppDestination.Welcome.route) {
                             Welcome()
                         }
-                        composable(AppDestination.ProfileCustomer.route) {
+                        composable("${AppDestination.ProfileCustomer.route}/{idCustomer}") {
+                            val id = UUID.fromString(it.arguments?.getString("idCustomer"))
                             val vm by inject<ProfileCustomerViewModel>()
                             ProfileCustomer(
-                                vm = vm
+                                vm = vm,
+                                idCustomer = id
                             )
                         }
                         composable(AppDestination.ProfileEstablishment.route) {
@@ -57,10 +63,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(AppDestination.StepOneSignUpCustomer.route) {
+                            val vm by inject<SignUpViewModel>()
                             StepOneCustomer(
                                 onNavigate = {
                                     navController.navigate(AppDestination.StepTwoSignUpCustomer.route)
-                                }
+                                },
+                                vm = vm
                             )
                         }
                         composable(AppDestination.StepTwoSignUpCustomer.route) {
@@ -73,7 +81,10 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(AppDestination.StepThreeSignUpCustomer.route) {
-                            StepThreeCustomer()
+                            val vm by inject<SignUpViewModel>()
+                            StepThreeCustomer(
+                                vm = vm
+                            )
                         }
                         composable(AppDestination.StepOneSignUpEstablishment.route) {
                             StepOneEstablishment(
@@ -109,6 +120,18 @@ class MainActivity : ComponentActivity() {
                             val vm by inject<MenuEstablishmentViewModel>()
                             MenuEstablishment(
                                 vm = vm
+                            )
+                        }
+                        composable(AppDestination.SignIn.route) {
+                            val vm by inject<SignInViewModel>()
+                            SignIn(
+                                vm = vm,
+                                onNavigate = {
+                                    navController.navigate(AppDestination.StepOneSignUpCustomer.route)
+                                },
+                                onNavigateSuccessLogin = { idCustomer ->
+                                    navController.navigate("${AppDestination.ProfileCustomer.route}/$idCustomer")
+                                }
                             )
                         }
                     }

@@ -1,6 +1,5 @@
 package com.example.foodway.view.signUp.establishment
 
-import CategoryCard
 import ErrorView
 import LoadingBar
 import android.util.Log
@@ -71,7 +70,7 @@ fun StepThreeEstablishment(
                     val culinaries = (state as MainScreenState.Success<Culinary>).data as List<Culinary>
                     Log.d("Success", "Success state")
                     CardGrid(culinaries, buildItem = { culinary ->
-                        CategoryCard(culinary)
+//                        CategoryCard(culinary)
                     })
                 }
             }

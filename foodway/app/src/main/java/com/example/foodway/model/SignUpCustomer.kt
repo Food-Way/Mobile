@@ -7,6 +7,7 @@ data class SignUpCustomer (
     val email: String,
     val password: String,
     val categories: List<Culinary>
+
 ) {
     val typeUser: String get() = "CLIENT"
 }

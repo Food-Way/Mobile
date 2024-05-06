@@ -23,7 +23,9 @@ import java.util.UUID
 
 @Composable
 fun ProfileCustomer(
-    vm: ProfileCustomerViewModel
+    vm: ProfileCustomerViewModel,
+    idCustomer: UUID
+
 ) {
     val state by vm.state.observeAsState()
     FoodwayTheme {
@@ -42,14 +44,14 @@ fun ProfileCustomer(
                         LoadingBar(
                             loadingText = "Carregando Perfil..."
                         )
-                        vm.getCustomerProfile(idCustomer = UUID.fromString("98e1c908-0aff-495d-8b3b-b153fba72d6e"))
+                        vm.getCustomerProfile(idCustomer = idCustomer)
                     }
 
                     is MainScreenState.Error, null -> {
                         val errorMessage = (state as MainScreenState.Error).message
                         Log.d("Error", "Error state")
                         ErrorView(message = errorMessage) {
-                            vm.getCustomerProfile(idCustomer = UUID.fromString("98e1c908-0aff-495d-8b3b-b153fba72d6e"))
+                            vm.getCustomerProfile(idCustomer = idCustomer)
                         }
                     }
 
@@ -75,7 +77,7 @@ fun ProfileCustomer(
                         Column {
                             RecentCard()
                             FavoriteCard(
-                                favorites = profile.favoriteEstablishment
+//                                favorites = profile.favoriteEstablishment
                             )
                         }
                         NavBarComponent()

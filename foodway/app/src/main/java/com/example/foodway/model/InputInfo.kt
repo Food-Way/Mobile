@@ -9,5 +9,5 @@ data class InputInfo(
     val inputLabel: Int,
     @DrawableRes
     val icon: Int,
-    val type: KeyboardType
+    val type: KeyboardType,
 )

@@ -14,6 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,13 +38,18 @@ fun StepTwoCustomer(
     onNavigate: () -> Unit = {},
     vm: SignUpViewModel
 ) {
+
+    var culinaries by remember {
+        mutableStateOf(mutableListOf<Culinary>())
+    }
+
     val state by vm.state.observeAsState()
     FoodwayTheme {
         ScreenBorder {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    .fillMaxHeight(.8f)
                     .padding(20.dp, 21.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -70,23 +78,29 @@ fun StepTwoCustomer(
                     }
 
                     is MainScreenState.Success<*> -> {
-                        val culinaries = (state as MainScreenState.Success<Culinary>).data as List<Culinary>
+                        val culinaries =
+                            (state as MainScreenState.Success<Culinary>).data as List<Culinary>
                         Log.d("Success", "Success state")
                         CardGrid(culinaries, buildItem = { culinary ->
-                            CategoryCard(culinary)
+                            CategoryCard(culinary) { clickedCulinary ->
+//                                culinaries.toMutableList().add(clickedCulinary)
+                            }
                         })
                     }
                 }
 
-                ButtonGeneric(
-                    text = stringResource(id = R.string.next),
-                    modifier = Modifier
-                        .width(250.dp)
-                        .height(45.dp),
-                    isPrimary = false,
-                    onClick = { onNavigate() }
-                )
             }
+            ButtonGeneric(
+                text = stringResource(id = R.string.next),
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(45.dp),
+                isPrimary = false,
+                onClick = {
+//                    vm.saveCulinaries(culinaries)
+                    onNavigate()
+                }
+            )
         }
     }
 }
