@@ -2,7 +2,9 @@ package com.example.foodway.view.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material.icons.rounded.Add
@@ -23,7 +25,8 @@ fun RatingBar(
     stars: Int = 5,
     onRatingChanged: (Double) -> Unit,
     starsColor: Color = Color.Yellow,
-    editable: Boolean = true
+    editable: Boolean = true,
+    viewValue: Boolean = true
 ) {
 
     var isHalfStar = (rating % 1) != 0.0
@@ -31,7 +34,9 @@ fun RatingBar(
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = rating.toString().replace(".",","))
+        if (viewValue) {
+            Text(text = rating.toString().replace(".",","))
+        }
         for (index in 1..stars) {
             Icon(
                 imageVector =
@@ -48,6 +53,7 @@ fun RatingBar(
                 contentDescription = null,
                 tint = starsColor,
                 modifier = Modifier
+                    .size(18.dp)
                     .then(if (editable) Modifier.clickable { onRatingChanged(index.toDouble()) } else Modifier)
             )
         }

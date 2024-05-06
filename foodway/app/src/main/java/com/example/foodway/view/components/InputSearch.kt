@@ -48,7 +48,7 @@ import com.example.foodway.R
 fun UserSearchComponent(onSearchClicked: (String) -> Unit) {
     Surface(
         modifier = Modifier
-            .height(100.dp),
+            .height(105.dp),
         color = MaterialTheme.colors.background
     ) {
         val context = LocalContext.current

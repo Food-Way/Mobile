@@ -31,7 +31,7 @@ class ProfileCustomerViewModel(
                     Log.d("response dentro do if", response.toString())
 
                     val response = response.body() ?: emptyList<ProfileCustomer>()
-                    state.value = MainScreenState.SuccessSingle(data = response)
+                    state.value = MainScreenState.Success(data = response)
 
                     Log.d("SignUpViewModel", "Loading success: $response")
                 } else {

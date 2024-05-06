@@ -25,17 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.view.searchUser.SearchClient
 import com.example.foodway.view.searchUser.SearchEstablishment
+import com.example.foodway.view.searchUser.SearchFavorites
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
-
-private enum class BoxState {
-    Small,
-    Large
-}
 
 @ExperimentalPagerApi
 @Composable
@@ -107,7 +104,7 @@ fun TabScreen() {
     Column(
         modifier = Modifier
             .width(300.dp)
-            .fillMaxHeight()
+            .height(650.dp)
     ) {
         TabRow(
             contentColor = colorResource(id = R.color.light_gray),
@@ -163,8 +160,8 @@ fun TabScreen() {
         ) { index ->
             when (index) {
                 0 -> SearchEstablishment()
-                1 -> Text("Conteúdo da aba de Clientes")
-                else -> Text("Conteúdo extra")
+                1 -> SearchClient()
+                else -> SearchFavorites()
             }
         }
     }

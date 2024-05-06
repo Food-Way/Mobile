@@ -14,7 +14,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 
 @Composable
@@ -22,24 +24,29 @@ fun Indicator(
     quantity: Int,
     hasQuantity: Boolean,
     icon: Int,
-    description: Int
+    description: Int,
+    size: Dp,
+    fontSize: Int,
+    widthIndicator: Dp
 ) {
     Row(
-        modifier = Modifier.width(if (hasQuantity) 60.dp else 25.dp),
+        modifier = Modifier.width(widthIndicator),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         if (hasQuantity) {
-            Text(text = quantity.toString())
+            Text(
+                text = quantity.toString(),
+                fontSize = fontSize.sp
+            )
         }
 
         Image(
             painter = painterResource(icon),
             contentDescription = stringResource(description),
             modifier = Modifier
-                .size(25.dp)
-                .padding(0.dp),
+                .size(size),
             contentScale = ContentScale.Fit
         )
     }
@@ -52,7 +59,10 @@ fun CommentIndicatorPreview() {
         quantity = 100,
         hasQuantity = true,
         icon = R.drawable.comment,
-        description = R.string.comments
+        description = R.string.comments,
+        size = 10.dp,
+        fontSize = 10,
+        widthIndicator = 30.dp
     )
 }
 
@@ -63,6 +73,9 @@ fun UpvotesIndicatorPreview() {
         quantity = 100,
         hasQuantity = true,
         icon = R.drawable.upvote,
-        description = R.string.upvotes
+        description = R.string.upvotes,
+        size = 10.dp,
+        fontSize = 10,
+        widthIndicator = 30.dp
     )
 }

@@ -40,7 +40,7 @@ import com.example.foodway.view.components.RatingBarNotEditablePreview
 
 
 @Composable
-fun SearchClient() {
+fun SearchFavorites() {
     var users = mutableListOf("", "", "", "")
 
     Column {
@@ -49,7 +49,7 @@ fun SearchClient() {
             Text(
                 modifier = Modifier
                     .padding(0.dp, 13.dp),
-                text = "Populares ⭐",
+                text = "Amo demais ❤️",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
@@ -72,7 +72,7 @@ fun SearchClient() {
             Text(
                 modifier = Modifier
                     .padding(0.dp, 13.dp),
-                text = "Você também vai gostar 😋",
+                text = "Outros favoritos ✨",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
@@ -91,6 +91,6 @@ fun SearchClient() {
 
 @Preview
 @Composable
-fun SearchClientPreview() {
-    SearchClient()
+fun SearchFavoritesPreview() {
+    SearchFavorites()
 }

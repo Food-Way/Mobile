@@ -77,13 +77,19 @@ fun CommentItem(
                         quantity = qtdUpvotes,
                         hasQuantity = false,
                         icon = R.drawable.upvote,
-                        description = R.string.upvotes
+                        description = R.string.upvotes,
+                        size = 20.dp,
+                        fontSize = 10,
+                        widthIndicator = 30.dp
                     )
                     Indicator(
                         quantity = 0,
                         hasQuantity = false,
                         icon = R.drawable.comment,
-                        description = R.string.comments
+                        description = R.string.comments,
+                        size = 20.dp,
+                        fontSize = 10,
+                        widthIndicator = 30.dp
                     )
                 }
             }
