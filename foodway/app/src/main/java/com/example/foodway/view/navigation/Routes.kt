@@ -14,4 +14,5 @@ sealed class AppDestination(val route: String) {
     object Welcome: AppDestination("welcomeActivity")
     object MenuEstablishment: AppDestination("menuEstablishmentActivity")
     object SignIn: AppDestination("signIn")
+    object SignUpCustomer: AppDestination("signUpCustomer")
 }

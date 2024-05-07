@@ -27,7 +27,7 @@ class SignInViewModel(
     fun login(
         email: String,
         password: String,
-        onNavigateSuccessLogin: (String) -> Unit = {},
+        onNavigateSuccessSignIn: (String) -> Unit = {},
     ) {
         viewModelScope.launch {
             try {
@@ -46,7 +46,7 @@ class SignInViewModel(
                         saveAuthenticatedData(customer.idUser)
                         state.value = MainScreenState.Success(data = customer)
                         Log.d("SignInViewModel", "Loading success: $customer")
-                        onNavigateSuccessLogin(response.body()!!.idUser.toString())
+                        onNavigateSuccessSignIn(response.body()!!.idUser.toString())
                     } else {
                         Log.e("SignInViewModel", "Erro: Corpo da resposta é nulo")
                         state.value = MainScreenState.Error("Erro: Corpo da resposta é nulo")

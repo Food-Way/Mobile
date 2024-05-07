@@ -15,6 +15,7 @@ import com.example.foodway.view.navigation.AppDestination
 import com.example.foodway.view.profileCustomer.ProfileCustomer
 import com.example.foodway.view.profileEstablishment.ProfileEstablishment
 import com.example.foodway.view.signIn.SignIn
+import com.example.foodway.view.signUp.customer.SignUpCustomer
 import com.example.foodway.view.signUp.customer.StepOneCustomer
 import com.example.foodway.view.signUp.customer.StepThreeCustomer
 import com.example.foodway.view.signUp.customer.StepTwoCustomer
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 MainApp {
                     NavHost(
                         navController = navController,
-                        startDestination = AppDestination.SignIn.route
+                        startDestination = AppDestination.SignUpCustomer.route
                     ) {
                         composable(AppDestination.Welcome.route) {
                             Welcome()
@@ -60,6 +61,15 @@ class MainActivity : ComponentActivity() {
                             val vm by inject<ProfileEstablishmentViewModel>()
                             ProfileEstablishment(
                                 vm = vm
+                            )
+                        }
+                        composable(AppDestination.SignUpCustomer.route) {
+                            val vm by inject<SignUpViewModel>()
+                            SignUpCustomer(
+                                vm = vm,
+                                onNavigateSuccessSignIn = {
+                                    navController.navigate(AppDestination.SignIn.route)
+                                }
                             )
                         }
                         composable(AppDestination.StepOneSignUpCustomer.route) {
@@ -129,7 +139,7 @@ class MainActivity : ComponentActivity() {
                                 onNavigate = {
                                     navController.navigate(AppDestination.StepOneSignUpCustomer.route)
                                 },
-                                onNavigateSuccessLogin = { idCustomer ->
+                                onNavigateSuccessSignIn = { idCustomer ->
                                     navController.navigate("${AppDestination.ProfileCustomer.route}/$idCustomer")
                                 }
                             )

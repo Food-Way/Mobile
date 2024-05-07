@@ -16,8 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,12 +37,11 @@ import com.example.foodway.viewModel.SignInViewModel
 @Composable
 fun SignIn(
     onNavigate: () -> Unit = {},
-    onNavigateSuccessLogin: (String) -> Unit,
+    onNavigateSuccessSignIn: (String) -> Unit,
     vm: SignInViewModel
 ) {
     var email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val state by vm.state.observeAsState()
 
     Box(
         modifier = Modifier
@@ -118,8 +115,7 @@ fun SignIn(
                         vm.login(
                             email = email.value,
                             password = password.value,
-                            onNavigateSuccessLogin = onNavigateSuccessLogin
-
+                            onNavigateSuccessSignIn = onNavigateSuccessSignIn
                         )
                     }
                 )
