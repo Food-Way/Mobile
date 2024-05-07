@@ -1,6 +1,9 @@
- package com.example.foodway.view.components
+package com.example.foodway.view.components
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,24 +27,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
-
- class NavBar : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            NavBarComponent()
-        }
-    }
-}
+import com.example.foodway.view.navigation.AppDestination
+import java.util.UUID
 
 @Composable
-fun NavBarComponent() {
-    val items = listOf(R.drawable.profile_icon_gray, R.drawable.search_icon_black , R.drawable.config_icon_gray)
+fun NavBarComponent(
+    items: List<Int>,
+    onItemSelected: (String) -> Unit
+) {
     var selectedIndex by remember { mutableStateOf(0) }
     val backgroundColor = Color.White
     val selectedItemTextColor = Color.Black
@@ -61,11 +60,26 @@ fun NavBarComponent() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+            val context = LocalContext.current
+            val sharedPreferences = remember(context) {
+                context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            }
+            val customerIdString = sharedPreferences.getString("customerId", "")
             items.forEachIndexed { index, value ->
+                val route = when (index) {
+                    0 -> "${AppDestination.ProfileCustomer.route}/$customerIdString"
+                    1 -> AppDestination.SearchUser.route
+                    2 -> AppDestination.EditProfileCustomer.route
+                    else -> ""
+                }
+
                 NavBarItem(
                     icon = value,
                     isSelected = index == selectedIndex,
-                    onSelected = { selectedIndex = index },
+                    onSelected = {
+                        selectedIndex = index
+                        onItemSelected.invoke(route)
+                    },
                     selectedIconColor = selectedItemTextColor,
                     unselectedIconColor = unselectedItemTextColor,
                     indicatorColor = indicatorColor
@@ -102,5 +116,5 @@ fun NavBarItem(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    NavBarComponent()
+//    NavBarComponent()
 }

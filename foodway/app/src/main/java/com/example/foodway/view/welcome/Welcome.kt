@@ -34,7 +34,9 @@ import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.ui.theme.PrimaryButton
 
 @Composable
-fun Welcome() {
+fun Welcome(
+    onNavigate: () -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -124,7 +126,9 @@ fun Welcome() {
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                onNavigate()
+            },
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
                 .width(170.dp)
@@ -149,7 +153,7 @@ fun Welcome() {
 fun AppPreview() {
     FoodwayTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            Welcome()
+//            Welcome()
         }
     }
 }

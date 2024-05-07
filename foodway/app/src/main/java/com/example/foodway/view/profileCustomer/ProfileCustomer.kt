@@ -24,8 +24,8 @@ import java.util.UUID
 @Composable
 fun ProfileCustomer(
     vm: ProfileCustomerViewModel,
-    idCustomer: UUID
-
+    idCustomer: UUID,
+    onNavigate: () -> Unit,
 ) {
     val state by vm.state.observeAsState()
     FoodwayTheme {
@@ -80,7 +80,7 @@ fun ProfileCustomer(
 //                                favorites = profile.favoriteEstablishment
                             )
                         }
-                        NavBarComponent()
+//                        NavBarComponent()
                     }
                 }
             }

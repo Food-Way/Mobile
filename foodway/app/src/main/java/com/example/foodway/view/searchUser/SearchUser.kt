@@ -34,7 +34,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun SearchUser() {
+fun SearchUser(
+    onNavigate: () -> Unit = {},
+) {
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -76,7 +78,7 @@ fun SearchUser() {
                     )
                 }
                 TabScreen()
-                NavBarComponent()
+//                NavBarComponent()
             }
         }
     }
