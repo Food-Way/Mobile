@@ -79,9 +79,9 @@ fun MenuEstablishment(
                 is MainScreenState.Success<*> -> {
                     val products = (state as MainScreenState.Success<Product>).data as List<Product>
                     Log.d("Success", "Success state")
-                    CardGrid(products, buildItem = { product ->
-                        ProductCard(product)
-                    })
+//                    CardGrid(products, buildItem = { product ->
+//                        ProductCard(product)
+//                    })
                 }
             }
 

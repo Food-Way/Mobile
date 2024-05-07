@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
+import com.example.foodway.view.components.NavBarComponent
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalPagerApi::class)
@@ -56,7 +57,7 @@ fun SearchUser() {
                             fontSize = 18.sp
                         )
                         Text(
-                            text = "Explore novos lugares",
+                            text = "Explore, conheça e favorite",
                             fontSize = 14.sp
                         )
                     }
@@ -66,11 +67,16 @@ fun SearchUser() {
                         modifier = Modifier
                             .size(75.dp)
                             .clip(CircleShape)
-                            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(50.dp)),
+                            .border(
+                                2.dp,
+                                colorResource(id = R.color.light_gray),
+                                RoundedCornerShape(50.dp)
+                            ),
                         contentScale = ContentScale.Fit
                     )
                 }
                 TabScreen()
+                NavBarComponent()
             }
         }
     }

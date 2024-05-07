@@ -3,12 +3,17 @@
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -19,10 +24,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.foodway.R
 
-class NavBar : ComponentActivity() {
+ class NavBar : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,31 +41,33 @@ class NavBar : ComponentActivity() {
 
 @Composable
 fun NavBarComponent() {
-    val items = listOf("Home", "Perfil", "Configurações")
+    val items = listOf(R.drawable.profile_icon_gray, R.drawable.search_icon_black , R.drawable.config_icon_gray)
     var selectedIndex by remember { mutableStateOf(0) }
     val backgroundColor = Color.White
     val selectedItemTextColor = Color.Black
     val unselectedItemTextColor = Color.Gray
     val indicatorColor = Color.Blue
-    val navBarHeight = 56.dp
+    val navBarHeight = 50.dp
 
     Surface(
         modifier = Modifier
-            .padding(bottom = 8.dp)
-            .height(navBarHeight),
+            .width(300.dp)
+            .padding(top = 8.dp)
+            .height(navBarHeight)
+            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp)),
         color = backgroundColor
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            items.forEachIndexed { index, text ->
+            items.forEachIndexed { index, value ->
                 NavBarItem(
-                    text = text,
+                    icon = value,
                     isSelected = index == selectedIndex,
                     onSelected = { selectedIndex = index },
-                    selectedTextColor = selectedItemTextColor,
-                    unselectedTextColor = unselectedItemTextColor,
+                    selectedIconColor = selectedItemTextColor,
+                    unselectedIconColor = unselectedItemTextColor,
                     indicatorColor = indicatorColor
                 )
             }
@@ -67,14 +77,14 @@ fun NavBarComponent() {
 
 @Composable
 fun NavBarItem(
-    text: String,
+    icon: Int,
     isSelected: Boolean,
     onSelected: () -> Unit,
-    selectedTextColor: Color,
-    unselectedTextColor: Color,
+    selectedIconColor: Color,
+    unselectedIconColor: Color,
     indicatorColor: Color
 ) {
-    val textColor = if (isSelected) selectedTextColor else unselectedTextColor
+    val textColor = if (isSelected) selectedIconColor else unselectedIconColor
 
     TextButton(
         onClick = onSelected,
@@ -82,7 +92,10 @@ fun NavBarItem(
             contentColor = textColor
         )
     ) {
-        Text(text = text, color = textColor)
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = "nav"
+        )
     }
 }
 

@@ -44,7 +44,10 @@ fun CardInfoUser(
                 quantity = qtdComments,
                 hasQuantity = true,
                 icon = R.drawable.comment,
-                description = R.string.comments
+                description = R.string.comments,
+                size = 20.dp,
+                fontSize = 10,
+                widthIndicator = 30.dp
             )
         }
         Column(
@@ -64,7 +67,10 @@ fun CardInfoUser(
                 quantity = qtdUpvotes,
                 hasQuantity = true,
                 icon = R.drawable.upvote,
-                description = R.string.upvotes
+                description = R.string.upvotes,
+                size = 20.dp,
+                fontSize = 10,
+                widthIndicator = 30.dp
             )
         }
     }
