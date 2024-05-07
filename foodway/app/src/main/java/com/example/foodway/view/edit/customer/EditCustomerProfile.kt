@@ -31,7 +31,6 @@ fun EditCustomerProfile() {
             .padding(16.dp)
             .fillMaxWidth()
             .fillMaxSize()
-
     ) {
         Column {
             Text(
@@ -65,11 +64,11 @@ fun EditCustomerProfile() {
             Spacer(modifier = Modifier.height(10.dp))
 
             ButtonGeneric(
-                text = stringResource(id = R.string.save),
+                text = stringResource(id = R.string.change_profile),
                 modifier = Modifier
-                    .width(270.dp)
+                    .width(320.dp)
                     .height(43.dp),
-                isPrimary = true
+                isPrimary = false
             ) {}
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -91,7 +90,7 @@ fun EditCustomerProfile() {
             ButtonGeneric(
                 text = stringResource(id = R.string.save),
                 modifier = Modifier
-                    .width(270.dp)
+                    .width(320.dp)
                     .height(43.dp),
                 isPrimary = true
             ) {}
@@ -99,11 +98,11 @@ fun EditCustomerProfile() {
             Spacer(modifier = Modifier.height(20.dp))
 
             ButtonGeneric(
-                text = stringResource(id = R.string.save),
+                text = stringResource(id = R.string.edit_account),
                 modifier = Modifier
-                    .width(270.dp)
+                    .width(320.dp)
                     .height(43.dp),
-                isPrimary = true
+                isPrimary = false
             ) {}
         }
     }
