@@ -8,15 +8,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.foodway.model.ProfileCustomer
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.NavBarComponent
+import com.example.foodway.view.components.RatingBar
 import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import java.util.UUID
@@ -65,14 +71,31 @@ fun ProfileCustomer(
                             xp = profile.xp,
                             photo = profile.profilePhoto
                         )
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
                         ) {
-                            CardInfoUser(
-                                qtdComments = profile.qtdComments,
-                                qtdUpvotes = profile.qtdUpvotes
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(start = 37.dp)
+                            ) {
+                                RatingBar(
+                                    rating = 5.0,
+                                    onRatingChanged = {},
+                                    starsColor = Color.Yellow,
+                                    editable = false,
+                                    viewValue = true
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                CardInfoUser(
+                                    qtdComments = profile.qtdComments,
+                                    qtdUpvotes = profile.qtdUpvotes
+                                )
+                            }
                         }
                         Column {
                             RecentCard()

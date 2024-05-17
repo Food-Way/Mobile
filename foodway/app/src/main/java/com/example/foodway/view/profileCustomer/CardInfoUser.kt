@@ -46,8 +46,8 @@ fun CardInfoUser(
                 icon = R.drawable.comment,
                 description = R.string.comments,
                 size = 20.dp,
-                fontSize = 10,
-                widthIndicator = 30.dp
+                fontSize = 14,
+                widthIndicator = 40.dp
             )
         }
         Column(
@@ -69,8 +69,8 @@ fun CardInfoUser(
                 icon = R.drawable.upvote,
                 description = R.string.upvotes,
                 size = 20.dp,
-                fontSize = 10,
-                widthIndicator = 30.dp
+                fontSize = 14,
+                widthIndicator = 35.dp
             )
         }
     }

@@ -9,12 +9,15 @@ import com.example.foodway.repository.ICulinaryRepository
 import com.example.foodway.repository.ICustomerRepository
 import com.example.foodway.repository.IEstablishmentRepository
 import com.example.foodway.repository.IProductRepository
+import com.example.foodway.repository.ISearchUserRepository
 import com.example.foodway.repository.ISignInRepository
 import com.example.foodway.repository.ProductRepositoryImpl
+import com.example.foodway.repository.SearchUserRepositoryImpl
 import com.example.foodway.repository.SignInRepositoryImpl
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import com.example.foodway.viewModel.ProfileEstablishmentViewModel
+import com.example.foodway.viewModel.SearchUserViewModel
 import com.example.foodway.viewModel.SignInViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -42,6 +45,10 @@ val appModule = module {
         EstablishmentRepositoryImpl()
     }
 
+    single<ISearchUserRepository> {
+        SearchUserRepositoryImpl()
+    }
+
     single<ISignInRepository> {
         SignInRepositoryImpl()
     }
@@ -64,6 +71,10 @@ val appModule = module {
 
     viewModel {
         ProfileEstablishmentViewModel(get())
+    }
+
+    viewModel {
+        SearchUserViewModel(get())
     }
 
     viewModel {

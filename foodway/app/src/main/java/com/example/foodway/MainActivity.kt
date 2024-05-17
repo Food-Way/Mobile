@@ -42,6 +42,7 @@ import com.example.foodway.view.welcome.Welcome
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import com.example.foodway.viewModel.ProfileEstablishmentViewModel
+import com.example.foodway.viewModel.SearchUserViewModel
 import com.example.foodway.viewModel.SignInViewModel
 import com.example.foodway.viewModel.SignUpViewModel
 import org.koin.android.ext.android.inject
@@ -182,7 +183,9 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(AppDestination.SearchUser.route) {
+                                val vm by inject<SearchUserViewModel>()
                                 SearchUser(
+                                    vm = vm,
                                     onNavigate = {
                                         navController.navigate(AppDestination.SearchUser.route)
                                     }

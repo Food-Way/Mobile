@@ -28,6 +28,7 @@ import com.example.foodway.R
 import com.example.foodway.view.searchUser.SearchClient
 import com.example.foodway.view.searchUser.SearchEstablishment
 import com.example.foodway.view.searchUser.SearchFavorites
+import com.example.foodway.viewModel.SearchUserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -36,7 +37,10 @@ import kotlinx.coroutines.launch
 
 @ExperimentalPagerApi
 @Composable
-fun TabScreen() {
+fun TabScreen(
+    vm: SearchUserViewModel
+) {
+
     val tabs = listOf("", "", "")
     val tabsIconsSelected = listOf(
         painterResource(id = R.drawable.location_white_icon),
@@ -159,7 +163,9 @@ fun TabScreen() {
                 .fillMaxWidth()
         ) { index ->
             when (index) {
-                0 -> SearchEstablishment()
+                0 -> SearchEstablishment(
+                    vm = vm
+                )
                 1 -> SearchClient()
                 else -> SearchFavorites()
             }
@@ -167,9 +173,9 @@ fun TabScreen() {
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
-@Preview
-@Composable
-fun TabScreenPreview() {
-    TabScreen()
-}
+//@OptIn(ExperimentalPagerApi::class)
+//@Preview
+//@Composable
+//fun TabScreenPreview() {
+//    TabScreen()
+//}

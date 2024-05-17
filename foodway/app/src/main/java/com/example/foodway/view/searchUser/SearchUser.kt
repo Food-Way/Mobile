@@ -16,6 +16,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,13 +32,17 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.NavBarComponent
+import com.example.foodway.viewModel.ProfileCustomerViewModel
+import com.example.foodway.viewModel.SearchUserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SearchUser(
+    vm: SearchUserViewModel,
     onNavigate: () -> Unit = {},
 ) {
+//    val state by vm.state.observeAsState()
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -77,7 +83,9 @@ fun SearchUser(
                         contentScale = ContentScale.Fit
                     )
                 }
-                TabScreen()
+                TabScreen(
+                    vm = vm
+                )
 //                NavBarComponent()
             }
         }
@@ -87,5 +95,5 @@ fun SearchUser(
 @Preview
 @Composable
 fun DefaultPreview() {
-    SearchUser()
+//    SearchUser()
 }
