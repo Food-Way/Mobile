@@ -1,4 +1,4 @@
-package com.example.foodway.view.signUp.customer
+package com.example.foodway.view.signUp.establishment
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -10,8 +10,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.foodway.viewModel.SignUpViewModel
 
+
 @Composable
-fun SignUpCustomer(
+fun SignUpEstablishment(
     vm: SignUpViewModel,
     onNavigateSuccessSignIn: () -> Unit,
 ) {
@@ -34,17 +35,19 @@ fun SignUpCustomer(
 
             3 -> StepThree(
                 modifier = Modifier.padding(innerPadding),
-                onSignUpComplete = {
-                    vm.signUpCustomer(
-                        name = vm.name.value,
-                        lastName = vm.lastName.value,
-                        cpf = vm.cpf.value,
-                        email = vm.email.value,
-                        password = vm.password.value,
-                        onNavigateSuccessSignUp = { onNavigateSuccessSignIn() }
-                    )
-                },
                 onGoBack = { step = 2 },
+                onStepComplete = { step = 4 },
+                vm = vm
+            )
+
+            4 -> StepFour(
+                modifier = Modifier.padding(innerPadding),
+                onGoBack = { step = 3 },
+                onSignUpComplete = {
+//                    vm.signUpCustomer(
+//                        onNavigateSuccessSignUp = { onNavigateSuccessSignIn() }
+//                    )
+                },
                 vm = vm
             )
         }

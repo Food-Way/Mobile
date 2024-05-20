@@ -16,7 +16,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import com.example.foodway.model.ProfileCustomer
 import com.example.foodway.ui.theme.FoodwayTheme
-import com.example.foodway.view.components.NavBarComponent
 import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import java.util.UUID
@@ -36,7 +35,6 @@ fun ProfileCustomer(
             Column(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-
 
                 when (state) {
                     is MainScreenState.Loading -> {

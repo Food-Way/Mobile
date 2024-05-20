@@ -49,12 +49,52 @@ class SignUpViewModel(
 //        sharedPreferences.edit().clear().apply()
 //    }
 
-    val name = mutableStateOf("")
-    val lastName = mutableStateOf("")
-    val cpf = mutableStateOf("")
-    val email = mutableStateOf("")
-    val password = mutableStateOf("")
-    val culinaries = mutableStateListOf<Culinary>()
+    var name = mutableStateOf("")
+        private set
+    var lastName = mutableStateOf("")
+        private set
+    var cpf = mutableStateOf("")
+        private set
+    var email = mutableStateOf("")
+        private set
+    var password = mutableStateOf("")
+        private set
+    var fantasyName = mutableStateOf("")
+        private set
+    var responsible = mutableStateOf("")
+        private set
+    var culinaries = mutableStateListOf<Culinary>()
+        private set
+    var cnpj = mutableStateOf("")
+        private set
+    var cep = mutableStateOf("")
+        private set
+    var address = mutableStateOf("")
+        private set
+    var states = mutableStateOf("")
+        private set
+    var number = mutableStateOf("")
+        private set
+
+    fun updateCNPJ(newValue: String) {
+        cnpj.value = newValue
+    }
+
+    fun updateCEP(newValue: String) {
+        cep.value = newValue
+    }
+
+    fun updateAddress(newValue: String) {
+        address.value = newValue
+    }
+
+    fun updateState(newValue: String) {
+        states.value = newValue
+    }
+
+    fun updateNumber(newValue: String) {
+        number.value = newValue
+    }
 
 
     fun updateName(newValue: String) {
@@ -76,6 +116,15 @@ class SignUpViewModel(
     fun updatePassword(newValue: String) {
         password.value = newValue
     }
+
+    fun updateFantasyName(newValue: String) {
+        fantasyName.value = newValue
+    }
+
+    fun updateResponsible(newValue: String) {
+        responsible.value = newValue
+    }
+
 
     fun toggleCulinary(culinary: Culinary) {
         if (culinaries.contains(culinary)) {

@@ -1,5 +1,6 @@
 package com.example.foodway.view.signUp.establishment
 
+import CategoryCard
 import ErrorView
 import LoadingBar
 import android.util.Log
@@ -29,8 +30,10 @@ import com.example.foodway.viewModel.MainScreenState
 import com.example.foodway.viewModel.SignUpViewModel
 
 @Composable
-fun StepThreeEstablishment(
-    onNavigate: () -> Unit = {},
+fun StepThree(
+    modifier: Modifier,
+    onGoBack: () -> Unit = {},
+    onStepComplete: () -> Unit = {},
     vm: SignUpViewModel
 ) {
     val state by vm.state.observeAsState()
@@ -70,7 +73,9 @@ fun StepThreeEstablishment(
                     val culinaries = (state as MainScreenState.Success<Culinary>).data as List<Culinary>
                     Log.d("Success", "Success state")
                     CardGrid(culinaries, buildItem = { culinary ->
-//                        CategoryCard(culinary)
+                        CategoryCard(culinary) { clickedCulinary ->
+                            vm.toggleCulinary(clickedCulinary)
+                        }
                     })
                 }
             }
@@ -82,7 +87,7 @@ fun StepThreeEstablishment(
                     .height(45.dp),
                 isPrimary = false
             ) {
-                onNavigate()
+                onStepComplete()
             }
         }
     }

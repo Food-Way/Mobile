@@ -1,8 +1,5 @@
 package com.example.foodway.view.signUp.establishment
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,10 +22,14 @@ import com.example.foodway.R
 import com.example.foodway.ui.theme.FoodwayTheme
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.ScreenBorder
+import com.example.foodway.viewModel.SignUpViewModel
 
 @Composable
-fun StepFourEstablishment(
-    onNavigate: () -> Unit = {}
+fun StepFour(
+    modifier: Modifier,
+    onGoBack: () -> Unit = {},
+    onSignUpComplete: () -> Unit = {},
+    vm: SignUpViewModel
 ) {
     FoodwayTheme {
         ScreenBorder {
@@ -71,7 +72,7 @@ fun StepFourEstablishment(
                         .width(250.dp)
                         .height(45.dp),
                     isPrimary = true,
-                    onClick = { onNavigate() }
+                    onClick = { onSignUpComplete() }
                 )
             }
         }
