@@ -6,10 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodway.model.Login
+import com.example.foodway.model.UserType
 import com.example.foodway.repository.ISignInRepository
+import com.example.foodway.view.navigation.AppDestination
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
+
+typealias ProfileId = String
+typealias Destination = String
 
 class SignInViewModel(
     private val repository: ISignInRepository,
@@ -17,17 +22,19 @@ class SignInViewModel(
 ) : ViewModel() {
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
-    fun saveAuthenticatedData(
+    private fun saveAuthenticatedData(
         id: UUID
     ) {
-        sharedPreferences.edit().putString("id", id.toString()).apply()
+        sharedPreferences
+            .edit()
+            .putString("id", id.toString())
+            .apply()
     }
-
 
     fun login(
         email: String,
         password: String,
-        onNavigateSuccessSignIn: (String) -> Unit = {},
+        onNavigateSuccessSignInTo: (Destination, ProfileId) -> Unit,
     ) {
         viewModelScope.launch {
             try {
@@ -39,20 +46,25 @@ class SignInViewModel(
                 Log.d("response antes do IF", response.toString())
 
                 if (response.isSuccessful) {
-                    val customer = response.body()
+                    val profile = response.body()
+                    profile?.let {
+                        saveAuthenticatedData(it.idUser)
+                        val route = when (it.typeUser) {
+                            UserType.CLIENT.name -> {
+                                AppDestination.ProfileCustomer.route
+                            }
 
-                    if (customer != null) {
-                        Log.d("response dentro do if", response.toString())
-                        saveAuthenticatedData(customer.idUser)
-                        state.value = MainScreenState.Success(data = customer)
-                        Log.d("SignInViewModel", "Loading success: $customer")
-                        onNavigateSuccessSignIn(response.body()!!.idUser.toString())
-                    } else {
-                        Log.e("SignInViewModel", "Erro: Corpo da resposta é nulo")
-                        state.value = MainScreenState.Error("Erro: Corpo da resposta é nulo")
+                            else -> {
+                                AppDestination.ProfileEstablishment.route
+                            }
+                        }
+                        with(it.idUser) {
+                            onNavigateSuccessSignInTo(route, this.toString())
+                        }
+                    } ?: run {
+                        Log.d("LOGIN", "Logou, mas trouxe perfil null")
                     }
                 }
-                Log.d("response depois do if / else", response.toString())
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {

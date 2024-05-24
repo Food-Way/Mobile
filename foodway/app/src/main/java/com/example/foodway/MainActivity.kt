@@ -84,21 +84,18 @@ class MainActivity : ComponentActivity() {
                             composable("${AppDestination.ProfileCustomer.route}/{idCustomer}") {
                                 val id = UUID.fromString(it.arguments?.getString("idCustomer"))
                                 val vm by inject<ProfileCustomerViewModel>()
-                                val sharedPreferences =
-                                    getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                                val editor = sharedPreferences.edit()
-                                editor.putString("customerId", id.toString())
-                                editor.apply()
                                 ProfileCustomer(
                                     vm = vm,
                                     idCustomer = id,
                                     onNavigate = { navController.navigate(AppDestination.ProfileCustomer.route) }
                                 )
                             }
-                            composable(AppDestination.ProfileEstablishment.route) {
+                            composable("${AppDestination.ProfileEstablishment.route}/{idEstablishment}") {
+                                val id = UUID.fromString(it.arguments?.getString("idEstablishment"))
                                 val vm by inject<ProfileEstablishmentViewModel>()
                                 ProfileEstablishment(
-                                    vm = vm
+                                    vm = vm,
+                                    idEstablishment = id
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {
@@ -177,9 +174,9 @@ class MainActivity : ComponentActivity() {
                                     onNavigate = {
                                         navController.navigate(AppDestination.StepOneSignUpCustomer.route)
                                     },
-                                    onNavigateSuccessSignIn = { idCustomer ->
-                                        navController.navigate("${AppDestination.ProfileCustomer.route}/$idCustomer")
-                                    }
+                                    onNavigateSuccessSignInTo = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable(AppDestination.SearchUser.route) {

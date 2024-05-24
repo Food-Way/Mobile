@@ -166,7 +166,9 @@ fun TabScreen(
                 0 -> SearchEstablishment(
                     vm = vm
                 )
-                1 -> SearchClient()
+                1 -> SearchClient(
+                    vm = vm
+                )
                 else -> SearchFavorites()
             }
         }

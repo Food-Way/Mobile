@@ -1,6 +1,7 @@
 package com.example.foodway.repository
 
 import com.example.foodway.api.ApiConfig
+import com.example.foodway.model.AuthResponse
 import com.example.foodway.model.Customer
 import com.example.foodway.model.Login
 import com.example.foodway.service.LoginService
@@ -13,7 +14,7 @@ class SignInRepositoryImpl : ISignInRepository {
             .create(LoginService::class.java)
     }
 
-    override suspend fun login(login: Login): Response<Customer>{
+    override suspend fun login(login: Login): Response<AuthResponse>{
         return api.login(login)
     }
 }

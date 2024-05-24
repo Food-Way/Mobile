@@ -10,14 +10,10 @@ data class Customer(
     val profilePhoto: String,
     val typeUser: String,
     val culinaries: List<Culinary>,
-    val bio: String,
     val rate: Double,
     val qtdUpvotes: Int,
     val qtdComments: Int,
     val level: Int,
-    val xp: Double
-) : TypeUser {
-    override fun getUserType(): String {
-        return "CLIENT"
-    }
-}
+    val xp: Double,
+    val bio: String,
+)

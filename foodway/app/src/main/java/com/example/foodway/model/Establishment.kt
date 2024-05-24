@@ -10,12 +10,8 @@ data class Establishment(
     val profilePhoto: String,
     val typeUser: String,
     val culinaries: List<Culinary>,
-    val description: String,
     val rate: Double,
     val qtdUpvotes: Int,
-    val qtdComments: Int
-) : TypeUser {
-    override fun getUserType(): String {
-        return "ESTABLISHMENT"
-    }
-}
+    val qtdComments: Int,
+    val description: String,
+)

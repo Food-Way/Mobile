@@ -59,7 +59,7 @@ class SearchUserViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
-                val response = repository.getUsersEstablishment()
+                val response = repository.getUsersCustomer()
 
                 Log.d("response antes do IF", response.toString())
 
@@ -77,7 +77,7 @@ class SearchUserViewModel(
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
-                    404 -> "Estabelecimentos não encontrados"
+                    404 -> "Clientes não encontrados"
                     400 -> "Requisição incorreta"
                     else -> "Erro desconhecido"
                 }

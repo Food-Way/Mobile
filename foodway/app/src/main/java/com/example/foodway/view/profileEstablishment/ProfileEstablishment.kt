@@ -23,7 +23,8 @@ import java.util.UUID
 
 @Composable
 fun ProfileEstablishment(
-    vm: ProfileEstablishmentViewModel
+    vm: ProfileEstablishmentViewModel,
+    idEstablishment: UUID,
 ) {
     val state by vm.state.observeAsState()
 
@@ -44,7 +45,7 @@ fun ProfileEstablishment(
             LoadingBar(
                 loadingText = "Carregando Perfil..."
             )
-            vm.getEstablishmentProfile(idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44"))
+            vm.getEstablishmentProfile(idEstablishment = idEstablishment)
         }
 
         is MainScreenState.Error, null -> {

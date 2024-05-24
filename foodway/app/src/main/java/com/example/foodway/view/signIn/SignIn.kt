@@ -32,12 +32,14 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.view.components.ButtonGeneric
 import com.example.foodway.view.components.InputGeneric
+import com.example.foodway.viewModel.Destination
+import com.example.foodway.viewModel.ProfileId
 import com.example.foodway.viewModel.SignInViewModel
 
 @Composable
 fun SignIn(
     onNavigate: () -> Unit = {},
-    onNavigateSuccessSignIn: (String) -> Unit,
+    onNavigateSuccessSignInTo: (Destination, ProfileId) -> Unit,
     vm: SignInViewModel
 ) {
     var email = remember { mutableStateOf("") }
@@ -115,7 +117,7 @@ fun SignIn(
                         vm.login(
                             email = email.value,
                             password = password.value,
-                            onNavigateSuccessSignIn = onNavigateSuccessSignIn
+                            onNavigateSuccessSignInTo = onNavigateSuccessSignInTo
                         )
                     }
                 )

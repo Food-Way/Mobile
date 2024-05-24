@@ -7,10 +7,10 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface SearchUserService {
-    @GET("customers")
+    @GET("customers/search")
     suspend fun searchAllCustomers(): Response<List<Customer>>
 
-    @GET("establishments")
+    @GET("establishments/search")
     suspend fun searchAllEstablishments(): Response<List<Establishment>>
 
     @GET("favorites/{idUser}")
