@@ -2,16 +2,16 @@ package com.example.foodway.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.foodway.repository.CulinaryRepositoryImpl
-import com.example.foodway.repository.CustomerRepositoryImpl
-import com.example.foodway.repository.EstablishmentRepositoryImpl
-import com.example.foodway.repository.ICulinaryRepository
-import com.example.foodway.repository.ICustomerRepository
-import com.example.foodway.repository.IEstablishmentRepository
-import com.example.foodway.repository.IProductRepository
-import com.example.foodway.repository.ISignInRepository
-import com.example.foodway.repository.ProductRepositoryImpl
-import com.example.foodway.repository.SignInRepositoryImpl
+import com.example.foodway.data.remote.CulinaryRepositoryImpl
+import com.example.foodway.data.remote.CustomerRepositoryImpl
+import com.example.foodway.data.remote.EstablishmentRepositoryImpl
+import com.example.foodway.domain.repository.ICulinaryRepository
+import com.example.foodway.domain.repository.ICustomerRepository
+import com.example.foodway.domain.repository.IEstablishmentRepository
+import com.example.foodway.domain.repository.IProductRepository
+import com.example.foodway.domain.signIn.repository.ISignInRepository
+import com.example.foodway.data.remote.ProductRepositoryImpl
+import com.example.foodway.data.signIn.remote.SignInRepositoryImpl
 import com.example.foodway.viewModel.MenuEstablishmentViewModel
 import com.example.foodway.viewModel.ProfileCustomerViewModel
 import com.example.foodway.viewModel.ProfileEstablishmentViewModel

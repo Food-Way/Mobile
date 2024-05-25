@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodway.model.Login
-import com.example.foodway.repository.ISignInRepository
+import com.example.foodway.domain.signIn.model.SignIn
+import com.example.foodway.domain.signIn.repository.ISignInRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
@@ -33,8 +33,8 @@ class SignInViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SignUpViewModel", "Loading started")
-                val loginData = Login(email, password)
-                val response = repository.login(loginData)
+                val signInData = SignIn(email, password)
+                val response = repository.login(signInData)
 
                 Log.d("response antes do IF", response.toString())
 

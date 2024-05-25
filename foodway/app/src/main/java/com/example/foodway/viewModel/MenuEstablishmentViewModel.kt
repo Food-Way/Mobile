@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodway.model.Product
-import com.example.foodway.repository.IProductRepository
+import com.example.foodway.domain.establishmentMenu.model.Product
+import com.example.foodway.domain.repository.IProductRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID

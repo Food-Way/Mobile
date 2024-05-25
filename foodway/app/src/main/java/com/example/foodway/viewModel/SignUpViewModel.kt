@@ -7,10 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodway.model.Culinary
-import com.example.foodway.model.SignUpCustomer
-import com.example.foodway.repository.ICulinaryRepository
-import com.example.foodway.repository.ICustomerRepository
-import com.example.foodway.repository.IEstablishmentRepository
+import com.example.foodway.domain.signUp.customer.model.SignUpCustomer
+import com.example.foodway.domain.repository.ICulinaryRepository
+import com.example.foodway.domain.repository.ICustomerRepository
+import com.example.foodway.domain.repository.IEstablishmentRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
