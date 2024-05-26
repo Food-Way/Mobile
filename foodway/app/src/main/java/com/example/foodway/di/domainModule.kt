@@ -6,6 +6,7 @@ import com.example.foodway.data.remote.EstablishmentRepositoryImpl
 import com.example.foodway.data.searchUser.remote.SearchUserRepositoryImpl
 import com.example.foodway.data.signIn.remote.SignInRepositoryImpl
 import com.example.foodway.data.signUp.remote.CulinaryRepositoryImpl
+import com.example.foodway.data.signUp.remote.SignUpRepositoryImpl
 import com.example.foodway.domain.establishmentMenu.usecase.GetEstablishmentMenuUseCase
 import com.example.foodway.domain.profile.customer.usecase.GetCustomerProfileUseCase
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
@@ -19,6 +20,9 @@ import com.example.foodway.domain.searchUser.usecase.GetEstablishmentUseCase
 import com.example.foodway.domain.searchUser.usecase.GetFavoriteUseCase
 import com.example.foodway.domain.signIn.repository.ISignInRepository
 import com.example.foodway.domain.signIn.usecase.GetUserUseCase
+import com.example.foodway.domain.signUp.repository.ISignUpRepository
+import com.example.foodway.domain.signUp.usecase.CreateUserUseCase
+import com.example.foodway.domain.signUp.usecase.GetAllCulinariesUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -78,5 +82,19 @@ val domainModule = module {
     single {
         GetUserUseCase(get())
     }
+
+    factory<ISignUpRepository> {
+        SignUpRepositoryImpl(get())
+    }
+
+    single {
+        CreateUserUseCase(get())
+    }
+
+    single {
+        GetAllCulinariesUseCase(get())
+    }
+
+
 }
 
