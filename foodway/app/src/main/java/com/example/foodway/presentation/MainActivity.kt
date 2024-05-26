@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestination.Welcome.route) {
                                 Welcome(
                                     onNavigate = {
-                                        navController.navigate(AppDestination.SignUpCustomer.route)
+                                        navController.navigate(AppDestination.SignIn.route)
                                     },
                                 )
                             }
