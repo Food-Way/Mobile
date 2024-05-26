@@ -22,10 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.establishmentMenu.model.Product
-import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.ScreenBorder
-import com.example.foodway.viewModel.MainScreenState
-import com.example.foodway.viewModel.MenuEstablishmentViewModel
+import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.ScreenBorder
 import java.util.UUID
 
 @Composable
@@ -60,7 +59,7 @@ fun MenuEstablishment(
                     LoadingBar(
                         loadingText = stringResource(id = R.string.loading_products)
                     )
-                    vm.getAllProducts(
+                    vm.getEstablishmentMenu(
                         idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
                     )
                 }
@@ -69,7 +68,7 @@ fun MenuEstablishment(
                     val errorMessage = (state as MainScreenState.Error).message
                     Log.d("Error", "Error state")
                     ErrorView(message = errorMessage) {
-                        vm.getAllProducts(
+                        vm.getEstablishmentMenu(
                             idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
                         )
                     }
@@ -96,9 +95,3 @@ fun MenuEstablishment(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MenuEstablishmentPreview() {
-//    MenuEstablishment()
-//}

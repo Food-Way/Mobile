@@ -15,8 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.view.components.CardUser
-import com.example.foodway.view.components.ListCardUser
+import com.example.foodway.presentation.components.CardUser
 
 
 @Composable
@@ -62,7 +61,7 @@ fun SearchFavorites() {
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 items(users.size) { index ->
-                    ListCardUser()
+//                    ListCardUser()
                 }
             }
         }

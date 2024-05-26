@@ -1,6 +1,6 @@
 package com.example.foodway.domain.profile.customer.model
 
-import com.example.foodway.model.EstablishmentCard
+import com.example.foodway.domain.model.EstablishmentCard
 import com.google.gson.annotations.SerializedName
 
 data class ProfileCustomer(

@@ -17,13 +17,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.ScreenBorder
+import com.example.foodway.presentation.signUp.SignUpViewModel
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
-import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.ScreenBorder
 
 @Composable
 fun StepTwoEstablishment(
-    onNavigate: () -> Unit = {}
+    modifier: Modifier,
+    vm: SignUpViewModel,
+    onStepComplete : () -> Unit = {},
+    onGoBack: () -> Unit = {}
 ) {
     FoodwayTheme {
         ScreenBorder {
@@ -60,7 +64,7 @@ fun StepTwoEstablishment(
                         .width(250.dp)
                         .height(45.dp),
                     isPrimary = false,
-                    onClick = { onNavigate() }
+                    onClick = { onStepComplete() }
                 )
             }
         }

@@ -21,16 +21,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.model.Culinary
-import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.CardGrid
-import com.example.foodway.view.components.ScreenBorder
-import com.example.foodway.viewModel.MainScreenState
-import com.example.foodway.viewModel.SignUpViewModel
+import com.example.foodway.domain.model.Culinary
+import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.CardGrid
+import com.example.foodway.presentation.components.ScreenBorder
+import com.example.foodway.presentation.signUp.SignUpViewModel
 
 @Composable
 fun StepThreeEstablishment(
-    onNavigate: () -> Unit = {},
+    modifier: Modifier,
+    onStepComplete: () -> Unit = {},
+    onGoBack: () -> Unit = {},
     vm: SignUpViewModel
 ) {
     val state by vm.state.observeAsState()
@@ -82,7 +84,7 @@ fun StepThreeEstablishment(
                     .height(45.dp),
                 isPrimary = false
             ) {
-                onNavigate()
+                onStepComplete()
             }
         }
     }

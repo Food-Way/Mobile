@@ -5,5 +5,5 @@ import retrofit2.Response
 import java.util.UUID
 
 interface IEstablishmentRepository {
-    suspend fun getEstablishmentProfile(idUser: UUID): Response<ProfileEstablishment>
+    suspend fun getEstablishmentProfile(idEstablishment: UUID): Response<ProfileEstablishment>
 }

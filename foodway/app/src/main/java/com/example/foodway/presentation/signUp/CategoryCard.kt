@@ -1,3 +1,4 @@
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
-import com.example.foodway.model.Culinary
-import com.example.foodway.view.components.CoilImage
+import com.example.foodway.domain.model.Culinary
+import com.example.foodway.presentation.components.CoilImage
 
 @Composable
 fun CategoryCard(

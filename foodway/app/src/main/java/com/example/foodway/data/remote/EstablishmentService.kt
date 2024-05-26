@@ -1,8 +1,8 @@
 package com.example.foodway.data.remote
 
-import com.example.foodway.model.Establishment
+import com.example.foodway.domain.model.Establishment
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
-import com.example.foodway.domain.signUp.establishment.model.SignUpEstablishment
+import com.example.foodway.domain.signUp.model.SignUpEstablishment
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

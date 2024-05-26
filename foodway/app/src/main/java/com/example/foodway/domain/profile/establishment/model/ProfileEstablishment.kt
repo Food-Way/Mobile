@@ -1,6 +1,6 @@
 package com.example.foodway.domain.profile.establishment.model
 
-import com.example.foodway.model.Comment
+import com.example.foodway.domain.model.Comment
 
 data class ProfileEstablishment(
     val establishmentName: String,

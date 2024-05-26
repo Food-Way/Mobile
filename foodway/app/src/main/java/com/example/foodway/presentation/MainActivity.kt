@@ -19,29 +19,30 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.foodway.R
 import com.example.foodway.di.appModule
+import com.example.foodway.presentation.components.NavBarComponent
+import com.example.foodway.presentation.edit.customer.EditCustomerProfile
+import com.example.foodway.presentation.establishmentMenu.MenuEstablishment
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.presentation.profile.customer.ProfileCustomer
+import com.example.foodway.presentation.profile.establishment.ProfileEstablishment
+import com.example.foodway.presentation.searchUser.SearchUser
+import com.example.foodway.presentation.signIn.SignIn
+import com.example.foodway.presentation.signIn.SignInViewModel
+import com.example.foodway.presentation.signUp.SignUpViewModel
+import com.example.foodway.presentation.signUp.customer.SignUpCustomer
+import com.example.foodway.presentation.signUp.customer.StepOneCustomer
+import com.example.foodway.presentation.signUp.customer.StepThreeCustomer
+import com.example.foodway.presentation.signUp.customer.StepTwoCustomer
+import com.example.foodway.presentation.signUp.establishment.StepFourEstablishment
+import com.example.foodway.presentation.signUp.establishment.StepOneEstablishment
+import com.example.foodway.presentation.signUp.establishment.StepThreeEstablishment
+import com.example.foodway.presentation.signUp.establishment.StepTwoEstablishment
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
-import com.example.foodway.view.components.NavBarComponent
-import com.example.foodway.view.edit.customer.EditCustomerProfile
-import com.example.foodway.view.establishmentMenu.MenuEstablishment
-import com.example.foodway.view.navigation.AppDestination
-import com.example.foodway.view.profileCustomer.ProfileCustomer
-import com.example.foodway.view.profileEstablishment.ProfileEstablishment
-import com.example.foodway.view.searchUser.SearchUser
-import com.example.foodway.view.signIn.SignIn
-import com.example.foodway.view.signUp.customer.SignUpCustomer
-import com.example.foodway.view.signUp.customer.StepOneCustomer
-import com.example.foodway.view.signUp.customer.StepThreeCustomer
-import com.example.foodway.view.signUp.customer.StepTwoCustomer
-import com.example.foodway.view.signUp.establishment.StepFourEstablishment
-import com.example.foodway.view.signUp.establishment.StepOneEstablishment
-import com.example.foodway.view.signUp.establishment.StepThreeEstablishment
-import com.example.foodway.view.signUp.establishment.StepTwoEstablishment
-import com.example.foodway.view.welcome.Welcome
-import com.example.foodway.viewModel.MenuEstablishmentViewModel
-import com.example.foodway.viewModel.ProfileCustomerViewModel
-import com.example.foodway.viewModel.ProfileEstablishmentViewModel
-import com.example.foodway.viewModel.SignInViewModel
-import com.example.foodway.viewModel.SignUpViewModel
+import com.example.foodway.presentation.welcome.Welcome
+import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
+import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
+import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
+import com.example.foodway.presentation.searchUser.SearchUserViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -81,28 +82,25 @@ class MainActivity : ComponentActivity() {
                             composable("${AppDestination.ProfileCustomer.route}/{idCustomer}") {
                                 val id = UUID.fromString(it.arguments?.getString("idCustomer"))
                                 val vm by inject<ProfileCustomerViewModel>()
-                                val sharedPreferences =
-                                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                                val editor = sharedPreferences.edit()
-                                editor.putString("customerId", id.toString())
-                                editor.apply()
                                 ProfileCustomer(
                                     vm = vm,
                                     idCustomer = id,
                                     onNavigate = { navController.navigate(AppDestination.ProfileCustomer.route) }
                                 )
                             }
-                            composable(AppDestination.ProfileEstablishment.route) {
+                            composable("${AppDestination.ProfileEstablishment.route}/{idEstablishment}") {
+                                val id = UUID.fromString(it.arguments?.getString("idEstablishment"))
                                 val vm by inject<ProfileEstablishmentViewModel>()
                                 ProfileEstablishment(
-                                    vm = vm
+                                    vm = vm,
+                                    idEstablishment = id
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {
                                 val vm by inject<SignUpViewModel>()
                                 SignUpCustomer(
                                     vm = vm,
-                                    onNavigateSuccessSignIn = {
+                                    onNavigateSuccessSignUp = {
                                         navController.navigate(AppDestination.SignIn.route)
                                     }
                                 )
@@ -110,55 +108,71 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestination.StepOneSignUpCustomer.route) {
                                 val vm by inject<SignUpViewModel>()
                                 StepOneCustomer(
-                                    onNavigate = {
+                                    onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpCustomer.route)
                                     },
-                                    vm = vm
+                                    vm = vm,
+                                    modifier = Modifier,
                                 )
                             }
                             composable(AppDestination.StepTwoSignUpCustomer.route) {
                                 val vm by inject<SignUpViewModel>()
                                 StepTwoCustomer(
-                                    onNavigate = {
+                                    onStepComplete = {
                                         navController.navigate(AppDestination.StepThreeSignUpCustomer.route)
                                     },
-                                    vm = vm
+                                    vm = vm,
+                                    modifier = Modifier,
+                                    onGoBack = {}
                                 )
                             }
                             composable(AppDestination.StepThreeSignUpCustomer.route) {
                                 val vm by inject<SignUpViewModel>()
                                 StepThreeCustomer(
-                                    vm = vm
+                                    vm = vm,
+                                    modifier = Modifier,
+                                    onSignUpComplete = {},
+                                    onGoBack = {}
                                 )
                             }
                             composable(AppDestination.StepOneSignUpEstablishment.route) {
+                                val vm by inject<SignUpViewModel>()
                                 StepOneEstablishment(
-                                    onNavigate = {
+                                    onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
-                                    }
+                                    },
+                                    vm = vm,
+                                    modifier = Modifier
                                 )
                             }
                             composable(AppDestination.StepTwoSignUpEstablishment.route) {
+                                val vm by inject<SignUpViewModel>()
                                 StepTwoEstablishment(
-                                    onNavigate = {
+                                    onStepComplete = {
                                         navController.navigate(AppDestination.StepThreeSignUpEstablishment.route)
-                                    }
+                                    },
+                                    vm = vm,
+                                    modifier = Modifier
                                 )
                             }
                             composable(AppDestination.StepThreeSignUpEstablishment.route) {
                                 val vm by inject<SignUpViewModel>()
                                 StepThreeEstablishment(
-                                    onNavigate = {
+                                    onStepComplete = {
                                         navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
                                     },
-                                    vm = vm
+                                    vm = vm,
+                                    modifier = Modifier
                                 )
                             }
                             composable(AppDestination.StepFourSignUpEstablishment.route) {
+                                val vm by inject<SignUpViewModel>()
                                 StepFourEstablishment(
-                                    onNavigate = {
+                                    onSignUpComplete = {
                                         navController.navigate(AppDestination.ProfileCustomer.route)
-                                    }
+                                    },
+                                    vm = vm,
+                                    modifier = Modifier
                                 )
                             }
                             composable(AppDestination.MenuEstablishment.route) {
@@ -174,13 +188,15 @@ class MainActivity : ComponentActivity() {
                                     onNavigate = {
                                         navController.navigate(AppDestination.StepOneSignUpCustomer.route)
                                     },
-                                    onNavigateSuccessSignIn = { idCustomer ->
-                                        navController.navigate("${AppDestination.ProfileCustomer.route}/$idCustomer")
-                                    }
+                                    onNavigateSuccessSignInTo = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable(AppDestination.SearchUser.route) {
+                                val vm by inject<SearchUserViewModel>()
                                 SearchUser(
+                                    vm = vm,
                                     onNavigate = {
                                         navController.navigate(AppDestination.SearchUser.route)
                                     }

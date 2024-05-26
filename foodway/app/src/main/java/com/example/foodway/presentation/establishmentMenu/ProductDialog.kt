@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.CoilImage
+import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.CoilImage
 
 @Composable
 fun ProductDialog(

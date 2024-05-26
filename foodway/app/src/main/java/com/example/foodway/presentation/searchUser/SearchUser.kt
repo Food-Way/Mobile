@@ -24,7 +24,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
@@ -34,8 +33,10 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SearchUser(
+    vm: SearchUserViewModel,
     onNavigate: () -> Unit = {},
 ) {
+//    val state by vm.state.observeAsState()
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -76,15 +77,11 @@ fun SearchUser(
                         contentScale = ContentScale.Fit
                     )
                 }
-                TabScreen()
+                TabScreen(
+                    vm = vm
+                )
 //                NavBarComponent()
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    SearchUser()
 }

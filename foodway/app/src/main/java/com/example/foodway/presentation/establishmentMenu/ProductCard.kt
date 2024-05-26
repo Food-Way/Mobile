@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.establishmentMenu.model.Product
-import com.example.foodway.view.components.CoilImage
-import com.example.foodway.view.components.Dialog
+import com.example.foodway.presentation.components.CoilImage
+import com.example.foodway.presentation.components.Dialog
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)

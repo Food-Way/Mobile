@@ -25,9 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.NoBorderScreen
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
-import com.example.foodway.view.components.ButtonGeneric
-import com.example.foodway.view.components.NoBorderScreen
 
 @Composable
 fun EditEstablishmentAccount() {

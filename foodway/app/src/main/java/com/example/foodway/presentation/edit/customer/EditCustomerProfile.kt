@@ -20,8 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.view.components.ButtonGeneric
-
+import com.example.foodway.presentation.components.ButtonGeneric
 
 @Composable
 fun EditCustomerProfile() {
