@@ -62,7 +62,6 @@ class SignUpViewModel(
     val cep = mutableIntStateOf(0)
     val number = mutableStateOf("")
 
-
     fun updateName(newValue: String) {
         name.value = newValue
     }
@@ -82,6 +81,27 @@ class SignUpViewModel(
     fun updatePassword(newValue: String) {
         password.value = newValue
     }
+
+    fun updateFantasyName(newValue: String) {
+        fantasyName.value = newValue
+    }
+
+    fun updateResponsible(newValue: String) {
+        responsible.value = newValue
+    }
+
+    fun updateCNPJ(newValue: String) {
+        cnpj.intValue = newValue.toInt()
+    }
+
+    fun updateCEP(newValue: String) {
+        cep.intValue = newValue.toInt()
+    }
+
+    fun updateNumber(newValue: String) {
+        number.value = newValue
+    }
+
 
     fun toggleCulinary(culinary: Culinary) {
         if (culinaries.contains(culinary)) {

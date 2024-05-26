@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestination.Welcome.route) {
                                 Welcome(
                                     onNavigate = {
-                                        navController.navigate(AppDestination.SignIn.route)
+                                        navController.navigate(AppDestination.SignUpCustomer.route)
                                     },
                                 )
                             }
@@ -186,7 +186,7 @@ class MainActivity : ComponentActivity() {
                                 SignIn(
                                     vm = vm,
                                     onNavigate = {
-                                        navController.navigate(AppDestination.StepOneSignUpCustomer.route)
+                                        navController.navigate(AppDestination.SignUpCustomer.route)
                                     },
                                     onNavigateSuccessSignInTo = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
