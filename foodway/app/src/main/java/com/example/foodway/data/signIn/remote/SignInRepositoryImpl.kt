@@ -7,7 +7,7 @@ import retrofit2.Response
 
 class SignInRepositoryImpl (
     private val api: SignInService
-) : ISignInRepository {
+) : ISignInRepository{
     override suspend fun create(signIn: SignIn): Response<AuthResponse>{
         return api.login(signIn)
     }
