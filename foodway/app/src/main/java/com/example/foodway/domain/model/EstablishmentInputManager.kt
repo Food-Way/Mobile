@@ -59,5 +59,18 @@ object EstablishmentInputManager {
             type = KeyboardType.Number
         )
     )
-
+    val profileEstablishmentInputInfos = listOf(
+        InputInfo(
+            inputLabel = R.string.name,
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Text
+        ),
+        InputInfo(
+            inputLabel = R.string.description,
+            icon = R.drawable.stars,
+            type = KeyboardType.Text
+        ),
+    )
 }
+
+
