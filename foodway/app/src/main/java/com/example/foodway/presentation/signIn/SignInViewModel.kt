@@ -1,6 +1,6 @@
 package com.example.foodway.presentation.signIn
 
-import android.content.SharedPreferences
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,25 +11,18 @@ import com.example.foodway.domain.signIn.usecase.GetUserUseCase
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.util.UUID
 
 class SignInViewModel(
     private val getUserUseCase: GetUserUseCase,
-    private val sharedPreferences: SharedPreferences
+    context: Context
 ) : ViewModel() {
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
-    private fun saveAuthenticatedData(
-        id: UUID
-    ) {
-        sharedPreferences
-            .edit()
-            .putString("id", id.toString())
-            .apply()
-    }
+    private val sharedPreferences = PreferencesManager(context)
 
     fun login(
         email: String,
@@ -45,7 +38,7 @@ class SignInViewModel(
                 val response = getUserUseCase(signIn = signInData)
 
                 response.let {
-                    saveAuthenticatedData(it.idUser)
+                    sharedPreferences.saveAuthenticatedData(it.idUser)
                     val route = when (it.typeUser) {
                         UserType.CLIENT.name -> {
                             AppDestination.ProfileCustomer.route

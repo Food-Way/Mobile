@@ -1,5 +1,6 @@
 package com.example.foodway.presentation.edit.customer
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,11 +30,17 @@ import com.example.foodway.domain.model.CustomerInputManager.profileCustomerInpu
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.edit.EditViewModel
+import com.example.foodway.utils.PreferencesManager
+import java.util.UUID
 
 @Composable
 fun EditCustomerProfile(
-    vm: EditViewModel
+    vm: EditViewModel,
+    context: Context
 ) {
+
+    val sharedPreferences = PreferencesManager(context)
+
     var name by remember { mutableStateOf("") }
     var bio by remember { mutableStateOf("") }
     Column(
@@ -116,7 +123,6 @@ fun EditCustomerProfile(
                     },
                 )
 
-
                 Spacer(modifier = Modifier.height(30.dp))
 
                 ButtonGeneric(
@@ -127,7 +133,7 @@ fun EditCustomerProfile(
                     isPrimary = true
                 ) {
                     vm.editProfile(
-
+                        UUID.fromString(sharedPreferences.getSavedData("id", "")),
                     )
                 }
 

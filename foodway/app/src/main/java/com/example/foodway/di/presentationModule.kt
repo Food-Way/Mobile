@@ -22,7 +22,7 @@ val presentationModule = module {
             getCustomerUseCase = get(),
             getFavoriteUseCase = get(),
             getEstablishmentUseCase = get(),
-            sharedPreferences = get()
+            context = get()
         )
     }
 

@@ -1,6 +1,6 @@
 package com.example.foodway.presentation.searchUser
 
-import android.content.SharedPreferences
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,7 @@ import com.example.foodway.domain.searchUser.usecase.GetCustomerUseCase
 import com.example.foodway.domain.searchUser.usecase.GetEstablishmentUseCase
 import com.example.foodway.domain.searchUser.usecase.GetFavoriteUseCase
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
@@ -17,14 +18,11 @@ class SearchUserViewModel(
     private val getCustomerUseCase: GetCustomerUseCase,
     private val getFavoriteUseCase: GetFavoriteUseCase,
     private val getEstablishmentUseCase: GetEstablishmentUseCase,
-    private val sharedPreferences: SharedPreferences
+    context: Context
 ) : ViewModel() {
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
-    fun getSavedAuthentication(): UUID {
-        val idString = sharedPreferences.getString("id", null)
-        return UUID.fromString(idString)
-    }
+    private val sharedPreferences = PreferencesManager(context)
 
     fun getAllEstablishments() {
         viewModelScope.launch {
@@ -32,7 +30,7 @@ class SearchUserViewModel(
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
 
-                val response = getEstablishmentUseCase(idSession = getSavedAuthentication())
+                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
                 state.value = MainScreenState.Success(data = response)
 
                 Log.d("response antes do IF", response.toString())
@@ -60,7 +58,7 @@ class SearchUserViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
-                val response = getCustomerUseCase(idSession = getSavedAuthentication())
+                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")
@@ -86,7 +84,7 @@ class SearchUserViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
-                val response = getFavoriteUseCase(idSession = getSavedAuthentication())
+                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")
