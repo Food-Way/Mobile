@@ -7,5 +7,7 @@ import retrofit2.http.PATCH
 
 interface UpvoteService {
     @PATCH("upvotes")
-    suspend fun updateUpvote(@Body upvotesBody: Upvote): Response<Unit>
+    suspend fun updateUpvote(
+        @Body upvotesBody: Upvote
+    ): Response<Unit>
 }

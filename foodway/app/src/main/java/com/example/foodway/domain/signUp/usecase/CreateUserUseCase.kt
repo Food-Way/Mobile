@@ -6,7 +6,7 @@ import com.example.foodway.domain.signUp.repository.ISignUpRepository
 import com.example.foodway.utils.validateField
 
 class CreateUserUseCase(
-    private val repository: ISignUpRepository
+    private val repository : ISignUpRepository
 ) {
     suspend operator fun invoke(signUpEstablishment: SignUpEstablishment) {
         try {

@@ -8,5 +8,7 @@ import java.util.UUID
 
 interface ProductService {
     @GET("products/establishmentsAll/{idEstablishment}")
-    suspend fun getAllProducts(@Path("idEstablishment") idEstablishment: UUID): Response<List<Product>>
+    suspend fun getAllProducts(
+        @Path("idEstablishment") idEstablishment: UUID
+    ): Response<List<Product>>
 }

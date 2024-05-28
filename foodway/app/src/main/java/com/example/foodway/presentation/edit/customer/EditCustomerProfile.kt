@@ -9,21 +9,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.model.CustomerInputManager.profileCustomerInputInfos
 import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.InputGeneric
+import com.example.foodway.presentation.edit.EditViewModel
 
 @Composable
-fun EditCustomerProfile() {
+fun EditCustomerProfile(
+    vm: EditViewModel
+) {
+    var name by remember { mutableStateOf("") }
+    var bio by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -72,43 +84,69 @@ fun EditCustomerProfile() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-//            LazyColumn{
-//                items(profileCustomerInputInfos.size) { item ->
-//                    InputGeneric(
-//                        inputLabel = profileCustomerInputInfos[item].inputLabel,
-//                        icon = profileCustomerInputInfos[item].icon,
-//                        keyboardOptions = KeyboardOptions(
-//                            keyboardType = profileCustomerInputInfos[item].type
-//                        )
-//                    )
-//                }
-//            }
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.save),
+            Column(
                 modifier = Modifier
-                    .width(320.dp)
-                    .height(43.dp),
-                isPrimary = true
-            ) {}
+                    .fillMaxSize()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                InputGeneric(
+                    inputLabel = profileCustomerInputInfos[0].inputLabel,
+                    icon = profileCustomerInputInfos[0].icon,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = profileCustomerInputInfos[0].type
+                    ),
+                    visualTransformation = VisualTransformation.None,
+                    labelState = name,
+                    onValueChange = {
+                        name = it
+                    },
+                )
+                InputGeneric(
+                    inputLabel = profileCustomerInputInfos[1].inputLabel,
+                    icon = profileCustomerInputInfos[1].icon,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = profileCustomerInputInfos[1].type
+                    ),
+                    visualTransformation = VisualTransformation.None,
+                    labelState = bio,
+                    onValueChange = {
+                        bio = it
+                    },
+                )
 
-            Spacer(modifier = Modifier.height(20.dp))
 
-            ButtonGeneric(
-                text = stringResource(id = R.string.edit_account),
-                modifier = Modifier
-                    .width(320.dp)
-                    .height(43.dp),
-                isPrimary = false
-            ) {}
+                Spacer(modifier = Modifier.height(30.dp))
+
+                ButtonGeneric(
+                    text = stringResource(id = R.string.save),
+                    modifier = Modifier
+                        .width(320.dp)
+                        .height(43.dp),
+                    isPrimary = true
+                ) {
+                    vm.editProfile(
+
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                ButtonGeneric(
+                    text = stringResource(id = R.string.edit_account),
+                    modifier = Modifier
+                        .width(320.dp)
+                        .height(43.dp),
+                    isPrimary = false
+                ) {}
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun EditProfilePreview() {
-    EditCustomerProfile()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun EditProfilePreview() {
+//    EditCustomerProfile()
+//}
