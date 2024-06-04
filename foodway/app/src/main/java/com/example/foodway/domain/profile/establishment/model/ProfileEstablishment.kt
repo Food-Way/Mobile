@@ -4,6 +4,9 @@ import com.example.foodway.domain.model.Comment
 
 data class ProfileEstablishment(
     val establishmentName: String,
+    val fantasyName: String,
+    val responsible: String,
+    val email: String,
     val description: String,
     val photo: String,
     val profileHeaderImg: String,

@@ -1,5 +1,6 @@
 package com.example.foodway.di
 
+import com.example.foodway.data.edit.remote.UploadFileService
 import com.example.foodway.data.establishmentMenu.remote.ProductService
 import com.example.foodway.data.network.ApiConfig
 import com.example.foodway.data.remote.CustomerService
@@ -51,5 +52,11 @@ val dataModule = module {
         ApiConfig
             .getInstance()
             .create(EstablishmentService::class.java)
+    }
+
+    single<UploadFileService> {
+        ApiConfig
+            .getInstance()
+            .create(UploadFileService::class.java)
     }
 }

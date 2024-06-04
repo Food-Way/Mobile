@@ -1,5 +1,6 @@
 package com.example.foodway.di
 
+import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
 import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
@@ -26,19 +27,38 @@ val presentationModule = module {
         )
     }
 
+    factory<EditViewModel> {
+        EditViewModel(
+            updateAccountUseCase = get(),
+            updateProfileUseCase = get(),
+            getEstablishmentProfileUseCase = get(),
+            getCustomerAccountUseCase = get(),
+            postImageUseCase = get()
+        )
+    }
+
     single<MenuEstablishmentViewModel> {
-        MenuEstablishmentViewModel(get())
+        MenuEstablishmentViewModel(
+            getEstablishmentMenuUseCase = get()
+        )
     }
 
     single<ProfileCustomerViewModel> {
-        ProfileCustomerViewModel(get())
+        ProfileCustomerViewModel(
+            getCustomerProfileUseCase = get()
+        )
     }
 
     single<ProfileEstablishmentViewModel> {
-        ProfileEstablishmentViewModel(get())
+        ProfileEstablishmentViewModel(
+            getEstablishmentProfileUseCase = get()
+        )
     }
 
     single<SignInViewModel> {
-        SignInViewModel(get(), get())
+        SignInViewModel(
+            getUserUseCase = get(),
+            context = get()
+        )
     }
 }

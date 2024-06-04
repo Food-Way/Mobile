@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.presentation.searchUser.SearchClient
+import com.example.foodway.presentation.searchUser.SearchCustomer
 import com.example.foodway.presentation.searchUser.SearchEstablishment
 import com.example.foodway.presentation.searchUser.SearchFavorites
 import com.example.foodway.presentation.searchUser.SearchUserViewModel
@@ -174,7 +174,7 @@ fun TabScreen(
                 0 -> SearchEstablishment(
                     vm = vm
                 )
-                1 -> SearchClient(
+                1 -> SearchCustomer(
                     vm = vm
                 )
                 else -> SearchFavorites()

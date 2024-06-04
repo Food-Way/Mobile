@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
@@ -20,12 +21,20 @@ import androidx.navigation.compose.rememberNavController
 import com.example.foodway.R
 import com.example.foodway.di.appModule
 import com.example.foodway.presentation.components.NavBarComponent
+import com.example.foodway.presentation.edit.EditViewModel
+import com.example.foodway.presentation.edit.customer.EditCustomerAccount
 import com.example.foodway.presentation.edit.customer.EditCustomerProfile
+import com.example.foodway.presentation.edit.establishment.EditEstablishmentAccount
+import com.example.foodway.presentation.edit.establishment.EditEstablishmentProfile
 import com.example.foodway.presentation.establishmentMenu.MenuEstablishment
+import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.presentation.profile.customer.ProfileCustomer
+import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishment
+import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
 import com.example.foodway.presentation.searchUser.SearchUser
+import com.example.foodway.presentation.searchUser.SearchUserViewModel
 import com.example.foodway.presentation.signIn.SignIn
 import com.example.foodway.presentation.signIn.SignInViewModel
 import com.example.foodway.presentation.signUp.SignUpViewModel
@@ -39,10 +48,7 @@ import com.example.foodway.presentation.signUp.establishment.StepThreeEstablishm
 import com.example.foodway.presentation.signUp.establishment.StepTwoEstablishment
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
 import com.example.foodway.presentation.welcome.Welcome
-import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
-import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
-import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
-import com.example.foodway.presentation.searchUser.SearchUserViewModel
+import com.example.foodway.utils.PreferencesManager
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -56,6 +62,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val backStackState by navController.currentBackStackEntryAsState()
             val currentDestination = backStackState?.destination
+            val sharedPreferences = PreferencesManager(LocalContext.current)
             FoodwayTheme {
 //                val showBottomAppBar = currentDestination?.let { destination ->
 //                    bottomAppBarItems.find {
@@ -85,7 +92,9 @@ class MainActivity : ComponentActivity() {
                                 ProfileCustomer(
                                     vm = vm,
                                     idCustomer = id,
-                                    onNavigate = { navController.navigate(AppDestination.ProfileCustomer.route) }
+                                    onNavigate = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable("${AppDestination.ProfileEstablishment.route}/{idEstablishment}") {
@@ -202,8 +211,59 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
-                            composable(AppDestination.EditProfileCustomer.route) {
-                                EditCustomerProfile()
+                            composable(AppDestination.EditCustomerProfile.route) {
+                                val vm by inject<EditViewModel>()
+                                EditCustomerProfile(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditCustomerAccount.route)
+                                    },
+                                    onNavigateSuccessEdit = {
+                                        navController.navigate(AppDestination.ProfileCustomer.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.EditCustomerAccount.route) {
+                                val vm by inject<EditViewModel>()
+                                EditCustomerAccount(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = { id ->
+                                        navController.navigate(
+                                            "${AppDestination.ProfileCustomer.route}/${id}"
+                                        )
+                                    },
+                                    onNavigateEditProfile = {
+                                        navController.navigate(AppDestination.EditCustomerProfile.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.EditEstablishmentProfile.route) {
+                                val vm by inject<EditViewModel>()
+                                EditEstablishmentProfile(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = {
+                                        navController.navigate(AppDestination.ProfileEstablishment.route)
+                                    },
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.EditEstablishmentAccount.route) {
+                                val vm by inject<EditViewModel>()
+                                EditEstablishmentAccount(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = {
+                                        navController.navigate(AppDestination.ProfileEstablishment.route)
+                                    },
+                                    onNavigateEditProfile = {
+                                        navController.navigate(AppDestination.EditEstablishmentProfile.route)
+                                    }
+                                )
                             }
                         }
                     })

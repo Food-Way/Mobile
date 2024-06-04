@@ -10,12 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.domain.model.EstablishmentCard
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 
 @Composable
-fun RecentCard() {
+fun RecentCard(
+    recents: List<EstablishmentCard>,
+    onNavigate: (Destination, ProfileId) -> Unit
+) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -28,15 +33,20 @@ fun RecentCard() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-//            SquareCard()
-//            SquareCard()
-//            SquareCard()
+            repeat(3) {
+                SquareCard(
+                    idEstablishment = recents[it].idEstablishment,
+                    name = recents[it].establishmentName,
+                    photo = "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
+                    onNavigate = onNavigate
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun RecentCardPreview() {
-    RecentCard()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun RecentCardPreview() {
+//    RecentCard()
+//}

@@ -60,8 +60,10 @@ fun SearchFavorites() {
                     .height(300.dp),
                 verticalArrangement = Arrangement.SpaceAround
             ) {
-                items(users.size) { index ->
-//                    ListCardUser()
+                items(users.size) { favorite ->
+//                    ListCardUser(
+//                        name =
+//                    )
                 }
             }
         }

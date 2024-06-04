@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodway.domain.edit.customer.model.EditCustomerAccount
 import com.example.foodway.domain.edit.customer.model.EditCustomerProfile
-import com.example.foodway.domain.edit.customer.usecase.UpdateAccountUseCase
-import com.example.foodway.domain.edit.customer.usecase.UpdateProfileUseCase
+import com.example.foodway.domain.edit.customer.usecase.GetCustomerAccountUseCase
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
+import com.example.foodway.domain.edit.usecase.PostImageUseCase
+import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
+import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
+import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.presentation.MainScreenState
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -17,13 +21,15 @@ import java.util.UUID
 
 class EditViewModel(
     private val updateAccountUseCase: UpdateAccountUseCase,
-    private val updateProfileUseCase: UpdateProfileUseCase
+    private val updateProfileUseCase: UpdateProfileUseCase,
+    private val getCustomerAccountUseCase: GetCustomerAccountUseCase,
+    private val getEstablishmentProfileUseCase: GetEstablishmentProfileUseCase,
+    private val postImageUseCase: PostImageUseCase
 ) : ViewModel() {
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
     fun editAccount(
-        idCustomer: UUID? = null,
-        idEstablishment: UUID? = null,
+        idUser: UUID,
         editCustomerAccount: EditCustomerAccount? = null,
         editEstablishmentAccount: EditEstablishmentAccount? = null,
         onNavigateSuccess: () -> Unit = {},
@@ -33,19 +39,15 @@ class EditViewModel(
                 state.value = MainScreenState.Loading
 
                 val response = when {
-                    editCustomerAccount != null -> idCustomer?.let {
-                        updateAccountUseCase(
-                            idCustomer = it,
-                            editCustomerAccount = editCustomerAccount
-                        )
-                    }
+                    editCustomerAccount != null -> updateAccountUseCase(
+                        idCustomer = idUser,
+                        editCustomerAccount = editCustomerAccount
+                    )
 
-                    editEstablishmentAccount != null -> idEstablishment?.let {
-                        updateAccountUseCase(
-                            idEstablishment = it,
-                            editEstablishmentAccount = editEstablishmentAccount
-                        )
-                    }
+                    editEstablishmentAccount != null -> updateAccountUseCase(
+                        idEstablishment = idUser,
+                        editEstablishmentAccount = editEstablishmentAccount
+                    )
 
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
@@ -71,36 +73,31 @@ class EditViewModel(
     }
 
     fun editProfile(
-        idCustomer: UUID? = null,
-        idEstablishment: UUID? = null,
+        idUser: UUID,
         editCustomerProfile: EditCustomerProfile? = null,
         editEstablishmentProfile: EditEstablishmentProfile? = null,
-        onNavigateSuccess: () -> Unit = {},
+        onNavigateSuccessEdit: () -> Unit = {},
     ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
 
                 val response = when {
-                    editCustomerProfile != null -> idCustomer?.let {
-                        updateProfileUseCase(
-                            idCustomer = it,
-                            editCustomerProfile = editCustomerProfile
-                        )
-                    }
+                    editCustomerProfile != null -> updateProfileUseCase(
+                        idCustomer = idUser,
+                        editCustomerProfile = editCustomerProfile
+                    )
 
-                    editEstablishmentProfile != null -> idEstablishment?.let {
-                        updateProfileUseCase(
-                            idEstablishment = it,
-                            editEstablishmentProfile = editEstablishmentProfile
-                        )
-                    }
+                    editEstablishmentProfile != null -> updateProfileUseCase(
+                        idEstablishment = idUser,
+                        editEstablishmentProfile = editEstablishmentProfile
+                    )
 
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
 
                 Log.d("SignUpViewModel", "Loading success: $response")
-                onNavigateSuccess()
+                onNavigateSuccessEdit()
 
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
@@ -118,4 +115,77 @@ class EditViewModel(
             }
         }
     }
+
+    fun getProfile(
+        idUser: UUID,
+        type: UserType
+    ) {
+        viewModelScope.launch {
+            try {
+                state.value = MainScreenState.Loading
+
+                val response = when (type) {
+                    UserType.CLIENT -> getCustomerAccountUseCase(idUser)
+                    UserType.ESTABLISHMENT -> getEstablishmentProfileUseCase(idUser)
+                }
+
+                state.value = MainScreenState.Success(data = response)
+
+                Log.d("SignUpViewModel", "Loading success: $response")
+
+            } catch (e: HttpException) {
+                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                val message = when (e.code()) {
+                    404 -> "Culinária não encontrada"
+                    400 -> "Parâmetros incorretos"
+                    else -> "Erro desconhecido"
+                }
+                state.value = MainScreenState.Error(message)
+            } catch (e: Exception) {
+                Log.e("SignUpViewModel", "Exception: ${e.message}")
+                state.value = MainScreenState.Error(
+                    e.message ?: "Erro desconhecido"
+                )
+            }
+        }
+    }
+
+//    fun editImage(
+//        uri: String,
+//        context: Context,
+//        onNavigateToLogin: () -> Unit = {}
+//    ) {
+//        viewModelScope.launch {
+//            try {
+//                state.value = MainScreenState.Loading
+//                val filePath = getPathFromUri(context, uri.toUri())
+//                val file = File(filePath)
+//
+//                val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+//                val imagePart = MultipartBody.Part.createFormData("image", file.name, requestBody)
+//
+//                val response = postImageUseCase(image = imagePart)
+////                onNavigateToLogin()
+//            } catch (e: Exception) {
+//                val message = e.message ?: "Algo deu errado. Por favor, contate o suporte."
+//                state.value = MainScreenState.Error(message)
+//            }
+//        }
+//    }
+//
+//    private fun getPathFromUri(context: Context, uri: Uri): String? {
+//        try {
+//            val projection = arrayOf("_data")
+//            val cursor = context.contentResolver.query(uri, projection, null, null, null)
+//
+//            return cursor?.use {
+//                val columnIndex = it.getColumnIndexOrThrow("_data")
+//                it.moveToFirst()
+//                it.getString(columnIndex)
+//            }
+//        } catch (e: Exception) {
+//            return e.message!!
+//        }
+//    }
+
 }

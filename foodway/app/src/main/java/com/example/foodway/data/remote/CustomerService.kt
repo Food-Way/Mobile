@@ -15,6 +15,11 @@ interface CustomerService {
     @GET("customers/search")
     suspend fun searchAllCustomers(): List<Customer>
 
+    @GET("customers/{idCustomer}")
+    suspend fun getCustomer(
+        @Path("idCustomer") idCustomer: UUID
+    ): Response<ProfileCustomer>
+
     @GET("customers/profile/{idCustomer}")
     suspend fun getCustomerProfile(
         @Path("idCustomer") idCustomer: UUID
@@ -26,15 +31,16 @@ interface CustomerService {
         @Path("idEstablishment") idEstablishment: UUID
     ): Response<Unit>
 
-    @PATCH("customers/profile/{id}")
+    @PATCH("customers/profile/{idCustomer}")
     suspend fun updateCustomerProfileInfo(
         @Path("idCustomer") idCustomer: UUID,
         @Body editCustomerProfile: EditCustomerProfile
     ): Response<Unit>
 
-    @PATCH("customers/personal/{id}")
+    @PATCH("customers/personal/{idCustomer}")
     suspend fun updateCustomerPersonalInfo(
-        @Path("idCustomer") idCustomer: UUID, @Body editCustomerAccount: EditCustomerAccount
+        @Path("idCustomer") idCustomer: UUID,
+        @Body editCustomerAccount: EditCustomerAccount
     ): Response<Unit>
 
 }

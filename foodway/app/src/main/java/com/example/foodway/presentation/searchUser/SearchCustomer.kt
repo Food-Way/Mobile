@@ -20,13 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.domain.model.Customer
+import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
-import com.example.foodway.presentation.MainScreenState
 
 
 @Composable
-fun SearchClient(
+fun SearchCustomer(
     vm: SearchUserViewModel
 ) {
     val state by vm.state.observeAsState()
@@ -52,7 +52,7 @@ fun SearchClient(
             }
 
             is MainScreenState.Success<*> -> {
-                val clients = (state as MainScreenState.Success<List<Customer>>).data
+                val customers = (state as MainScreenState.Success<List<Customer>>).data
                 Log.d("Success", "Success state")
                 Column {
                     Text(
@@ -88,14 +88,14 @@ fun SearchClient(
                     LazyColumn(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(clients) { clt ->
+                        items(customers) { customer ->
                             ListCardUser(
-                                photo = clt.profilePhoto,
-                                name = clt.name,
-                                rateStar = clt.rate,
-                                description = clt.bio,
-                                qtdComment = clt.qtdComments,
-                                qtdUpVotes = clt.qtdUpvotes
+                                photo = "",
+                                name = customer.name,
+                                rateStar = customer.rate,
+                                description = "customer.bio",
+                                qtdComment = customer.qtdComments,
+                                qtdUpVotes = customer.qtdUpvotes
                             )
                         }
                     }

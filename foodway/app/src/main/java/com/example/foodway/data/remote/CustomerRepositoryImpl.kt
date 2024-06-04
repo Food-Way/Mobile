@@ -18,6 +18,10 @@ class CustomerRepositoryImpl(
         )
     }
 
+    override suspend fun getCustomerAccount(idCustomer: UUID): Response<ProfileCustomer> {
+        return api.getCustomer(idCustomer = idCustomer)
+    }
+
     override suspend fun updateAccount(
         idCustomer: UUID,
         editCustomerAccount: EditCustomerAccount

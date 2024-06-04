@@ -1,5 +1,6 @@
 package com.example.foodway.di
 
+import com.example.foodway.data.edit.remote.UploadFileRepositoryImpl
 import com.example.foodway.data.establishmentMenu.remote.ProductRepositoryImpl
 import com.example.foodway.data.remote.CustomerRepositoryImpl
 import com.example.foodway.data.remote.EstablishmentRepositoryImpl
@@ -7,6 +8,11 @@ import com.example.foodway.data.searchUser.remote.SearchUserRepositoryImpl
 import com.example.foodway.data.signIn.remote.SignInRepositoryImpl
 import com.example.foodway.data.signUp.remote.CulinaryRepositoryImpl
 import com.example.foodway.data.signUp.remote.SignUpRepositoryImpl
+import com.example.foodway.domain.edit.customer.usecase.GetCustomerAccountUseCase
+import com.example.foodway.domain.edit.repository.IUploadFileRepository
+import com.example.foodway.domain.edit.usecase.PostImageUseCase
+import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
+import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.establishmentMenu.usecase.GetEstablishmentMenuUseCase
 import com.example.foodway.domain.profile.customer.usecase.GetCustomerProfileUseCase
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
@@ -32,7 +38,9 @@ val domainModule = module {
     }
 
     single<IProductRepository> {
-        ProductRepositoryImpl(get())
+        ProductRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
@@ -95,6 +103,22 @@ val domainModule = module {
         GetAllCulinariesUseCase(get())
     }
 
+    single<IUploadFileRepository> {
+        UploadFileRepositoryImpl(get())
+    }
+
+    single {
+        PostImageUseCase(get())
+    }
+    single {
+        UpdateAccountUseCase(get(), get())
+    }
+    single {
+        UpdateProfileUseCase(get(), get())
+    }
+    single {
+        GetCustomerAccountUseCase(get())
+    }
 
 }
 

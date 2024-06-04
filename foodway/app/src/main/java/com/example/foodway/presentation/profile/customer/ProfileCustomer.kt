@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -21,13 +22,15 @@ import com.example.foodway.domain.profile.customer.model.ProfileCustomer
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.RatingBar
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
 fun ProfileCustomer(
     vm: ProfileCustomerViewModel,
     idCustomer: UUID,
-    onNavigate: () -> Unit,
+    onNavigate: (Destination, ProfileId) -> Unit,
 ) {
     val state by vm.state.observeAsState()
     FoodwayTheme {
@@ -93,10 +96,28 @@ fun ProfileCustomer(
                             }
                         }
                         Column {
-                            RecentCard()
-                            FavoriteCard(
-//                                favorites = profile.favoriteEstablishment
-                            )
+                            if (profile.recentEstablishment != null) {
+                                RecentCard(
+                                    recents = profile.recentEstablishment,
+                                    onNavigate = onNavigate
+                                )
+                            } else {
+                                Text(
+                                    text = "Nenhum estabelecimento recente encontrado.",
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                            }
+                            if (profile.favoriteEstablishment != null) {
+                                FavoriteCard(
+                                    favorites = profile.favoriteEstablishment,
+                                    onNavigate = onNavigate
+                                )
+                            } else {
+                                Text(
+                                    text = "Nenhum estabelecimento favorito encontrado.",
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                            }
                         }
 //                        NavBarComponent()
                     }

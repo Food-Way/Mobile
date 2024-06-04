@@ -61,7 +61,7 @@ fun NavBarComponent(
                 val route = when (index) {
                     0 -> "${AppDestination.ProfileCustomer.route}/$customerIdString"
                     1 -> AppDestination.SearchUser.route
-                    2 -> AppDestination.EditProfileCustomer.route
+                    2 -> AppDestination.EditCustomerProfile.route
                     else -> ""
                 }
 

@@ -1,31 +1,29 @@
-package com.example.foodway.domain.edit.customer.usecase
+package com.example.foodway.domain.edit.usecase
 
-import com.example.foodway.domain.edit.customer.model.EditCustomerAccount
-import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
+import com.example.foodway.domain.edit.customer.model.EditCustomerProfile
+import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
 import com.example.foodway.domain.repository.ICustomerRepository
 import com.example.foodway.domain.repository.IEstablishmentRepository
 import com.example.foodway.utils.validateField
 import java.util.UUID
 
-class UpdateAccountUseCase(
+class UpdateProfileUseCase(
     private val customerRepository: ICustomerRepository,
     private val establishmentRepository: IEstablishmentRepository
 ) {
     suspend operator fun invoke(
         idCustomer: UUID,
-        editCustomerAccount: EditCustomerAccount
+        editCustomerProfile: EditCustomerProfile
     ) {
         try {
-            with(editCustomerAccount) {
+            with(editCustomerProfile) {
                 validateField(name, "Name")
-                validateField(lastName, "Last Name")
-                validateField(cpf, "CPF")
-                validateField(email, "Email")
-                validateField(password, "Password")
+                validateField(bio, "Bio")
+                validateField(photo, "Photo")
             }
             val response = customerRepository.updateAccount(
                 idCustomer = idCustomer,
-                editCustomerAccount = editCustomerAccount
+                editCustomerProfile = editCustomerProfile
             )
             if (response.isSuccessful) {
                 return response.body() ?: throw Exception("Response body is null")
@@ -39,19 +37,17 @@ class UpdateAccountUseCase(
 
     suspend operator fun invoke(
         idEstablishment: UUID,
-        editEstablishmentAccount: EditEstablishmentAccount
+        editEstablishmentProfile: EditEstablishmentProfile
     ) {
         try {
-            with(editEstablishmentAccount) {
-                validateField(fantasyName, "Fantasy name")
-                validateField(responsible, "Responsible")
-                validateField(cnpj, "CNPJ")
-                validateField(email, "Email")
-                validateField(password, "Password")
+            with(editEstablishmentProfile) {
+                validateField(name, "Name")
+                validateField(description, "Description")
+                validateField(photo, "Photo")
             }
-            val response = establishmentRepository.updateAccount(
+            val response = establishmentRepository.updateProfile(
                 idEstablishment = idEstablishment,
-                editEstablishmentAccount = editEstablishmentAccount
+                editEstablishmentProfile = editEstablishmentProfile
             )
             if (response.isSuccessful) {
                 return response.body() ?: throw Exception("Response body is null")
@@ -62,4 +58,5 @@ class UpdateAccountUseCase(
             throw e
         }
     }
+
 }

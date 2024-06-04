@@ -20,9 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.domain.model.Establishment
+import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
-import com.example.foodway.presentation.MainScreenState
 
 
 @Composable
@@ -89,14 +89,14 @@ fun SearchEstablishment(
                     LazyColumn(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(establishments) { est ->
+                        items(establishments) { establishment ->
                             ListCardUser(
-                                photo = est.profilePhoto,
-                                name = est.name,
-                                rateStar = est.rate,
-                                description = est.description,
-                                qtdComment = est.qtdComments,
-                                qtdUpVotes = est.qtdUpvotes
+                                photo ="",
+                                name = establishment.name,
+                                rateStar = establishment.rate,
+                                description = "establishment.description",
+                                qtdComment = establishment.qtdComments,
+                                qtdUpVotes = establishment.qtdUpvotes
                             )
                         }
                     }
