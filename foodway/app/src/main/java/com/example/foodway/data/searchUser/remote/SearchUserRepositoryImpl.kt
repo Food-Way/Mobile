@@ -2,7 +2,6 @@ package com.example.foodway.data.searchUser.remote
 
 import com.example.foodway.domain.model.Customer
 import com.example.foodway.domain.model.Establishment
-import com.example.foodway.domain.model.Favorite
 import com.example.foodway.domain.searchUser.repository.ISearchUserRepository
 import retrofit2.Response
 import java.util.UUID
@@ -19,7 +18,10 @@ class SearchUserRepositoryImpl(
         return api.getAllCustomers(idSession)
     }
 
-    override suspend fun getAllFavorites(idSession: UUID): Response<List<Favorite>> {
-        return api.getAllFavorites(idSession)
+    override suspend fun getAllFavorites(
+        idSession: UUID,
+        idUser: UUID
+    ): Response<List<Establishment>> {
+        return api.getAllFavorites(idSession, idUser)
     }
 }

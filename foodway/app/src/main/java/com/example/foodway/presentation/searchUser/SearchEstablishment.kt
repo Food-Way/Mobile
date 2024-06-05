@@ -30,7 +30,6 @@ fun SearchEstablishment(
     vm: SearchUserViewModel
 ) {
     val state by vm.state.observeAsState()
-    var users = mutableListOf("", "", "", "")
 
     Column {
         UserSearchComponent() {}
@@ -68,10 +67,14 @@ fun SearchEstablishment(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        var topTree = listOf('1', '2', '3')
+                        val topThree = establishments.slice(0..2)
 
-                        topTree.forEach { user ->
-                            CardUser()
+                        repeat(3) {
+                            CardUser(
+                                name = topThree[it].name,
+                                rate = topThree[it].rate,
+                                photo = "topThree[it].profilePhoto"
+                            )
                         }
                     }
                 }

@@ -306,7 +306,8 @@ fun MainApp(
                 ) {
                     NavBarComponent(
                         items = items,
-                        onItemSelected = onNavigate
+                        onItemSelected = onNavigate,
+                        sharedPreferences = PreferencesManager(LocalContext.current)
                     )
                 }
             }

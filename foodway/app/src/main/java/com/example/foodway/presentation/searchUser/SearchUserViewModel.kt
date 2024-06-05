@@ -30,7 +30,14 @@ class SearchUserViewModel(
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
 
-                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
+                val response = getEstablishmentUseCase(
+                    idSession = UUID.fromString(
+                        sharedPreferences.getSavedData(
+                            "id",
+                            ""
+                        )
+                    )
+                )
                 state.value = MainScreenState.Success(data = response)
 
                 Log.d("response antes do IF", response.toString())
@@ -58,7 +65,14 @@ class SearchUserViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
-                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
+                val response = getCustomerUseCase(
+                    idSession = UUID.fromString(
+                        sharedPreferences.getSavedData(
+                            "id",
+                            ""
+                        )
+                    )
+                )
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")
@@ -84,7 +98,10 @@ class SearchUserViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SearchUserViewModel", "Loading started")
-                val response = getEstablishmentUseCase(idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")))
+                val response = getFavoriteUseCase(
+                    idSession = UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                    idUser = UUID.fromString(sharedPreferences.getSavedData("id", ""))
+                )
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")

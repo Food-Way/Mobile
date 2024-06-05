@@ -30,7 +30,6 @@ fun SearchCustomer(
     vm: SearchUserViewModel
 ) {
     val state by vm.state.observeAsState()
-    var users = mutableListOf("", "", "", "")
 
     Column {
         UserSearchComponent() {}
@@ -40,14 +39,14 @@ fun SearchCustomer(
                 LoadingBar(
                     loadingText = "Carregando Clientes..."
                 )
-                vm.getAllEstablishments()
+                vm.getAllCustomers()
             }
 
             is MainScreenState.Error, null -> {
                 val errorMessage = (state as MainScreenState.Error).message
                 Log.d("Error", "Error state")
                 ErrorView(message = errorMessage) {
-                    vm.getAllEstablishments()
+                    vm.getAllCustomers()
                 }
             }
 
@@ -67,10 +66,12 @@ fun SearchCustomer(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        var topTree = listOf('1', '2', '3')
-
-                        topTree.forEach { user ->
-                            CardUser()
+                        repeat(3) {
+                            CardUser(
+                                name = customers[it].name,
+                                rate = customers[it].rate,
+                                photo = "customers[it].profilePhoto"
+                            )
                         }
                     }
                 }

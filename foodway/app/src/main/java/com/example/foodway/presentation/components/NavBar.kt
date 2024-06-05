@@ -1,6 +1,5 @@
 package com.example.foodway.presentation.components
 
-import android.content.Context
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,18 +19,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.PreferencesManager
 
 @Composable
 fun NavBarComponent(
     items: List<Int>,
-    onItemSelected: (String) -> Unit
+    onItemSelected: (String) -> Unit,
+    sharedPreferences: PreferencesManager,
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
     val backgroundColor = Color.White
@@ -52,11 +52,8 @@ fun NavBarComponent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val context = LocalContext.current
-            val sharedPreferences = remember(context) {
-                context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-            }
-            val customerIdString = sharedPreferences.getString("customerId", "")
+
+            val customerIdString = sharedPreferences.getSavedData("id", "")
             items.forEachIndexed { index, value ->
                 val route = when (index) {
                     0 -> "${AppDestination.ProfileCustomer.route}/$customerIdString"

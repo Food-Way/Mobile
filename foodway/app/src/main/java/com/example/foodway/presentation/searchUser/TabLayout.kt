@@ -177,7 +177,9 @@ fun TabScreen(
                 1 -> SearchCustomer(
                     vm = vm
                 )
-                else -> SearchFavorites()
+                else -> SearchFavorites(
+                    vm = vm
+                )
             }
         }
     }
