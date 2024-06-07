@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.domain.model.Customer
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
-import com.example.foodway.presentation.components.ListCardUser
 
 
 @Composable
@@ -52,7 +50,7 @@ fun SearchCustomer(
 
             is MainScreenState.Success<*> -> {
                 val customers = (state as MainScreenState.Success<List<Customer>>).data
-                Log.d("Success", "Success state")
+
                 Column {
                     Text(
                         modifier = Modifier
@@ -66,11 +64,15 @@ fun SearchCustomer(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
+                        Log.d("customers", customers.toString())
+
+                        val topThree : List<Customer> = customers.slice(0..2)
+
                         repeat(3) {
                             CardUser(
-                                name = customers[it].name,
-                                rate = customers[it].rate,
-                                photo = "customers[it].profilePhoto"
+                                name = topThree[it].name,
+                                rate = topThree[it].rate,
+                                photo = "topThree[it].profilePhoto"
                             )
                         }
                     }
@@ -89,16 +91,16 @@ fun SearchCustomer(
                     LazyColumn(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(customers) { customer ->
-                            ListCardUser(
-                                photo = "",
-                                name = customer.name,
-                                rateStar = customer.rate,
-                                description = "customer.bio",
-                                qtdComment = customer.qtdComments,
-                                qtdUpVotes = customer.qtdUpvotes
-                            )
-                        }
+//                        items(customers) { customer ->
+//                            ListCardUser(
+//                                photo = "",
+//                                name = customer.name,
+//                                rateStar = customer.rate,
+//                                description = "customer.bio",
+//                                qtdComment = customer.qtdComments,
+//                                qtdUpVotes = customer.qtdUpvotes
+//                            )
+//                        }
                     }
                 }
             }

@@ -1,6 +1,9 @@
 package com.example.foodway.presentation.edit
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +19,11 @@ import com.example.foodway.domain.model.UserType
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.presentation.MainScreenState
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
+import java.io.File
 import java.util.UUID
 
 class EditViewModel(
@@ -150,42 +157,45 @@ class EditViewModel(
         }
     }
 
-//    fun editImage(
-//        uri: String,
-//        context: Context,
-//        onNavigateToLogin: () -> Unit = {}
-//    ) {
-//        viewModelScope.launch {
-//            try {
-//                state.value = MainScreenState.Loading
-//                val filePath = getPathFromUri(context, uri.toUri())
-//                val file = File(filePath)
-//
-//                val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-//                val imagePart = MultipartBody.Part.createFormData("image", file.name, requestBody)
-//
-//                val response = postImageUseCase(image = imagePart)
-////                onNavigateToLogin()
-//            } catch (e: Exception) {
-//                val message = e.message ?: "Algo deu errado. Por favor, contate o suporte."
-//                state.value = MainScreenState.Error(message)
-//            }
-//        }
-//    }
-//
-//    private fun getPathFromUri(context: Context, uri: Uri): String? {
-//        try {
-//            val projection = arrayOf("_data")
-//            val cursor = context.contentResolver.query(uri, projection, null, null, null)
-//
-//            return cursor?.use {
-//                val columnIndex = it.getColumnIndexOrThrow("_data")
-//                it.moveToFirst()
-//                it.getString(columnIndex)
-//            }
-//        } catch (e: Exception) {
-//            return e.message!!
-//        }
-//    }
+    fun editImage(
+        uri: String,
+        context: Context,
+        onNavigateToLogin: () -> Unit = {}
+    ) {
+        viewModelScope.launch {
+            try {
+                state.value = MainScreenState.Loading
+                val filePath = getPathFromUri(context, uri.toUri())
+                val file = File(filePath)
+
+                val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val imagePart = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                val pathPart = MultipartBody.Part.createFormData("path", "user-images")
+                val typePart = MultipartBody.Part.createFormData("type", UserType.CLIENT.name)
+                Log.d("SignUpViewModel", "Loading success: $imagePart")
+
+                val response = postImageUseCase(imagePart, pathPart, typePart)
+                onNavigateToLogin()
+            } catch (e: Exception) {
+                val message = e.message ?: "Algo deu errado. Por favor, contate o suporte."
+                state.value = MainScreenState.Error(message)
+            }
+        }
+    }
+
+    private fun getPathFromUri(context: Context, uri: Uri): String? {
+        try {
+            val projection = arrayOf("_data")
+            val cursor = context.contentResolver.query(uri, projection, null, null, null)
+
+            return cursor?.use {
+                val columnIndex = it.getColumnIndexOrThrow("_data")
+                it.moveToFirst()
+                it.getString(columnIndex)
+            }
+        } catch (e: Exception) {
+            return e.message!!
+        }
+    }
 
 }

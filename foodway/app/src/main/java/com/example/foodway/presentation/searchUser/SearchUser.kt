@@ -36,7 +36,7 @@ fun SearchUser(
     vm: SearchUserViewModel,
     onNavigate: () -> Unit = {},
 ) {
-//    val state by vm.state.observeAsState()
+
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

@@ -114,11 +114,17 @@ fun EditCustomerProfile(
                         imageUri = imageUri.value,
                         onChangeImage = { newImageUri ->
                             imageUri.value = newImageUri
-//                            vm.editImage(
-//                                uri = imageUri.value,
-//                                context = context,
-//                            )
                         },
+                        onclick = {
+                            vm.editImage(
+                                uri = imageUri.value,
+                                context = context,
+                                onNavigateToLogin = {
+                                    onNavigateSuccessEdit()
+                                }
+                            )
+                        },
+
                         size = 150.dp
                     )
 

@@ -73,6 +73,7 @@ class SearchUserViewModel(
                         )
                     )
                 )
+                Log.d("response", response.toString())
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SearchUserViewModel", "HTTP Exception: ${e.message()}")

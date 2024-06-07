@@ -6,8 +6,12 @@ import retrofit2.Response
 
 class UploadFileRepositoryImpl(
     private val api: UploadFileService
-) : IUploadFileRepository{
-    override suspend fun upload(image: MultipartBody.Part): Response<Unit> {
-       return api.upload(image)
+) : IUploadFileRepository {
+    override suspend fun upload(
+        image: MultipartBody.Part,
+        pathPart: MultipartBody.Part,
+        typePart: MultipartBody.Part
+    ): Response<Unit> {
+        return api.upload(image, pathPart, typePart)
     }
 }

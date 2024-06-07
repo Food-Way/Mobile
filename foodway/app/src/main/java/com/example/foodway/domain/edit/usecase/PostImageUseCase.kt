@@ -8,9 +8,15 @@ class PostImageUseCase(
 ) {
     suspend operator fun invoke(
         image: MultipartBody.Part,
+        pathPart: MultipartBody.Part,
+        typePart: MultipartBody.Part
     ) {
         try {
-            val response = uploadFileRepository.upload(image = image)
+            val response = uploadFileRepository.upload(
+                image = image,
+                pathPart = pathPart,
+                typePart = typePart
+            )
             if (response.isSuccessful) {
                 return response.body() ?: throw Exception("Response body is null")
             } else {
