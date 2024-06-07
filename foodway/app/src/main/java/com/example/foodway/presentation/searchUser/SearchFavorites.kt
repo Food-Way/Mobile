@@ -21,14 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.domain.model.Establishment
+import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
-
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 
 @Composable
 fun SearchFavorites(
-    vm: SearchUserViewModel
+    vm: SearchUserViewModel,
+    onNavigateToFavorite: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
 
@@ -54,7 +57,9 @@ fun SearchFavorites(
             Log.d("Success", "Success state")
 
             Column {
-                UserSearchComponent() {}
+                UserSearchComponent(
+                    vm = vm
+                )
                 Column {
                     Text(
                         modifier = Modifier
@@ -68,13 +73,16 @@ fun SearchFavorites(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        val topThree = favorites.slice(0..2)
+                        val topThree = favorites.take(3)
 
-                        repeat(3) {
+                        topThree.forEach { favorite ->
                             CardUser(
-                                name = topThree[it].name,
-                                rate = topThree[it].rate,
-                                photo = "topThree[it].profilePhoto"
+                                id = favorite.idEstablishment,
+                                name = favorite.name,
+                                rate = favorite.rate ?: 0.0,
+                                photo = favorite.profilePhoto ?: "",
+                                typeUser = UserType.ESTABLISHMENT,
+                                onNavigateToProfile = onNavigateToFavorite
                             )
                         }
                     }
@@ -95,14 +103,17 @@ fun SearchFavorites(
                             .height(300.dp),
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(favorites) { favorite ->
+                        items(favorites.drop(3)) { favorite ->
                             ListCardUser(
-                                photo ="",
+                                id = favorite.idEstablishment,
+                                photo = favorite.profilePhoto ?: "",
                                 name = favorite.name,
-                                rateStar = favorite.rate,
-                                description = "favorite.description",
-                                qtdComment = favorite.qtdComments,
-                                qtdUpVotes = favorite.qtdUpvotes
+                                rateStar = favorite.rate ?: 0.0,
+                                description = favorite.description ?: "Sem descrição",
+                                qtdComment = favorite.qtdComments ?: 0,
+                                qtdUpVotes = favorite.qtdUpvotes ?: 0,
+                                typeUser = UserType.ESTABLISHMENT,
+                                onNavigateToProfile = onNavigateToFavorite
                             )
                         }
                     }
@@ -111,9 +122,3 @@ fun SearchFavorites(
         }
     }
 }
-//
-//    @Preview
-//    @Composable
-//    fun SearchFavoritesPreview() {
-//        SearchFavorites()
-//    }

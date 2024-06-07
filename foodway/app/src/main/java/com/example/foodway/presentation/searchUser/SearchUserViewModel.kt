@@ -2,6 +2,7 @@ package com.example.foodway.presentation.searchUser
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,7 +25,15 @@ class SearchUserViewModel(
 
     private val sharedPreferences = PreferencesManager(context)
 
-    fun getAllEstablishments() {
+    val filter = mutableStateOf("")
+
+    fun updateFilter(newFilter: String) {
+        filter.value = newFilter
+    }
+
+    fun getAllEstablishments(
+        searchFilter: String? = "COMMENTS"
+    ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
@@ -35,8 +44,10 @@ class SearchUserViewModel(
                         sharedPreferences.getSavedData(
                             "id",
                             ""
-                        )
-                    )
+                        ),
+                    ),
+
+                    searchFilter = searchFilter!!
                 )
                 state.value = MainScreenState.Success(data = response)
 

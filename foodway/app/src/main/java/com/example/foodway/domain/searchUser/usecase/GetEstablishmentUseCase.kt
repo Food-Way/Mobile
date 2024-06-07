@@ -7,9 +7,15 @@ import java.util.UUID
 class GetEstablishmentUseCase (
     private val repository: ISearchUserRepository
 ) {
-    suspend operator fun invoke(idSession: UUID): List<Establishment> {
+    suspend operator fun invoke(
+        idSession: UUID,
+        searchFilter: String
+    ): List<Establishment> {
         try {
-            val response = repository.getAllEstablishments(idSession = idSession)
+            val response = repository.getAllEstablishments(
+                idSession = idSession,
+                searchFilter = searchFilter
+            )
             if (response.isSuccessful) {
                 return response.body() ?: emptyList()
             } else {

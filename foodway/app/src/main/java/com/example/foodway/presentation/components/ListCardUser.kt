@@ -35,15 +35,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.model.UserType
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun ListCardUser(
+    id: UUID,
     photo: String,
     name: String,
     rateStar: Double,
     description: String,
     qtdComment: Int,
-    qtdUpVotes: Int
+    qtdUpVotes: Int,
+    typeUser: UserType,
+    onNavigateToProfile: (Destination, ProfileId) -> Unit
 ) {
     var heartValue by remember { mutableStateOf(false) }
     var heartImg by remember { mutableStateOf(R.drawable.heart_empty) }
@@ -52,7 +60,16 @@ fun ListCardUser(
         modifier = Modifier
             .width(300.dp)
             .padding(bottom = 10.dp)
-            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp)),
+            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp))
+            .clickable {
+                onNavigateToProfile(
+                    when (typeUser) {
+                        UserType.CLIENT -> AppDestination.ProfileCustomer.route
+                        UserType.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                    },
+                    id.toString()
+                )
+            },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
@@ -119,7 +136,7 @@ fun ListCardUser(
                             hasQuantity = true,
                             icon = R.drawable.upvote,
                             description = R.string.upvotes,
-                            size =15.dp,
+                            size = 15.dp,
                             fontSize = 10,
                             widthIndicator = 35.dp
                         )

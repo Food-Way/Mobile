@@ -1,11 +1,14 @@
-import android.app.AlertDialog
-import android.content.Context
-import android.view.View
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -28,9 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
@@ -43,9 +44,13 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.foodway.R
+import com.example.foodway.presentation.searchUser.SearchUserViewModel
 
 @Composable
-fun UserSearchComponent(onSearchClicked: (String) -> Unit) {
+fun UserSearchComponent(
+//    onSearchClicked: (String) -> Unit,
+    vm: SearchUserViewModel
+) {
     Surface(
         modifier = Modifier
             .height(105.dp),
@@ -130,7 +135,6 @@ fun UserSearchComponent(onSearchClicked: (String) -> Unit) {
                     ),
                     keyboardActions = KeyboardActions(
                         onSearch = {
-                            onSearchClicked(queryState.value)
                             focusManager.clearFocus()
                         }
                     )
@@ -146,6 +150,7 @@ fun UserSearchComponent(onSearchClicked: (String) -> Unit) {
                         },
                         onDismiss = { isFilterDialogVisible = false },
 //                        oldSelectedFilters = previousSelectedFilters
+                        vm = vm
                     )
                 }
             }
@@ -156,11 +161,19 @@ fun UserSearchComponent(onSearchClicked: (String) -> Unit) {
 @Composable
 fun FilterDialog(
     selectedFilters: Set<String>,
-//    oldSelectedFilters: Set<String>,
     onFilterSelected: (Set<String>) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    vm: SearchUserViewModel
 ) {
-    val availableFilters = listOf("Comentários", "Upvotes", "Avaliação")
+    val availableFilters = mapOf(
+        "Comentários" to "COMMENTS",
+        "Upvotes" to "UPVOTES",
+        "Avaliação" to "RELEVANCE"
+    )
+
+    var filter by remember {
+        mutableStateOf("")
+    }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -187,28 +200,31 @@ fun FilterDialog(
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )
-                availableFilters.forEach { filter ->
+                availableFilters.forEach { (displayName, internalValue) ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
                             modifier = Modifier
                                 .height(5.dp),
-                            checked = selectedFilters.contains(filter),
+                            checked = selectedFilters.contains(internalValue),
                             onCheckedChange = { isChecked ->
                                 val newSelectedFilters = if (isChecked) {
-                                    selectedFilters + filter
+                                    selectedFilters + internalValue
                                 } else {
-                                    selectedFilters - filter
+                                    selectedFilters - internalValue
                                 }
+                                filter = internalValue
+                                vm.updateFilter(internalValue)
                                 onFilterSelected(newSelectedFilters)
                             },
                             colors = CheckboxDefaults.colors(
                                 checkedColor = colorResource(id = R.color.red),
                                 checkmarkColor = colorResource(id = R.color.white)
-                            ))
+                            )
+                        )
                         Text(
-                            text = filter,
+                            text = displayName,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -227,23 +243,11 @@ fun FilterDialog(
                             contentColor = colorResource(id = R.color.white)
                         ),
                         onClick = {
-                            val meuSet: Set<String> = setOf()
-                            onFilterSelected(meuSet)
+                            onFilterSelected(emptySet())
                         }
                     ) {
                         Text("Limpar")
                     }
-//                    Spacer(modifier = Modifier.width(5.dp))
-//                    Button(
-//                        onClick = {
-//                            if (oldSelectedFilters != selectedFilters) {
-//                                onFilterSelected(oldSelectedFilters)
-//                            }
-//                            onDismiss()
-//                        }
-//                    ) {
-//                        Text("Fechar")
-//                    }
                     Spacer(modifier = Modifier.width(5.dp))
                     Button(
                         modifier = Modifier.width(106.dp),
@@ -251,7 +255,10 @@ fun FilterDialog(
                             backgroundColor = colorResource(id = R.color.red),
                             contentColor = colorResource(id = R.color.white)
                         ),
-                        onClick = onDismiss
+                        onClick = {
+                            onDismiss()
+                            vm.getAllEstablishments(filter)
+                        }
                     ) {
                         Text("Filtrar")
                     }
@@ -260,3 +267,4 @@ fun FilterDialog(
         }
     }
 }
+

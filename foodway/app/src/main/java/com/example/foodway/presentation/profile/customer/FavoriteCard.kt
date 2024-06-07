@@ -37,7 +37,7 @@ fun FavoriteCard(
                 SquareCard(
                     idEstablishment = favorites[it].idEstablishment,
                     name = favorites[it].establishmentName,
-                    photo = "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
+                    photo = favorites[it].photo ?: "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
                     onNavigate = onNavigate
                 )
             }

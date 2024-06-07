@@ -37,7 +37,7 @@ fun RecentCard(
                 SquareCard(
                     idEstablishment = recents[it].idEstablishment,
                     name = recents[it].establishmentName,
-                    photo = "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
+                    photo = recents[it].photo ?: "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
                     onNavigate = onNavigate
                 )
             }

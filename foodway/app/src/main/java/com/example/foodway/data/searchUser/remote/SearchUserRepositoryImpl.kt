@@ -9,8 +9,11 @@ import java.util.UUID
 class SearchUserRepositoryImpl(
     private val api: SearchUserService
 ) : ISearchUserRepository {
-    override suspend fun getAllEstablishments(idSession: UUID): Response<List<Establishment>> {
-        return api.getAllEstablishments(idSession)
+    override suspend fun getAllEstablishments(
+        idSession: UUID,
+        searchFilter: String
+    ): Response<List<Establishment>> {
+        return api.getAllEstablishments(idSession, searchFilter)
     }
 
     override suspend fun getAllFavorites(
