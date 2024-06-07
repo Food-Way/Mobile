@@ -95,6 +95,7 @@ fun EditEstablishmentProfile() {
                 isPrimary = true
             ) {}
 
+<<<<<<< Updated upstream
             Spacer(modifier = Modifier.height(20.dp))
 
             ButtonGeneric(
@@ -104,6 +105,87 @@ fun EditEstablishmentProfile() {
                     .height(43.dp),
                 isPrimary = true
             ) {}
+=======
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.save),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(270.dp)
+                            .height(43.dp),
+                        isPrimary = true
+                    ) {}
+
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        InputGeneric(
+                            inputLabel = profileEstablishmentInputInfos[0].inputLabel,
+                            icon = profileEstablishmentInputInfos[0].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = profileEstablishmentInputInfos[0].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = name,
+                            onValueChange = {
+                                name = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = profileEstablishmentInputInfos[1].inputLabel,
+                            icon = profileEstablishmentInputInfos[1].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = profileEstablishmentInputInfos[1].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = description,
+                            onValueChange = {
+                                description = it
+                            },
+                        )
+
+                        Spacer(modifier = Modifier.height(30.dp))
+
+                        ButtonGeneric(
+                            text = stringResource(id = R.string.save),
+                            textSize = 18,
+                            modifier = Modifier
+                                .width(270.dp)
+                                .height(43.dp),
+                            isPrimary = true
+                        ) {
+                            vm.editProfile(
+                                UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                                editEstablishmentProfile = EditEstablishmentProfile(
+                                    name = name,
+                                    photo = "",
+                                    description = description
+                                ),
+                                onNavigateSuccessEdit = { onNavigateSuccessEdit() }
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        ButtonGeneric(
+                            text = stringResource(id = R.string.edit_account),
+                            textSize = 18,
+                            modifier = Modifier
+                                .width(270.dp)
+                                .height(43.dp),
+                            isPrimary = true
+                        ) {
+                            onNavigateEditAccount()
+                        }
+                    }
+                }
+            }
+>>>>>>> Stashed changes
         }
     }
 }

@@ -107,6 +107,7 @@ fun SignIn(
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.enter),
+                    textSize = 18,
                     modifier = Modifier
                         .width(270.dp)
                         .height(43.dp),
@@ -147,6 +148,7 @@ fun SignIn(
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonGeneric(
                     text = stringResource(id = R.string.signup),
+                    textSize = 18,
                     modifier = Modifier
                         .width(150.dp)
                         .height(43.dp),

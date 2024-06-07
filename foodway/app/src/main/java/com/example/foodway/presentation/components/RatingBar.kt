@@ -34,7 +34,9 @@ fun RatingBar(
     var isHalfStar = (rating % 1) != 0.0
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(bottom = 20.dp)
     ) {
         if (viewValue) {
             Text(text = rating.toString().replace(".",","))

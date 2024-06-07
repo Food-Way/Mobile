@@ -56,10 +56,17 @@ fun Profile(
                 )
             }
         }
+<<<<<<< Updated upstream
         //ProfileImage(
          //   photo = photo,
          //   size = 75.dp
        // )
+=======
+        ProfileImage(
+            photo = photo,
+            size = 80.dp
+        )
+>>>>>>> Stashed changes
     }
 }
 

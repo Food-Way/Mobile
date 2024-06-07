@@ -1,5 +1,7 @@
 package com.example.foodway.presentation.profile.establishment
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +13,25 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.Canvas
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,16 +57,23 @@ fun ProfileInfoCard(
     Box(
         contentAlignment = Alignment.Center
     ) {
-        CoilImage(
-            photo = headerImage,
-            description = "Foto de capa de $name",
+        Image(
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(290.dp)
+                .fillMaxWidth(),
+            painter = painterResource(id = R.drawable.background_image_establishment),
+            contentDescription = "aaa"
         )
 
         OutlinedCard(
             modifier = Modifier
+                .graphicsLayer {
+                    shadowElevation = 8.dp.toPx()
+                    shape = RoundedCornerShape(16.dp)
+                    clip = true
+                    alpha = 1f
+                }
+                .blur(radius = 50.dp)
                 .width(240.dp)
                 .zIndex(1f)
                 .height(220.dp)
@@ -87,16 +109,16 @@ fun ProfileInfoCard(
                 Row(
                     horizontalArrangement = Arrangement.Start
                 ) {
-//                    CulinaryCard(
-//                        culinary = culinary
-//                    )
+                    CulinaryCard(
+                        culinary = culinary
+                    )
                 }
-                Spacer(
-                    modifier = Modifier.height(40.dp)
-                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
@@ -111,10 +133,11 @@ fun ProfileInfoCard(
                         widthIndicator = 30.dp
                     )
                     ButtonGeneric(
-                        text = stringResource(id = R.string.menu),
+                        text = "Cardápio",
+                        textSize = 10,
                         modifier = Modifier
-                            .width(75.dp)
-                            .height(15.dp),
+                            .width(105.dp)
+                            .height(30.dp),
                         isPrimary = true,
                         onClick = {}
                     )

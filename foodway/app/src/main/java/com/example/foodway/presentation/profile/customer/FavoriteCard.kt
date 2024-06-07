@@ -18,7 +18,7 @@ fun FavoriteCard(
 //    favorites: List<EstablishmentCard>
 ) {
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(26.dp, 0.dp)
     ) {
         Text(
             text = stringResource(id = R.string.favorites),

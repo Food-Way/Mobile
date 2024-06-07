@@ -18,6 +18,7 @@ import com.example.foodway.presentation.ui.theme.SecondaryButton
 fun ButtonGeneric(
     modifier: Modifier,
     text: String,
+    textSize: Int,
     isPrimary: Boolean,
     textColor: Color = Color.White,
     onClick: () -> Unit
@@ -36,7 +37,7 @@ fun ButtonGeneric(
         Text(
             text = text,
             color = textColor,
-            fontSize = 18.sp,
+            fontSize = textSize.sp,
             fontWeight = FontWeight.Bold
         )
     }
@@ -50,6 +51,7 @@ fun ButtonGenericTruePreview() {
             .width(150.dp)
             .height(50.dp),
         text = "Teste true",
+        textSize = 10,
         isPrimary = true
     ) {}
 }
@@ -62,6 +64,7 @@ fun ButtonGenericFalsePreview() {
             .width(150.dp)
             .height(50.dp),
         text = "Teste false",
+        textSize = 10,
         isPrimary = false
     ) {}
 }

@@ -1,8 +1,11 @@
 package com.example.foodway.presentation.components
 
 import android.content.Context
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.Coil
@@ -32,4 +35,10 @@ fun CoilImage(photo: String?, description: String?, modifier: Modifier) {
         contentScale = ContentScale.Crop,
         modifier = modifier
     )
+    if (photo != "https://foodway.s3.amazonaws.com/public-images/default-user-image.webp") {
+        Surface(
+            color = Color.Black.copy(alpha = 0.5f),
+            modifier = Modifier.fillMaxSize()
+        ) {}
+    }
 }

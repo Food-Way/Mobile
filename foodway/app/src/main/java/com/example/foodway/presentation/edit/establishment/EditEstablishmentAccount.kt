@@ -59,10 +59,106 @@ fun EditEstablishmentAccount() {
                             contentScale = ContentScale.Fit
                         )
                     }
+<<<<<<< Updated upstream
                     Text(
                         fontSize = 16.sp,
                         text = stringResource(id = R.string.adjust)
                     )
+=======
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .padding(20.dp, 21.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceAround
+                    ) {
+
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
+                            icon = personalEstablishmentInputInfos[0].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[0].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = fantasyName,
+                            onValueChange = {
+                                fantasyName = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
+                            icon = personalEstablishmentInputInfos[1].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[1].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = responsible,
+                            onValueChange = {
+                                responsible = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
+                            icon = personalEstablishmentInputInfos[2].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[2].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = email,
+                            onValueChange = {
+                                email = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[3].inputLabel,
+                            icon = personalEstablishmentInputInfos[3].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[3].type
+                            ),
+                            visualTransformation = PasswordVisualTransformation(),
+                            labelState = password,
+                            onValueChange = {
+                                password = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[4].inputLabel,
+                            icon = personalEstablishmentInputInfos[4].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[4].type
+                            ),
+                            visualTransformation = PasswordVisualTransformation(),
+                            labelState = confPassword,
+                            onValueChange = {
+                                confPassword = it
+                            },
+                        )
+
+                        Spacer(modifier = Modifier.height(30.dp))
+
+                        ButtonGeneric(
+                            text = stringResource(id = R.string.save_button),
+                            textSize = 18,
+                            modifier = Modifier
+                                .width(250.dp)
+                                .height(45.dp),
+                            isPrimary = true
+                        ) {
+                            vm.editAccount(
+                                UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                                editEstablishmentAccount = EditEstablishmentAccount(
+                                    fantasyName = fantasyName,
+                                    responsible = responsible,
+                                    email = email,
+                                    password = password,
+                                ),
+                                onNavigateSuccess = { onNavigateSuccessEdit() }
+                            )
+                        }
+                    }
+>>>>>>> Stashed changes
                 }
 
                 Image(

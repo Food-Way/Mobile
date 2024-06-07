@@ -88,6 +88,7 @@ fun CommentDialog(
 
         ButtonGeneric(
             text = "Enviar",
+            textSize = 18,
             modifier = Modifier
                 .width(200.dp)
                 .height(200.dp),
