@@ -2,6 +2,7 @@ package com.example.foodway.data.remote
 
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
+import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
 import com.example.foodway.domain.model.Establishment
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import retrofit2.Response
@@ -31,4 +32,10 @@ interface EstablishmentService {
         @Path("idEstablishment") idEstablishment: UUID,
         @Body editEstablishmentAccount: EditEstablishmentAccount
     ): Response<Unit>
+
+    @GET("establishments/{idEstablishment}")
+    suspend fun getEstablishment(
+        @Path("idEstablishment") idEstablishment: UUID
+    ): Response<GetProfileEstablishmentEdit>
+
 }

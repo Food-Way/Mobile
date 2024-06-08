@@ -31,12 +31,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.model.EstablishmentInputManager.personalEstablishmentInputInfos
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
@@ -84,9 +82,9 @@ fun EditEstablishmentAccount(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
-            var fantasyName by remember { mutableStateOf(profile.fantasyName) }
-            var responsible by remember { mutableStateOf(profile.responsible) }
-            var email by remember { mutableStateOf(profile.email) }
+//            var fantasyName by remember { mutableStateOf(profile.fantasyName) }
+//            var responsible by remember { mutableStateOf(profile.responsible) }
+//            var email by remember { mutableStateOf(profile.email) }
             var password by remember { mutableStateOf("") }
             var confPassword by remember { mutableStateOf("") }
 
@@ -142,42 +140,42 @@ fun EditEstablishmentAccount(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
 
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
-                            icon = personalEstablishmentInputInfos[0].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[0].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = fantasyName,
-                            onValueChange = {
-                                fantasyName = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
-                            icon = personalEstablishmentInputInfos[1].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[1].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = responsible,
-                            onValueChange = {
-                                responsible = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
-                            icon = personalEstablishmentInputInfos[2].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[2].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = email,
-                            onValueChange = {
-                                email = it
-                            },
-                        )
+//                        InputGeneric(
+//                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
+//                            icon = personalEstablishmentInputInfos[0].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = personalEstablishmentInputInfos[0].type
+//                            ),
+//                            visualTransformation = VisualTransformation.None,
+//                            labelState = fantasyName,
+//                            onValueChange = {
+//                                fantasyName = it
+//                            },
+//                        )
+//                        InputGeneric(
+//                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
+//                            icon = personalEstablishmentInputInfos[1].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = personalEstablishmentInputInfos[1].type
+//                            ),
+//                            visualTransformation = VisualTransformation.None,
+//                            labelState = responsible,
+//                            onValueChange = {
+//                                responsible = it
+//                            },
+//                        )
+//                        InputGeneric(
+//                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
+//                            icon = personalEstablishmentInputInfos[2].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = personalEstablishmentInputInfos[2].type
+//                            ),
+//                            visualTransformation = VisualTransformation.None,
+//                            labelState = email,
+//                            onValueChange = {
+//                                email = it
+//                            },
+//                        )
                         InputGeneric(
                             inputLabel = personalEstablishmentInputInfos[3].inputLabel,
                             icon = personalEstablishmentInputInfos[3].icon,
@@ -215,13 +213,14 @@ fun EditEstablishmentAccount(
                         ) {
                             vm.editAccount(
                                 UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                                editEstablishmentAccount = EditEstablishmentAccount(
-                                    fantasyName = fantasyName,
-                                    responsible = responsible,
-                                    email = email,
-                                    password = password,
-                                ),
-                                onNavigateSuccess = { onNavigateSuccessEdit() }
+//                                editEstablishmentAccount = EditEstablishmentAccount(
+////                                    fantasyName = fantasyName,
+////                                    responsible = responsible,
+////                                    email = email,
+////                                    password = password,
+//                                ),
+                                onNavigateSuccess = { onNavigateSuccessEdit() },
+                                sharedPreferences = sharedPreferences
                             )
                         }
                     }

@@ -82,11 +82,10 @@ fun EditCustomerAccount(
             Log.d("Success", "Success state")
 
             var name by remember { mutableStateOf(profile.name) }
-//            var lastName by remember { mutableStateOf(profile.lastName) }
-            var cpf by remember { mutableStateOf(profile.cpf ?: "000.000.000-00") }
             var email by remember { mutableStateOf(profile.email) }
+            var emailNew by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
-            var confPassword by remember { mutableStateOf("") }
+            var passwordNew by remember { mutableStateOf("") }
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -161,54 +160,41 @@ fun EditCustomerAccount(
 //                    )
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[2].inputLabel,
-                        icon = CustomerInputManager.personalCustomerInputInfos[2].icon,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = CustomerInputManager.personalCustomerInputInfos[2].type
-                        ),
-                        visualTransformation = VisualTransformation.None,
-                        labelState = cpf,
-                        onValueChange = {
-                            cpf = it
-                        },
-                    )
-
-                    InputGeneric(
                         inputLabel = CustomerInputManager.personalCustomerInputInfos[3].inputLabel,
                         icon = CustomerInputManager.personalCustomerInputInfos[3].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[3].type
                         ),
                         visualTransformation = VisualTransformation.None,
-                        labelState = email,
+                        labelState = emailNew,
                         onValueChange = {
-                            email = it
+                            emailNew = it
                         },
                     )
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[4].inputLabel,
+                        inputLabel = R.string.newPass,
                         icon = CustomerInputManager.personalCustomerInputInfos[4].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[4].type
                         ),
                         visualTransformation = PasswordVisualTransformation(),
-                        labelState = password,
+                        labelState = passwordNew,
                         onValueChange = {
-                            password = it
+                            passwordNew = it
                         },
                     )
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[5].inputLabel,
+                        inputLabel = R.string.oldPass,
                         icon = CustomerInputManager.personalCustomerInputInfos[5].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[5].type
                         ),
                         visualTransformation = PasswordVisualTransformation(),
-                        labelState = confPassword,
+                        labelState = password,
                         onValueChange = {
-                            confPassword = it
+                            password = it
                         },
                     )
 
@@ -226,16 +212,17 @@ fun EditCustomerAccount(
                             idUser = id,
                             editCustomerAccount = EditCustomerAccount(
                                 name,
-//                            lastName,
-                                cpf,
                                 email,
+                                emailNew,
                                 password,
+                                passwordNew
                             ),
                             onNavigateSuccess = {
                                 onNavigateSuccessEdit(
                                     id.toString()
                                 )
-                            }
+                            },
+                            sharedPreferences = sharedPreferences
                         )
                     }
                 }

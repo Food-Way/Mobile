@@ -2,19 +2,27 @@ package com.example.foodway.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import java.util.UUID
 
 class PreferencesManager(context : Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
 
     fun saveAuthenticatedData(
-        id: UUID
+        key: String,
+        value: Any
     ) {
-        sharedPreferences
-            .edit()
-            .putString("id", id.toString())
-            .apply()
+        val editor = sharedPreferences.edit()
+
+        when (value) {
+            is String -> editor.putString(key, value)
+            is Int -> editor.putInt(key, value)
+            is Long -> editor.putLong(key, value)
+            is Float -> editor.putFloat(key, value)
+            is Boolean -> editor.putBoolean(key, value)
+            else -> throw IllegalArgumentException("Unsupported type")
+        }
+
+        editor.apply()
     }
 
     fun getSavedData(key: String, defaultValue: String = ""): String{
