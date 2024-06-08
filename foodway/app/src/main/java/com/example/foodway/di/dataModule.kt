@@ -3,6 +3,7 @@ package com.example.foodway.di
 import com.example.foodway.data.edit.remote.UploadFileService
 import com.example.foodway.data.establishmentMenu.remote.ProductService
 import com.example.foodway.data.network.ApiConfig
+import com.example.foodway.data.profile.establishment.remote.PostCommentService
 import com.example.foodway.data.remote.CustomerService
 import com.example.foodway.data.remote.EstablishmentService
 import com.example.foodway.data.searchUser.remote.SearchUserService
@@ -58,5 +59,11 @@ val dataModule = module {
         ApiConfig
             .getInstance()
             .create(UploadFileService::class.java)
+    }
+
+    single<PostCommentService> {
+        ApiConfig
+            .getInstance()
+            .create(PostCommentService::class.java)
     }
 }

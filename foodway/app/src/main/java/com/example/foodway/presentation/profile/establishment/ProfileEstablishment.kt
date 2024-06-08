@@ -11,19 +11,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.utils.PreferencesManager
 import java.util.UUID
 
 @Composable
 fun ProfileEstablishment(
     vm: ProfileEstablishmentViewModel,
     idEstablishment: UUID,
+    sharedPreferences: PreferencesManager
 ) {
     val state by vm.state.observeAsState()
+    var establishmentName by remember { mutableStateOf("") }
+    var culinary by remember { mutableStateOf("") }
 
     val showModal by vm.modalState.observeAsState()
 
@@ -31,7 +38,15 @@ fun ProfileEstablishment(
         Dialog(
             onDismissRequest = { vm.toggleModal(showModal = false) },
             content = {
-                CommentDialog { vm.toggleModal(showModal = false) }
+                CommentDialog(
+                    name = establishmentName,
+                    culinary = culinary,
+                    vm = vm,
+                    idEstablishment = idEstablishment,
+                    sharedPreferences = sharedPreferences
+                ) {
+                    vm.toggleModal(showModal = false)
+                }
             }
         )
     }
@@ -49,7 +64,7 @@ fun ProfileEstablishment(
             val errorMessage = (state as MainScreenState.Error).message
             Log.d("Error", "Error state")
             ErrorView(message = errorMessage) {
-                vm.getEstablishmentProfile(idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44"))
+                vm.getEstablishmentProfile(idEstablishment = idEstablishment)
             }
         }
 
@@ -57,6 +72,8 @@ fun ProfileEstablishment(
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
             Log.d("Success", "Success state")
             Log.d("PROFILE", profile.toString())
+            establishmentName = profile.establishmentName
+            culinary = profile.culinary
 
             Scaffold(
                 bottomBar = {}
@@ -68,21 +85,18 @@ fun ProfileEstablishment(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
-//                    ProfileInfoCard(
-//                        modifier = Modifier
-//                            .padding(innerPadding),
-//                        name = profile.establishmentName,
-//                        headerImage = profile.profileHeaderImg,
-//                        culinary = profile.culinary,
-//                        rate = profile.rate,
-//                        description = "teste",
-//                        description = profile.description,
-//                        qtdComments = profile.qtdComments,
-//                        qtdUpvotes = profile.qtdUpvotes
-//                    )
-//                    CommentList(
-//                        profile.comments
-//                    )
+                    ProfileInfoCard(
+                        modifier = Modifier
+                            .padding(innerPadding),
+                        name = profile.establishmentName,
+                        culinary = profile.culinary,
+                        rate = profile.generalRate,
+                        qtdComments = profile.qtdComments,
+                        qtdUpvotes = profile.qtdUpvotes
+                    )
+                    CommentList(
+                        profile.comments
+                    )
                     CommentBoxHandler(
                         showCommentDialog = {
                             vm.toggleModal()

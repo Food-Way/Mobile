@@ -3,9 +3,9 @@ package com.example.foodway.domain.model
 import java.util.UUID
 
 data class CommentChild(
-    val idComment: UUID,
-    val image: String,
-    val name: String,
+    val idPost: UUID,
+    val userPhoto: String,
+    val userName: String,
     val comment: String,
-    val qtdUpvotes: Int,
+    val upvotes: Int,
 )

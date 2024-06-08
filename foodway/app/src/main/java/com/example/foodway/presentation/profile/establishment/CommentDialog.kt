@@ -1,7 +1,5 @@
 package com.example.foodway.presentation.profile.establishment
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,35 +7,45 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.profile.establishment.model.PostComment
 import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.components.RatingBar
+import com.example.foodway.utils.PreferencesManager
+import java.util.UUID
 
 @Composable
 fun CommentDialog(
+    name: String,
+    culinary: String,
+    idEstablishment: UUID,
+    vm: ProfileEstablishmentViewModel,
+    sharedPreferences: PreferencesManager,
     onDismissRequest: () -> Unit,
 ) {
     var rating by remember {
-        mutableDoubleStateOf(2.5)
+        mutableDoubleStateOf(0.0)
+    }
+
+    var comment by remember {
+        mutableStateOf("")
     }
 
     Column(
@@ -55,12 +63,12 @@ fun CommentDialog(
         ) {
             Column {
                 Text(
-                    text = "Mc donalds",
+                    text = name,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
                 )
                 Text(
-                    text = "Culinária Havaiana",
+                    text = culinary,
                     fontSize = 14.sp,
                     color = Color.Gray
                 )
@@ -94,26 +102,15 @@ fun CommentDialog(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        BasicTextField(
-            value = "",
-            onValueChange = {},
-            decorationBox = { innerTextField ->
-                Row(
-                    Modifier
-                        .border(
-                            1.dp,
-                            colorResource(id = R.color.light_gray),
-                            RoundedCornerShape(12.dp)
-                        )
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .fillMaxWidth()
-                ) {
-                    Text("Digite um comentário ✏️", color = Color.LightGray)
-                    innerTextField()
-                }
+        InputGeneric(
+            inputLabel = R.string.comments,
+            icon = R.drawable.comment,
+            visualTransformation = VisualTransformation.None,
+            labelState = comment,
+            onValueChange = {
+                comment = it
             }
         )
-
         Spacer(modifier = Modifier.height(36.dp))
 
         ButtonGeneric(
@@ -123,13 +120,25 @@ fun CommentDialog(
                 .width(400.dp)
                 .height(40.dp),
             isPrimary = true,
-        ) {}
+            onClick = {
+                vm.postComment(
+                    postComment = PostComment(
+                        idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                        idEstablishment = idEstablishment,
+                        comment = comment,
+                        userPhoto = sharedPreferences.getSavedData("photo", ""),
+                        userName = sharedPreferences.getSavedData("name", ""),
+                        typeUser = UserType.CLIENT.name
+                    )
+                )
+            }
+        )
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun CommentDialogPreview() {
-    CommentDialog() {}
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CommentDialogPreview() {
+//    CommentDialog() {}
+//}

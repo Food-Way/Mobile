@@ -1,16 +1,18 @@
 package com.example.foodway.domain.profile.establishment.model
 
+import com.example.foodway.domain.model.Comment
+import com.google.gson.annotations.SerializedName
+import java.util.UUID
+
 data class ProfileEstablishment(
+    val idEstablishment: UUID,
+    val name: String,
     val establishmentName: String,
-//    val name: String,
-////    val responsible: String,
-//    val email: String,
-////    val description: String,
-//    val photo: String,
-//    val profileHeaderImg: String,
-//    val culinary: String,
-//    val rate: Double,
-//    val qtdComments: Int,
-//    val qtdUpvotes: Int,
-//    val comments: List<Comment>,
+    val email: String,
+    val culinary: String,
+    val generalRate: Double,
+    val qtdComments: Int,
+    val qtdUpvotes: Int,
+    @SerializedName("comments")
+    val comments: List<Comment>,
 )

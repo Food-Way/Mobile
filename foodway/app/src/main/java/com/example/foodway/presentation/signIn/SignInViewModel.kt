@@ -39,8 +39,10 @@ class SignInViewModel(
                 Log.d("login", response.toString())
 
                 response.let {
-                    sharedPreferences.saveAuthenticatedData("id", it.idUser.toString())
-                    sharedPreferences.saveAuthenticatedData("token", it.token)
+                    sharedPreferences.saveAuthenticatedData("id", it.idUser.toString() ?: "")
+                    sharedPreferences.saveAuthenticatedData("token", it.token ?: "")
+                    sharedPreferences.saveAuthenticatedData("photo", "nao" ?: "")
+                    sharedPreferences.saveAuthenticatedData("name", it.name ?: "")
                     val route = when (it.typeUser) {
                         UserType.CLIENT.name -> {
                             AppDestination.ProfileCustomer.route

@@ -102,7 +102,8 @@ class MainActivity : ComponentActivity() {
                                 val vm by inject<ProfileEstablishmentViewModel>()
                                 ProfileEstablishment(
                                     vm = vm,
-                                    idEstablishment = id
+                                    idEstablishment = id,
+                                    sharedPreferences = sharedPreferences
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {

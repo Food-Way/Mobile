@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,6 @@ import java.util.UUID
 @Composable
 fun CommentItem(
     idComment: UUID,
-    name: String,
     photo: String,
     comment: String,
     rate: Double,
@@ -69,13 +67,9 @@ fun CommentItem(
                         size = 35.dp
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = name,
-                        fontWeight = FontWeight.Bold,
-                    )
                     Indicator(
                         quantity = qtdUpvotes,
-                        hasQuantity = false,
+                        hasQuantity = true,
                         icon = R.drawable.upvote,
                         description = R.string.upvotes,
                         size = 20.dp,
