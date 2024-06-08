@@ -20,19 +20,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.domain.model.Customer
+import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
-
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 
 @Composable
 fun SearchCustomer(
-    vm: SearchUserViewModel
+    vm: SearchUserViewModel,
+    onNavigateToCustomer: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
 
     Column {
-        UserSearchComponent() {}
+        UserSearchComponent(
+            vm = vm
+        )
         when (state) {
             is MainScreenState.Loading -> {
                 Log.d("loading", "loading state")
@@ -52,7 +57,7 @@ fun SearchCustomer(
 
             is MainScreenState.Success<*> -> {
                 val customers = (state as MainScreenState.Success<List<Customer>>).data
-                Log.d("Success", "Success state")
+
                 Column {
                     Text(
                         modifier = Modifier
@@ -66,15 +71,23 @@ fun SearchCustomer(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        repeat(3) {
+                        Log.d("customers", customers.toString())
+
+                        val topThree = customers.take(3)
+
+                        topThree.forEach { customer ->
                             CardUser(
-                                name = customers[it].name,
-                                rate = customers[it].rate,
-                                photo = "customers[it].profilePhoto"
+                                id = customer.idUser,
+                                name = customer.name,
+                                rate = customer.rate ?: 0.0,
+                                photo = customer.profilePhoto ?: "",
+                                typeUser = UserType.CLIENT,
+                                onNavigateToProfile = onNavigateToCustomer
                             )
                         }
                     }
                 }
+
                 Column(
                     modifier = Modifier
                         .padding(top = 10.dp),
@@ -89,14 +102,17 @@ fun SearchCustomer(
                     LazyColumn(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(customers) { customer ->
+                        items(customers.drop(3)) { customer ->
                             ListCardUser(
-                                photo = "",
+                                id = customer.idUser,
+                                photo = customer.profilePhoto ?: "",
                                 name = customer.name,
-                                rateStar = customer.rate,
-                                description = "customer.bio",
-                                qtdComment = customer.qtdComments,
-                                qtdUpVotes = customer.qtdUpvotes
+                                rateStar = customer.rate ?: 0.0,
+                                description = customer.bio ?: "Sem descrição",
+                                qtdComment = customer.qtdComments ?: 0,
+                                qtdUpVotes = customer.qtdUpvotes ?: 0,
+                                typeUser = UserType.CLIENT,
+                                onNavigateToProfile = onNavigateToCustomer
                             )
                         }
                     }

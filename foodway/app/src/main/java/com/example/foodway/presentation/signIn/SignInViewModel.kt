@@ -36,9 +36,11 @@ class SignInViewModel(
 
                 val signInData = SignIn(email, password)
                 val response = getUserUseCase(signIn = signInData)
+                Log.d("login", response.toString())
 
                 response.let {
-                    sharedPreferences.saveAuthenticatedData(it.idUser)
+                    sharedPreferences.saveAuthenticatedData("id", it.idUser.toString())
+                    sharedPreferences.saveAuthenticatedData("token", it.token)
                     val route = when (it.typeUser) {
                         UserType.CLIENT.name -> {
                             AppDestination.ProfileCustomer.route

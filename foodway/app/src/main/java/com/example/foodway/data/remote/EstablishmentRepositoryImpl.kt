@@ -2,6 +2,7 @@ package com.example.foodway.data.remote
 
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
+import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.domain.repository.IEstablishmentRepository
 import retrofit2.Response
@@ -14,6 +15,10 @@ class EstablishmentRepositoryImpl(
         idEstablishment: UUID
     ): Response<ProfileEstablishment> {
         return api.getEstablishmentProfile(idEstablishment)
+    }
+
+    override suspend fun getEstablishment(idEstablishment: UUID): Response<GetProfileEstablishmentEdit> {
+        return api.getEstablishment(idEstablishment)
     }
 
     override suspend fun updateAccount(
@@ -35,4 +40,6 @@ class EstablishmentRepositoryImpl(
             editEstablishmentProfile = editEstablishmentProfile
         )
     }
+
+
 }

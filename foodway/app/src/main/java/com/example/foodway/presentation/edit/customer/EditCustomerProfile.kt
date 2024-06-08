@@ -114,11 +114,17 @@ fun EditCustomerProfile(
                         imageUri = imageUri.value,
                         onChangeImage = { newImageUri ->
                             imageUri.value = newImageUri
-//                            vm.editImage(
-//                                uri = imageUri.value,
-//                                context = context,
-//                            )
                         },
+                        onclick = {
+                            vm.editImage(
+                                uri = imageUri.value,
+                                context = context,
+                                onNavigateToLogin = {
+                                    onNavigateSuccessEdit()
+                                }
+                            )
+                        },
+
                         size = 150.dp
                     )
 
@@ -160,6 +166,7 @@ fun EditCustomerProfile(
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.save),
+                            textSize = 18,
                             modifier = Modifier
                                 .width(320.dp)
                                 .height(43.dp),
@@ -180,6 +187,7 @@ fun EditCustomerProfile(
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.edit_account),
+                            textSize = 18,
                             modifier = Modifier
                                 .width(320.dp)
                                 .height(43.dp),

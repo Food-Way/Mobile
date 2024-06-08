@@ -206,9 +206,15 @@ class MainActivity : ComponentActivity() {
                                 val vm by inject<SearchUserViewModel>()
                                 SearchUser(
                                     vm = vm,
-                                    onNavigate = {
-                                        navController.navigate(AppDestination.SearchUser.route)
-                                    }
+                                    onNavigateToEstablishment = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateToCustomer = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateToFavorites = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable(AppDestination.EditCustomerProfile.route) {

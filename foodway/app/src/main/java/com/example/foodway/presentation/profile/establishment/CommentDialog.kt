@@ -1,12 +1,15 @@
 package com.example.foodway.presentation.profile.establishment
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -41,65 +44,86 @@ fun CommentDialog(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Mc donalds",
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-        Text(
-            text = "Culinária Havaiana",
-            fontSize = 14.sp,
-            color = Color.Gray
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Column {
+                Text(
+                    text = "Mc donalds",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Text(
+                    text = "Culinária Havaiana",
+                    fontSize = 14.sp,
+                    color = Color.Gray
+                )
+            }
+            RatingBar(
+                rating = rating,
+                stars = 1,
+                onRatingChanged = {
+                    rating = it
+                },
+                starsColor = Color.Yellow,
+                editable = true
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         RatingBar(
+            modifier = Modifier
+                .width(200.dp),
             rating = rating,
             stars = 5,
             onRatingChanged = {
                 rating = it
             },
             starsColor = Color.Yellow,
-            editable = true
+            editable = true,
+            viewValue = false,
+            sizeStar = 30
         )
+
         Spacer(modifier = Modifier.height(16.dp))
+
         BasicTextField(
             value = "",
             onValueChange = {},
             decorationBox = { innerTextField ->
                 Row(
                     Modifier
-                        .background(
-                            color = colorResource(id = R.color.red),
-                            RoundedCornerShape(4.dp)
+                        .border(
+                            1.dp,
+                            colorResource(id = R.color.light_gray),
+                            RoundedCornerShape(12.dp)
                         )
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                         .fillMaxWidth()
                 ) {
-//                            if (/* your text field is empty */) {
                     Text("Digite um comentário ✏️", color = Color.LightGray)
-//                            }
                     innerTextField()
                 }
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(36.dp))
 
         ButtonGeneric(
             text = "Enviar",
+            textSize = 18,
             modifier = Modifier
-                .width(200.dp)
-                .height(200.dp),
+                .width(400.dp)
+                .height(40.dp),
             isPrimary = true,
         ) {}
-
-        TextButton(
-            onClick = { onDismissRequest() },
-            modifier = Modifier.padding(top = 8.dp)
-        ) {
-            Text(text = "Fechar", fontWeight = FontWeight.Bold, color = Color.Red)
-        }
     }
 }
 

@@ -13,19 +13,19 @@ class UpdateAccountUseCase(
 ) {
     suspend operator fun invoke(
         idCustomer: UUID,
-        editCustomerAccount: EditCustomerAccount
+        editCustomerAccount: EditCustomerAccount,
+        token: String
     ) {
         try {
             with(editCustomerAccount) {
                 validateField(name, "Name")
-//                validateField(lastName, "Last Name")
-                validateField(cpf, "CPF")
                 validateField(email, "Email")
                 validateField(password, "Password")
             }
             val response = customerRepository.updateAccount(
                 idCustomer = idCustomer,
-                editCustomerAccount = editCustomerAccount
+                editCustomerAccount = editCustomerAccount,
+                token = token
             )
             if (response.isSuccessful) {
                 return response.body() ?: throw Exception("Response body is null")
@@ -39,12 +39,13 @@ class UpdateAccountUseCase(
 
     suspend operator fun invoke(
         idEstablishment: UUID,
-        editEstablishmentAccount: EditEstablishmentAccount
+        editEstablishmentAccount: EditEstablishmentAccount,
+        token: String
     ) {
         try {
             with(editEstablishmentAccount) {
-                validateField(fantasyName, "Fantasy name")
-                validateField(responsible, "Responsible")
+//                validateField(fantasyName, "Fantasy name")
+//                validateField(responsible, "Responsible")
 //                validateField(cnpj, "CNPJ")
                 validateField(email, "Email")
                 validateField(password, "Password")

@@ -3,7 +3,7 @@ package com.example.foodway.domain.model
 import java.util.UUID
 
 data class Establishment(
-    val idUser: UUID,
+    val idEstablishment: UUID,
     val name: String,
     val email: String,
     val password: String,
@@ -14,4 +14,5 @@ data class Establishment(
     val qtdUpvotes: Int,
     val qtdComments: Int,
     val description: String,
+    val isFavorite: Boolean
 )

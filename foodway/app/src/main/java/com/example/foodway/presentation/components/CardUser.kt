@@ -1,6 +1,7 @@
 package com.example.foodway.presentation.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,12 +23,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.model.UserType
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun CardUser(
+    id: UUID,
     name: String,
     photo: String,
-    rate: Double
+    rate: Double,
+    typeUser: UserType,
+    onNavigateToProfile : (Destination, ProfileId) -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -37,6 +46,15 @@ fun CardUser(
             .width(95.dp)
             .height(130.dp)
             .border(1.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp))
+            .clickable {
+                onNavigateToProfile(
+                    when (typeUser) {
+                        UserType.CLIENT -> AppDestination.ProfileCustomer.route
+                        UserType.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                    },
+                    id.toString()
+                )
+            }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

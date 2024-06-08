@@ -132,6 +132,7 @@ fun StepTwoEstablishment(
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.next),
+                    textSize = 18,
                     modifier = Modifier
                         .width(250.dp)
                         .height(45.dp),

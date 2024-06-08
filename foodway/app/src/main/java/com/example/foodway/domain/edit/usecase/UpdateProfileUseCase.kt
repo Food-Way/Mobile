@@ -42,7 +42,7 @@ class UpdateProfileUseCase(
         try {
             with(editEstablishmentProfile) {
                 validateField(name, "Name")
-                validateField(description, "Description")
+//                validateField(description, "Description")
                 validateField(photo, "Photo")
             }
             val response = establishmentRepository.updateProfile(

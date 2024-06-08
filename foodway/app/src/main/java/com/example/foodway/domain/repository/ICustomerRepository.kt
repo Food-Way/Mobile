@@ -10,6 +10,6 @@ import java.util.UUID
 interface ICustomerRepository {
     suspend fun getCustomerProfile(idCustomer: UUID): Response<ProfileCustomer>
     suspend fun getCustomerAccount(idCustomer: UUID): Response<ProfileCustomer>
-    suspend fun updateAccount(idCustomer: UUID, editCustomerAccount: EditCustomerAccount): Response<Unit>
+    suspend fun updateAccount(idCustomer: UUID, editCustomerAccount: EditCustomerAccount, token: String): Response<Unit>
     suspend fun updateAccount(idCustomer: UUID, editCustomerProfile: EditCustomerProfile): Response<Unit>
 }

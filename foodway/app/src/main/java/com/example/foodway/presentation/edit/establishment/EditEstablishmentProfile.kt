@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
+import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
 import com.example.foodway.domain.model.EstablishmentInputManager.profileEstablishmentInputInfos
 import com.example.foodway.domain.model.UserType
-import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
@@ -74,9 +74,9 @@ fun EditEstablishmentProfile(
         }
 
         is MainScreenState.Success<*> -> {
-            val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
+            val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
             var name by remember { mutableStateOf(profile.establishmentName) }
-            var description by remember { mutableStateOf(profile.description) }
+//            var description by remember { mutableStateOf(profile.description) }
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -119,6 +119,7 @@ fun EditEstablishmentProfile(
 
                     ButtonGeneric(
                         text = stringResource(id = R.string.save),
+                        textSize = 18,
                         modifier = Modifier
                             .width(270.dp)
                             .height(43.dp),
@@ -146,23 +147,24 @@ fun EditEstablishmentProfile(
                                 name = it
                             },
                         )
-                        InputGeneric(
-                            inputLabel = profileEstablishmentInputInfos[1].inputLabel,
-                            icon = profileEstablishmentInputInfos[1].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = profileEstablishmentInputInfos[1].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = description,
-                            onValueChange = {
-                                description = it
-                            },
-                        )
+//                        InputGeneric(
+//                            inputLabel = profileEstablishmentInputInfos[1].inputLabel,
+//                            icon = profileEstablishmentInputInfos[1].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = profileEstablishmentInputInfos[1].type
+//                            ),
+//                            visualTransformation = VisualTransformation.None,
+//                            labelState = description,
+//                            onValueChange = {
+//                                description = it
+//                            },
+//                        )
 
                         Spacer(modifier = Modifier.height(30.dp))
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.save),
+                            textSize = 18,
                             modifier = Modifier
                                 .width(270.dp)
                                 .height(43.dp),
@@ -173,7 +175,7 @@ fun EditEstablishmentProfile(
                                 editEstablishmentProfile = EditEstablishmentProfile(
                                     name = name,
                                     photo = "",
-                                    description = description
+//                                    description = description
                                 ),
                                 onNavigateSuccessEdit = { onNavigateSuccessEdit() }
                             )
@@ -183,6 +185,7 @@ fun EditEstablishmentProfile(
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.edit_account),
+                            textSize = 18,
                             modifier = Modifier
                                 .width(270.dp)
                                 .height(43.dp),

@@ -56,6 +56,7 @@ fun ProfileEstablishment(
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
             Log.d("Success", "Success state")
+            Log.d("PROFILE", profile.toString())
 
             Scaffold(
                 bottomBar = {}
@@ -67,21 +68,21 @@ fun ProfileEstablishment(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    ProfileInfoCard(
-                        modifier = Modifier
-                            .padding(innerPadding),
-                        name = profile.establishmentName,
-                        headerImage = profile.profileHeaderImg,
-                        culinary = profile.culinary,
-                        rate = profile.rate,
-                        description = "teste",
+//                    ProfileInfoCard(
+//                        modifier = Modifier
+//                            .padding(innerPadding),
+//                        name = profile.establishmentName,
+//                        headerImage = profile.profileHeaderImg,
+//                        culinary = profile.culinary,
+//                        rate = profile.rate,
+//                        description = "teste",
 //                        description = profile.description,
-                        qtdComments = profile.qtdComments,
-                        qtdUpvotes = profile.qtdUpvotes
-                    )
-                    CommentList(
-                        profile.comments
-                    )
+//                        qtdComments = profile.qtdComments,
+//                        qtdUpvotes = profile.qtdUpvotes
+//                    )
+//                    CommentList(
+//                        profile.comments
+//                    )
                     CommentBoxHandler(
                         showCommentDialog = {
                             vm.toggleModal()

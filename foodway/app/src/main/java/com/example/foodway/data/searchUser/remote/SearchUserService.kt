@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.UUID
 
 interface SearchUserService {
@@ -16,7 +17,8 @@ interface SearchUserService {
 
     @GET("establishments/search")
     suspend fun getAllEstablishments(
-        @Header("ID_SESSION") idSession: UUID
+        @Header("ID_SESSION") idSession: UUID,
+        @Query("searchFilter") searchFilter: String
     ): Response<List<Establishment>>
 
     @GET("favorites/{idUser}")

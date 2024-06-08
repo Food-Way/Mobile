@@ -118,8 +118,7 @@
     <!--register-->
     <string name="user_information">Informações do usuário</string>
 
-    <!--select user-->
-    <string name="user_select">Selecionar</string>
-
+    <string name="newPass">Nova Senha</string>
+    <string name="oldPass">Senha Antiga</string>
 </resources>
 

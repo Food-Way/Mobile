@@ -37,6 +37,8 @@ import com.example.foodway.presentation.searchUser.SearchCustomer
 import com.example.foodway.presentation.searchUser.SearchEstablishment
 import com.example.foodway.presentation.searchUser.SearchFavorites
 import com.example.foodway.presentation.searchUser.SearchUserViewModel
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -46,7 +48,10 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 @Composable
 fun TabScreen(
-    vm: SearchUserViewModel
+    vm: SearchUserViewModel,
+    onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
+    onNavigateToCustomer: (Destination, ProfileId) -> Unit,
+    onNavigateToFavorites: (Destination, ProfileId) -> Unit
 ) {
 
     val tabs = listOf("", "", "")
@@ -172,13 +177,16 @@ fun TabScreen(
         ) { index ->
             when (index) {
                 0 -> SearchEstablishment(
-                    vm = vm
+                    vm = vm,
+                    onNavigateToEstablishment = onNavigateToEstablishment
                 )
                 1 -> SearchCustomer(
-                    vm = vm
+                    vm = vm,
+                    onNavigateToCustomer = onNavigateToCustomer
                 )
                 else -> SearchFavorites(
-                    vm = vm
+                    vm = vm,
+                    onNavigateToFavorite = onNavigateToFavorites
                 )
             }
         }

@@ -28,15 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SearchUser(
     vm: SearchUserViewModel,
-    onNavigate: () -> Unit = {},
+    onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
+    onNavigateToCustomer: (Destination, ProfileId) -> Unit,
+    onNavigateToFavorites: (Destination, ProfileId) -> Unit
 ) {
-//    val state by vm.state.observeAsState()
+
     FoodwayTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -78,7 +82,10 @@ fun SearchUser(
                     )
                 }
                 TabScreen(
-                    vm = vm
+                    vm = vm,
+                    onNavigateToEstablishment = onNavigateToEstablishment,
+                    onNavigateToCustomer = onNavigateToCustomer,
+                    onNavigateToFavorites = onNavigateToFavorites
                 )
 //                NavBarComponent()
             }
