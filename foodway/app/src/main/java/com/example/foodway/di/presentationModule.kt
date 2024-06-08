@@ -32,7 +32,7 @@ val presentationModule = module {
         EditViewModel(
             updateAccountUseCase = get(),
             updateProfileUseCase = get(),
-            getEstablishmentProfileUseCase = get(),
+            getEstablishmentAccountUseCase = get(),
             getCustomerAccountUseCase = get(),
             postImageUseCase = get()
         )

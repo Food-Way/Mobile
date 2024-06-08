@@ -76,7 +76,7 @@ fun EditEstablishmentProfile(
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
             var name by remember { mutableStateOf(profile.establishmentName) }
-//            var description by remember { mutableStateOf(profile.description) }
+            var description by remember { mutableStateOf(profile.description) }
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -147,18 +147,18 @@ fun EditEstablishmentProfile(
                                 name = it
                             },
                         )
-//                        InputGeneric(
-//                            inputLabel = profileEstablishmentInputInfos[1].inputLabel,
-//                            icon = profileEstablishmentInputInfos[1].icon,
-//                            keyboardOptions = KeyboardOptions(
-//                                keyboardType = profileEstablishmentInputInfos[1].type
-//                            ),
-//                            visualTransformation = VisualTransformation.None,
-//                            labelState = description,
-//                            onValueChange = {
-//                                description = it
-//                            },
-//                        )
+                        InputGeneric(
+                            inputLabel = profileEstablishmentInputInfos[1].inputLabel,
+                            icon = profileEstablishmentInputInfos[1].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = profileEstablishmentInputInfos[1].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = description,
+                            onValueChange = {
+                                description = it
+                            },
+                        )
 
                         Spacer(modifier = Modifier.height(30.dp))
 
@@ -174,8 +174,8 @@ fun EditEstablishmentProfile(
                                 UUID.fromString(sharedPreferences.getSavedData("id", "")),
                                 editEstablishmentProfile = EditEstablishmentProfile(
                                     name = name,
-                                    photo = "",
-//                                    description = description
+                                    photo = profile.profilePhoto ?: "",
+                                    description = description ?: ""
                                 ),
                                 onNavigateSuccessEdit = { onNavigateSuccessEdit() }
                             )

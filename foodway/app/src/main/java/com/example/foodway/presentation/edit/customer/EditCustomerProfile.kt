@@ -124,7 +124,6 @@ fun EditCustomerProfile(
                                 }
                             )
                         },
-
                         size = 150.dp
                     )
 

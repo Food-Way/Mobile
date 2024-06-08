@@ -58,7 +58,6 @@ fun ProfileEstablishment(
 
     when (state) {
         is MainScreenState.Loading -> {
-            Log.d("loading", "loading state")
             LoadingBar(
                 loadingText = "Carregando Perfil..."
             )
@@ -67,7 +66,7 @@ fun ProfileEstablishment(
 
         is MainScreenState.Error, null -> {
             val errorMessage = (state as MainScreenState.Error).message
-            Log.d("Error", "Error state")
+            Log.d("Error", "Error state$errorMessage")
             ErrorView(message = errorMessage) {
                 vm.getEstablishmentProfile(idEstablishment = idEstablishment)
             }
@@ -75,8 +74,6 @@ fun ProfileEstablishment(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
-            Log.d("Success", "Success state")
-            Log.d("PROFILE", profile.toString())
             establishmentName = profile.establishmentName
             culinary = profile.culinary
 

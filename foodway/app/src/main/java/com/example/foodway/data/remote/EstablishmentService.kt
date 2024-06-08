@@ -33,9 +33,9 @@ interface EstablishmentService {
         @Body editEstablishmentAccount: EditEstablishmentAccount
     ): Response<Unit>
 
-    @GET("establishments/{idEstablishment}")
+    @GET("establishments/{id}")
     suspend fun getEstablishment(
-        @Path("idEstablishment") idEstablishment: UUID
+        @Path("id") idEstablishment: UUID
     ): Response<GetProfileEstablishmentEdit>
 
 }
