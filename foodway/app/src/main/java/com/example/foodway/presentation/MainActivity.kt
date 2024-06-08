@@ -1,5 +1,6 @@
 package com.example.foodway.presentation
 
+import SelectUserType
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -202,11 +203,18 @@ class MainActivity : ComponentActivity() {
                                 SignIn(
                                     vm = vm,
                                     onNavigate = {
-                                        navController.navigate(AppDestination.SignUpCustomer.route)
+                                        navController.navigate(AppDestination.SelectUserType.route)
                                     },
                                     onNavigateSuccessSignInTo = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
+                                )
+                            }
+                            composable(AppDestination.SelectUserType.route) {
+                                SelectUserType(
+                                    onNavigate = { route ->
+                                        navController.navigate("${route}")
+                                    }
                                 )
                             }
                             composable(AppDestination.SearchUser.route) {
@@ -309,7 +317,15 @@ fun MainApp(
             if (
                 currentRoute?.route != AppDestination.Welcome.route &&
                 currentRoute?.route != AppDestination.SignIn.route &&
-                currentRoute?.route != AppDestination.SignUpCustomer.route
+                currentRoute?.route != AppDestination.SignUpCustomer.route &&
+                currentRoute?.route != AppDestination.SelectUserType.route &&
+                currentRoute?.route != AppDestination.StepOneSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepTwoSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepThreeSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepFourSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepOneSignUpCustomer.route &&
+                currentRoute?.route != AppDestination.StepTwoSignUpCustomer.route &&
+                currentRoute?.route != AppDestination.StepThreeSignUpCustomer.route
             ) {
                 Box(
                     modifier = Modifier

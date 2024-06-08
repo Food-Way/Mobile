@@ -20,5 +20,5 @@ sealed class AppDestination(val route: String) {
     object EditCustomerAccount: AppDestination("editCustomerAccount")
     object EditEstablishmentProfile: AppDestination("editEstablishmentProfile")
     object EditEstablishmentAccount: AppDestination("editEstablishmentAccount")
-
+    object SelectUserType: AppDestination("selectUserType")
 }
