@@ -120,5 +120,8 @@
 
     <string name="newPass">Nova Senha</string>
     <string name="oldPass">Senha Antiga</string>
+
+    <!--Select Type User-->
+    <string name="user_select">Selecionar</string>
 </resources>
 
