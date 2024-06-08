@@ -56,6 +56,7 @@ fun ProfileEstablishment(
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
             Log.d("Success", "Success state")
+            Log.d("PROFILE", profile.toString())
 
             Scaffold(
                 bottomBar = {}

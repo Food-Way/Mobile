@@ -207,6 +207,7 @@ fun EditEstablishmentAccount(
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.save_button),
+                            textSize = 18,
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(45.dp),

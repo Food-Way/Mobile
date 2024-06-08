@@ -1,7 +1,9 @@
 package com.example.foodway.presentation.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 
@@ -27,17 +30,24 @@ fun RatingBar(
     stars: Int = 5,
     onRatingChanged: (Double) -> Unit,
     starsColor: Color = Color.Yellow,
+    textColor: Color = Color.Black,
     editable: Boolean = true,
-    viewValue: Boolean = true
+    viewValue: Boolean = true,
+    sizeStar: Int = 18
 ) {
 
     var isHalfStar = (rating % 1) != 0.0
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
     ) {
         if (viewValue) {
-            Text(text = rating.toString().replace(".",","))
+            Text(
+                text = rating.toString().replace(".",","),
+                color = textColor
+            )
         }
         for (index in 1..stars) {
             Icon(
@@ -55,7 +65,7 @@ fun RatingBar(
                 contentDescription = null,
                 tint = starsColor,
                 modifier = Modifier
-                    .size(18.dp)
+                    .size(sizeStar.dp)
                     .then(if (editable) Modifier.clickable { onRatingChanged(index.toDouble()) } else Modifier)
             )
         }

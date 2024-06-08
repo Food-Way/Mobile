@@ -216,6 +216,7 @@ fun EditCustomerAccount(
 
                     ButtonGeneric(
                         text = stringResource(id = R.string.save),
+                        textSize = 18,
                         modifier = Modifier
                             .width(270.dp)
                             .height(43.dp),
