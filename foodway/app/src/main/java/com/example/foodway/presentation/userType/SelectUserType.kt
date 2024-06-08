@@ -1,8 +1,10 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
@@ -11,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,39 +27,43 @@ import com.example.foodway.domain.model.SelectTypeUser
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.CoilImage
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
 
 @Composable
-fun SelectUserType(
+fun UserTypeSelection(
     data: UserType,
     imageResId: Int,
+    isChecked: Boolean,
     onClick: (UserType) -> Unit
 ) {
-    var isChecked by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
             .width(170.dp)
             .height(200.dp)
             .clickable {
-                isChecked = !isChecked
                 onClick(data)
             }
-            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)) // Adiciona a borda
-            .padding(12.dp) // Ajusta a margem
-
+            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+            .padding(12.dp)
     ) {
-
-       // CoilImage(
-        // photo = data.photo,
-         //description = data.name,
-        //  modifier = Modifier
-            //.fillMaxSize()
-        //)
         Image(
             painter = painterResource(id = imageResId),
             contentDescription = data.name,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .height(150.dp)
+                .clip(RoundedCornerShape(10.dp))
         )
+
+        Surface(
+            color = Color.Black.copy(alpha = 0.3f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .clip(RoundedCornerShape(10.dp))
+        ) {}
 
         if (isChecked) {
             Checkbox(
@@ -71,23 +78,27 @@ fun SelectUserType(
                 )
             )
         }
+
         Row(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 4.dp),
+                .align(Alignment.BottomCenter),
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = data.name,
-                color = colorResource(id = R.color.white),
+                text = if(data.name == UserType.CLIENT.toString()) "Cliente" else "Estabelecimento",
+                color = colorResource(id = R.color.black),
+                fontWeight = FontWeight.SemiBold
             )
         }
-
     }
 }
 
 @Composable
-fun UserTypeSelection() {
+fun SelectUserType(
+    onNavigate: (Destination) -> Unit
+) {
+    var selectedUserType by remember { mutableStateOf<UserType?>(null) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,37 +107,58 @@ fun UserTypeSelection() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Seleção", // Título adicionado
+            text = "Selecione o seu tipo 😃",
             style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(bottom = 16.dp)
         )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            SelectUserType(data = UserType.CLIENT, imageResId = R.drawable.usertypeclient) {}
+            UserTypeSelection(
+                data = UserType.CLIENT,
+                imageResId = R.drawable.usertypeclient,
+                isChecked = selectedUserType == UserType.CLIENT
+            ) {
+                selectedUserType = if (selectedUserType == it) null else it
+            }
             Spacer(modifier = Modifier.width(16.dp))
-            SelectUserType(data = UserType.ESTABLISHMENT, imageResId = R.drawable.usertypestab) {}
+            UserTypeSelection(
+                data = UserType.ESTABLISHMENT,
+                imageResId = R.drawable.usertypestab,
+                isChecked = selectedUserType == UserType.ESTABLISHMENT
+            ) {
+                selectedUserType = if (selectedUserType == it) null else it
+            }
         }
         Spacer(modifier = Modifier.height(70.dp))
 
-        // Botão adicionado abaixo dos quadrados
         ButtonGeneric(
             text = stringResource(id = R.string.user_select),
+            textSize = 18,
             modifier = Modifier
                 .width(150.dp)
                 .height(43.dp),
             isPrimary = true,
         ) {
-            // Ação do botão
+            if (selectedUserType == UserType.ESTABLISHMENT) {
+                onNavigate(
+                    AppDestination.StepOneSignUpEstablishment.route,
+                )
+            } else {
+                onNavigate(
+                    AppDestination.StepOneSignUpCustomer.route,
+                )
+            }
         }
     }
 }
 
-
-
-@Preview(showBackground = true)
-@Composable
-fun UserTypePreview() {
-    UserTypeSelection()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun UserTypePreview() {
+//    UserTypeSelection()
+//}
