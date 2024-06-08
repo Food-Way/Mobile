@@ -7,6 +7,7 @@ import com.example.foodway.domain.profile.customer.model.ProfileCustomer
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.Path
 import java.util.UUID
@@ -40,7 +41,8 @@ interface CustomerService {
     @PATCH("customers/personal/{idCustomer}")
     suspend fun updateCustomerPersonalInfo(
         @Path("idCustomer") idCustomer: UUID,
-        @Body editCustomerAccount: EditCustomerAccount
+        @Body editCustomerAccount: EditCustomerAccount,
+        @Header("Authorization") token: String
     ): Response<Unit>
 
 }

@@ -18,6 +18,7 @@ import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -39,28 +40,33 @@ class EditViewModel(
         idUser: UUID,
         editCustomerAccount: EditCustomerAccount? = null,
         editEstablishmentAccount: EditEstablishmentAccount? = null,
+        sharedPreferences: PreferencesManager,
         onNavigateSuccess: () -> Unit = {},
     ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
 
+                Log.d("teste", "editAccount: $editCustomerAccount")
+
                 val response = when {
                     editCustomerAccount != null -> updateAccountUseCase(
                         idCustomer = idUser,
-                        editCustomerAccount = editCustomerAccount
+                        editCustomerAccount = editCustomerAccount,
+                        token = sharedPreferences.getSavedData("token", "")
                     )
 
                     editEstablishmentAccount != null -> updateAccountUseCase(
                         idEstablishment = idUser,
-                        editEstablishmentAccount = editEstablishmentAccount
+                        editEstablishmentAccount = editEstablishmentAccount,
+                        token = sharedPreferences.getSavedData("token", "")
                     )
 
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
 
-                Log.d("SignUpViewModel", "Loading success: $response")
-                onNavigateSuccess()
+                Log.d("Samuel", "Loading success: $response")
+//                onNavigateSuccess()
 
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")

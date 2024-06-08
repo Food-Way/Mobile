@@ -67,21 +67,21 @@ fun ProfileEstablishment(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
-                    ProfileInfoCard(
-                        modifier = Modifier
-                            .padding(innerPadding),
-                        name = profile.establishmentName,
-                        headerImage = profile.profileHeaderImg,
-                        culinary = profile.culinary,
-                        rate = profile.rate,
-                        description = "teste",
+//                    ProfileInfoCard(
+//                        modifier = Modifier
+//                            .padding(innerPadding),
+//                        name = profile.establishmentName,
+//                        headerImage = profile.profileHeaderImg,
+//                        culinary = profile.culinary,
+//                        rate = profile.rate,
+//                        description = "teste",
 //                        description = profile.description,
-                        qtdComments = profile.qtdComments,
-                        qtdUpvotes = profile.qtdUpvotes
-                    )
-                    CommentList(
-                        profile.comments
-                    )
+//                        qtdComments = profile.qtdComments,
+//                        qtdUpvotes = profile.qtdUpvotes
+//                    )
+//                    CommentList(
+//                        profile.comments
+//                    )
                     CommentBoxHandler(
                         showCommentDialog = {
                             vm.toggleModal()

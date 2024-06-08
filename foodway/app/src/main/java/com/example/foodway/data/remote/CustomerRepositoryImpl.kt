@@ -24,11 +24,13 @@ class CustomerRepositoryImpl(
 
     override suspend fun updateAccount(
         idCustomer: UUID,
-        editCustomerAccount: EditCustomerAccount
+        editCustomerAccount: EditCustomerAccount,
+        token: String
     ): Response<Unit> {
         return api.updateCustomerPersonalInfo(
             idCustomer = idCustomer,
-            editCustomerAccount = editCustomerAccount
+            editCustomerAccount = editCustomerAccount,
+            token = token
         )
     }
 
