@@ -28,7 +28,9 @@ import com.example.foodway.domain.profile.establishment.model.PostComment
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.components.RatingBar
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
@@ -36,8 +38,9 @@ fun CommentDialog(
     name: String,
     culinary: String,
     idEstablishment: UUID,
-    vm: ProfileEstablishmentViewModel,
+    vm: CommentViewModel,
     sharedPreferences: PreferencesManager,
+    onPostCommentSuccess: (Destination, ProfileId) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     var rating by remember {
@@ -123,13 +126,16 @@ fun CommentDialog(
             onClick = {
                 vm.postComment(
                     postComment = PostComment(
-                        idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                        idEstablishment = idEstablishment,
+                        idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
+                        idEstablishment = idEstablishment.toString(),
                         comment = comment,
                         userPhoto = sharedPreferences.getSavedData("photo", ""),
                         userName = sharedPreferences.getSavedData("name", ""),
-                        typeUser = UserType.CLIENT.name
-                    )
+                        typeUser = UserType.CLIENT.name,
+                        images = listOf()
+                    ),
+                    onPostCommentSuccess = onPostCommentSuccess,
+                    token = sharedPreferences.getSavedData("token", "")
                 )
             }
         )

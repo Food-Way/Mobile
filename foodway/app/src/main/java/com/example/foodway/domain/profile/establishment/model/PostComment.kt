@@ -1,12 +1,11 @@
 package com.example.foodway.domain.profile.establishment.model
 
-import java.util.UUID
-
 data class PostComment(
-    val idUser: UUID,
-    val idEstablishment: UUID,
+    val idCustomer: String,
+    val idEstablishment: String,
     val comment: String,
     val userPhoto: String,
     val userName: String,
     val typeUser: String,
+    val images: List<String> = emptyList()
 )

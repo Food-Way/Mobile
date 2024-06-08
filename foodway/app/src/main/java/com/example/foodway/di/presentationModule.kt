@@ -3,6 +3,7 @@ package com.example.foodway.di
 import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
 import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
+import com.example.foodway.presentation.profile.establishment.CommentViewModel
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
 import com.example.foodway.presentation.searchUser.SearchUserViewModel
 import com.example.foodway.presentation.signIn.SignInViewModel
@@ -52,6 +53,11 @@ val presentationModule = module {
     single<ProfileEstablishmentViewModel> {
         ProfileEstablishmentViewModel(
             getEstablishmentProfileUseCase = get(),
+        )
+    }
+
+    single<CommentViewModel> {
+        CommentViewModel(
             postCommentUseCase = get()
         )
     }

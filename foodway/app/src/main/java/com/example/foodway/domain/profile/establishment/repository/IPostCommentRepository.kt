@@ -5,6 +5,7 @@ import retrofit2.Response
 
 interface IPostCommentRepository {
     suspend fun create(
+        token: String,
         postComment: PostComment
     ): Response<Unit>
 }

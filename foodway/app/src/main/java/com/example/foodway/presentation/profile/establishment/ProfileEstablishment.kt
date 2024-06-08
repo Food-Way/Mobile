@@ -19,33 +19,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
 fun ProfileEstablishment(
     vm: ProfileEstablishmentViewModel,
+    vm2: CommentViewModel,
     idEstablishment: UUID,
-    sharedPreferences: PreferencesManager
+    sharedPreferences: PreferencesManager,
+    onPostCommentSuccess: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
     var establishmentName by remember { mutableStateOf("") }
     var culinary by remember { mutableStateOf("") }
 
-    val showModal by vm.modalState.observeAsState()
+    val showModal by vm2.modalState.observeAsState()
 
     if (showModal == true) {
         Dialog(
-            onDismissRequest = { vm.toggleModal(showModal = false) },
+            onDismissRequest = { vm2.toggleModal(showModal = false) },
             content = {
                 CommentDialog(
                     name = establishmentName,
                     culinary = culinary,
-                    vm = vm,
+                    vm = vm2,
                     idEstablishment = idEstablishment,
-                    sharedPreferences = sharedPreferences
+                    sharedPreferences = sharedPreferences,
+                    onPostCommentSuccess = onPostCommentSuccess
                 ) {
-                    vm.toggleModal(showModal = false)
+                    vm2.toggleModal(showModal = false)
                 }
             }
         )
@@ -99,7 +104,7 @@ fun ProfileEstablishment(
                     )
                     CommentBoxHandler(
                         showCommentDialog = {
-                            vm.toggleModal()
+                            vm2.toggleModal()
                         }
                     )
                 }

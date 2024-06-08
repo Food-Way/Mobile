@@ -31,6 +31,7 @@ import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewM
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.presentation.profile.customer.ProfileCustomer
 import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
+import com.example.foodway.presentation.profile.establishment.CommentViewModel
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishment
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
 import com.example.foodway.presentation.searchUser.SearchUser
@@ -100,10 +101,15 @@ class MainActivity : ComponentActivity() {
                             composable("${AppDestination.ProfileEstablishment.route}/{idEstablishment}") {
                                 val id = UUID.fromString(it.arguments?.getString("idEstablishment"))
                                 val vm by inject<ProfileEstablishmentViewModel>()
+                                val vm2 by inject<CommentViewModel>()
                                 ProfileEstablishment(
                                     vm = vm,
+                                    vm2 = vm2,
                                     idEstablishment = id,
-                                    sharedPreferences = sharedPreferences
+                                    sharedPreferences = sharedPreferences,
+                                    onPostCommentSuccess = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {
