@@ -35,9 +35,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
 import com.example.foodway.domain.model.EstablishmentInputManager.personalEstablishmentInputInfos
 import com.example.foodway.domain.model.UserType
-import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
@@ -81,7 +81,7 @@ fun EditEstablishmentAccount(
         }
 
         is MainScreenState.Success<*> -> {
-            val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
+            val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
 //            var fantasyName by remember { mutableStateOf(profile.fantasyName) }
 //            var responsible by remember { mutableStateOf(profile.responsible) }
 //            var email by remember { mutableStateOf(profile.email) }
