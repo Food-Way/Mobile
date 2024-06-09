@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,17 +20,20 @@ fun CommentList(
 ) {
     val scrollState = rememberScrollState()
     Box(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .height(400.dp)
-            .background(Color.Yellow),
+            .height(285.dp),
     ) {
-        Column(modifier = Modifier.verticalScroll(scrollState)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState)) {
             repeat(comments.size) {
                 comments[it].replies?.let { commentChild ->
                     CommentItem(
-                        width = 250.dp,
-                        height = 160.dp,
+                        width = 300.dp,
+                        height = 180.dp,
                         isChild = false,
                         idComment = comments[it].idPost,
                         photo = comments[it].userPhoto,

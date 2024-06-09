@@ -1,7 +1,9 @@
 package com.example.foodway.presentation.profile.establishment
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -47,7 +51,7 @@ fun CommentItem(
         border = BorderStroke(1.dp, colorResource(id = R.color.light_gray)),
         modifier = Modifier
             .size(width, height)
-            .padding(8.dp),
+            .padding(10.dp),
     ) {
         Column(
             modifier = Modifier
@@ -61,51 +65,98 @@ fun CommentItem(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 ) {
                     ProfileImage(
                         photo = photo,
                         size = 35.dp
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Indicator(
-                        quantity = qtdUpvotes,
-                        hasQuantity = true,
-                        icon = R.drawable.upvote,
-                        description = R.string.upvotes,
-                        size = 20.dp,
-                        fontSize = 10,
-                        widthIndicator = 30.dp
-                    )
-                    Indicator(
-                        quantity = 0,
-                        hasQuantity = false,
-                        icon = R.drawable.comment,
-                        description = R.string.comments,
-                        size = 20.dp,
-                        fontSize = 10,
-                        widthIndicator = 30.dp
-                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    if (!isChild) {
+                        RatingBar(
+                            modifier = Modifier
+                                .width(120.dp),
+                            rating = rate,
+                            stars = 5,
+                            onRatingChanged = {},
+                            starsColor = Color.Yellow,
+                            editable = false,
+                            viewValue = false,
+                            sizeStar = 20
+                        )
+                    }
                 }
             }
-            if (!isChild) {
-                RatingBar(
-                    modifier = Modifier
-                        .size(20.dp),
-                    rating = rate,
-                    onRatingChanged = {},
-                    starsColor = Color.Yellow,
-                    editable = false
-                )
-            }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(
+                    bottom = 8.dp,
+                    start = 8.dp,
+                    end = 8.dp
+                )
+        ) {
+            TextFlexible(comment = comment)
+        }
+
+        Row(
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Indicator(
+                quantity = qtdUpvotes,
+                hasQuantity = true,
+                icon = R.drawable.upvote,
+                description = R.string.upvotes,
+                size = 20.dp,
+                fontSize = 10,
+                widthIndicator = 30.dp
+            )
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Indicator(
+                quantity = 0,
+                hasQuantity = false,
+                icon = R.drawable.comment,
+                description = R.string.comments,
+                size = 20.dp,
+                fontSize = 10,
+                widthIndicator = 30.dp,
+            )
+        }
+    }
+}
+
+@Composable
+fun TextFlexible(comment: String) {
+    if (comment.length > 20) {
+        Box(
+            modifier = Modifier
+                .height(70.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             Text(
                 text = comment,
-                textAlign = TextAlign.Justify
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.padding(8.dp)
+            )
+        }
+    } else {
+        Box(
+            modifier = Modifier
+                .height(70.dp),
+        ) {
+            Text(
+                text = comment,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.padding(8.dp)
             )
         }
     }

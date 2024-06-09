@@ -27,7 +27,7 @@ fun CardInfoUser(
         modifier = Modifier
             .border(1.dp, Color.LightGray, RoundedCornerShape(10.dp))
             .width(350.dp)
-            .height(120.dp)
+            .height(100.dp)
             .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
