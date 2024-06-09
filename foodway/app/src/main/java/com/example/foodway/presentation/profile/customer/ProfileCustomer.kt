@@ -6,9 +6,12 @@ import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -78,13 +81,18 @@ fun ProfileCustomer(
                                     .padding(start = 37.dp)
                             ) {
                                 RatingBar(
+                                    modifier = Modifier.width(180.dp),
                                     rating = 5.0,
                                     onRatingChanged = {},
                                     starsColor = Color.Yellow,
                                     editable = false,
-                                    viewValue = true
+                                    viewValue = true,
+                                    sizeStar = 25
                                 )
                             }
+
+                            Spacer(modifier = Modifier.height(25.dp))
+
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.Center
@@ -95,6 +103,9 @@ fun ProfileCustomer(
                                 )
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
                         Column {
                             if (profile.recentEstablishment != null) {
                                 RecentCard(
@@ -107,6 +118,9 @@ fun ProfileCustomer(
                                     modifier = Modifier.padding(16.dp)
                                 )
                             }
+
+                            Spacer(modifier = Modifier.height(15.dp))
+
                             if (profile.favoriteEstablishment != null) {
                                 FavoriteCard(
                                     favorites = profile.favoriteEstablishment,

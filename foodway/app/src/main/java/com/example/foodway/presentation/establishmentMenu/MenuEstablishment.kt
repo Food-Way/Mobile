@@ -24,6 +24,7 @@ import com.example.foodway.R
 import com.example.foodway.domain.establishmentMenu.model.Product
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.CardGrid
 import com.example.foodway.presentation.components.ScreenBorder
 import java.util.UUID
 
@@ -77,9 +78,9 @@ fun MenuEstablishment(
                 is MainScreenState.Success<*> -> {
                     val products = (state as MainScreenState.Success<Product>).data as List<Product>
                     Log.d("Success", "Success state")
-//                    CardGrid(products, buildItem = { product ->
-//                        ProductCard(product)
-//                    })
+                    CardGrid(products, buildItem = { product ->
+                        ProductCard(product)
+                    })
                 }
             }
 

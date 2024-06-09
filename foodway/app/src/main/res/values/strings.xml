@@ -84,6 +84,7 @@
     <!--Profile Establishment-->
     <string name="menu">Cardápio</string>
     <string name="title_activity_menu_establishment">MenuEstablishmentActivity</string>
+    <string name="comment_modal_initial">Comente sobre ✏️</string>
 
     <!--Error View-->
     <string name="default_error_message">Um erro inesperado ocorreu</string>

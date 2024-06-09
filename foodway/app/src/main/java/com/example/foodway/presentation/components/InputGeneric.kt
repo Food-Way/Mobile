@@ -31,7 +31,7 @@ fun InputGeneric(
     @StringRes
     inputLabel: Int,
     @DrawableRes
-    icon: Int,
+    icon: Int = 0,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation,
     labelState: String,
@@ -48,10 +48,12 @@ fun InputGeneric(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = stringResource(id = inputLabel)
-                )
+                if (icon != 0) {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = stringResource(id = inputLabel)
+                    )
+                }
                 Text(
                     text = stringResource(id = inputLabel),
                     modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp)

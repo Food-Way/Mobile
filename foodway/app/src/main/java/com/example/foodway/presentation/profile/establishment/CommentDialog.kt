@@ -106,8 +106,7 @@ fun CommentDialog(
         Spacer(modifier = Modifier.height(16.dp))
 
         InputGeneric(
-            inputLabel = R.string.comments,
-            icon = R.drawable.comment,
+            inputLabel = R.string.comment_modal_initial,
             visualTransformation = VisualTransformation.None,
             labelState = comment,
             onValueChange = {

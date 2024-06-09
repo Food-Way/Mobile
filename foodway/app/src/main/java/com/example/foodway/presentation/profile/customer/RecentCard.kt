@@ -22,7 +22,7 @@ fun RecentCard(
     onNavigate: (Destination, ProfileId) -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(26.dp, 0.dp)
     ) {
         Text(
             text = stringResource(id = R.string.recent),

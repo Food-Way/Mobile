@@ -49,16 +49,16 @@ fun ProfileInfoCard(
             modifier = Modifier
                 .fillMaxWidth(),
             painter = painterResource(id = R.drawable.background_image_establishment),
-            contentDescription = "aaa"
+            contentDescription = "banner_establishment"
         )
 
         Box(
             modifier = Modifier
                 .background(Color.White.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
-                .blur(radius = 16.dp)
+//                .blur(radius = 16.dp)
                 .width(240.dp)
                 .zIndex(1f)
-                .height(220.dp)
+                .height(180.dp)
                 .border(1.dp, colorResource(id = R.color.gray), RoundedCornerShape(20.dp))
         ) {
             Column(
@@ -105,7 +105,7 @@ fun ProfileInfoCard(
 //                    )
                 }
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(60.dp))
 
                 Row(
                     modifier = Modifier

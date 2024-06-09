@@ -5,6 +5,7 @@ import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
@@ -83,32 +85,30 @@ fun EditCustomerProfile(
 
             Column(
                 verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(10.dp)
                     .fillMaxWidth()
                     .fillMaxSize()
             ) {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.edit_perfil_emoji),
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 18.sp,
-                    )
-
-                    Text(
-                        text = stringResource(id = R.string.adjust_necessary),
-                        fontSize = 15.sp,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .width(320.dp)
                 ) {
+                    Column {
+                        Text(
+                            text = stringResource(id = R.string.edit_perfil_emoji),
+                            color = colorResource(id = R.color.light_black),
+                            fontWeight = FontWeight.Bold,
+                        )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = stringResource(id = R.string.adjust_necessary),
+                            fontSize = 12.sp,
+                        )
+                    }
 
                     UploadImage(
                         imageUri = imageUri.value,
@@ -124,10 +124,14 @@ fun EditCustomerProfile(
                                 }
                             )
                         },
-                        size = 150.dp
+                        size = 80.dp
                     )
+                }
 
-                    Spacer(modifier = Modifier.height(30.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
 
                     Column(
                         modifier = Modifier
@@ -148,6 +152,9 @@ fun EditCustomerProfile(
                                 name = it
                             },
                         )
+
+                        Spacer(modifier = Modifier.height(30.dp))
+
                         InputGeneric(
                             inputLabel = profileCustomerInputInfos[1].inputLabel,
                             icon = profileCustomerInputInfos[1].icon,
@@ -161,7 +168,7 @@ fun EditCustomerProfile(
                             },
                         )
 
-                        Spacer(modifier = Modifier.height(30.dp))
+                        Spacer(modifier = Modifier.height(40.dp))
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.save),

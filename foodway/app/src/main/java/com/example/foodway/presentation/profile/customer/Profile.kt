@@ -60,7 +60,7 @@ fun Profile(
         }
         ProfileImage(
             photo = photo,
-            size = 75.dp
+            size = 80.dp
         )
     }
 }

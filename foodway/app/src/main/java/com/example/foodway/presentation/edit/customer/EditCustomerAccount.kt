@@ -3,6 +3,7 @@ package com.example.foodway.presentation.edit.customer
 import ErrorView
 import LoadingBar
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,8 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +43,7 @@ import com.example.foodway.domain.profile.customer.model.ProfileCustomer
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
+import com.example.foodway.presentation.components.ProfileImage
 import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
@@ -82,13 +88,15 @@ fun EditCustomerAccount(
             Log.d("Success", "Success state")
 
             var name by remember { mutableStateOf(profile.name) }
+//            var lastName by remember { mutableStateOf(profile.lastName) }
+            var cpf by remember { mutableStateOf(profile.cpf ?: "000.000.000-00") }
             var email by remember { mutableStateOf(profile.email) }
-            var emailNew by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
-            var passwordNew by remember { mutableStateOf("") }
+            var confPassword by remember { mutableStateOf("") }
 
             Column(
                 verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(25.dp)
                     .fillMaxWidth()
@@ -98,32 +106,30 @@ fun EditCustomerAccount(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .width(300.dp)
 
                 ) {
                     Column {
                         Text(
                             text = stringResource(id = R.string.edit_account),
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
                         )
 
                         Text(
                             text = stringResource(id = R.string.adjust_necessary),
-                            fontSize = 15.sp,
+                            fontSize = 12.sp,
                         )
                     }
 
-                    Image(
-                        painter = painterResource(id = R.drawable.foodway_logo),
-                        contentDescription = stringResource(id = R.string.logo),
+                    Card(
+                        shape = CircleShape,
+                        border = BorderStroke(2.dp, colorResource(id = R.color.light_gray)),
                         modifier = Modifier
-                            .width(95.dp)
-                            .height(98.dp)
-                    )
+                            .size(80.dp)
+                    ) {
+                        ProfileImage(photo = profile.profilePhoto, size = 80.dp)
+                    }
                 }
-
-                Spacer(modifier = Modifier.height(30.dp))
 
                 Column(
                     modifier = Modifier
@@ -146,18 +152,22 @@ fun EditCustomerAccount(
                         },
                     )
 
-//                    InputGeneric(
-//                        inputLabel = CustomerInputManager.personalCustomerInputInfos[1].inputLabel,
-//                        icon = CustomerInputManager.personalCustomerInputInfos[1].icon,
-//                        keyboardOptions = KeyboardOptions(
-//                            keyboardType = CustomerInputManager.personalCustomerInputInfos[1].type
-//                        ),
-//                        visualTransformation = VisualTransformation.None,
-//                        labelState = lastName,
-//                        onValueChange = {
-//                            lastName = it
-//                        },
-//                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    InputGeneric(
+                        inputLabel = CustomerInputManager.personalCustomerInputInfos[2].inputLabel,
+                        icon = CustomerInputManager.personalCustomerInputInfos[2].icon,
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = CustomerInputManager.personalCustomerInputInfos[2].type
+                        ),
+                        visualTransformation = VisualTransformation.None,
+                        labelState = cpf,
+                        onValueChange = {
+                            cpf = it
+                        },
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     InputGeneric(
                         inputLabel = CustomerInputManager.personalCustomerInputInfos[3].inputLabel,
@@ -166,30 +176,19 @@ fun EditCustomerAccount(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[3].type
                         ),
                         visualTransformation = VisualTransformation.None,
-                        labelState = emailNew,
+                        labelState = email,
                         onValueChange = {
-                            emailNew = it
+                            email = it
                         },
                     )
 
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     InputGeneric(
-                        inputLabel = R.string.newPass,
+                        inputLabel = CustomerInputManager.personalCustomerInputInfos[4].inputLabel,
                         icon = CustomerInputManager.personalCustomerInputInfos[4].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[4].type
-                        ),
-                        visualTransformation = PasswordVisualTransformation(),
-                        labelState = passwordNew,
-                        onValueChange = {
-                            passwordNew = it
-                        },
-                    )
-
-                    InputGeneric(
-                        inputLabel = R.string.oldPass,
-                        icon = CustomerInputManager.personalCustomerInputInfos[5].icon,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = CustomerInputManager.personalCustomerInputInfos[5].type
                         ),
                         visualTransformation = PasswordVisualTransformation(),
                         labelState = password,
@@ -198,7 +197,22 @@ fun EditCustomerAccount(
                         },
                     )
 
-//                Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    InputGeneric(
+                        inputLabel = CustomerInputManager.personalCustomerInputInfos[5].inputLabel,
+                        icon = CustomerInputManager.personalCustomerInputInfos[5].icon,
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = CustomerInputManager.personalCustomerInputInfos[5].type
+                        ),
+                        visualTransformation = PasswordVisualTransformation(),
+                        labelState = confPassword,
+                        onValueChange = {
+                            confPassword = it
+                        },
+                    )
+
+                    Spacer(modifier = Modifier.height(23.dp))
 
                     ButtonGeneric(
                         text = stringResource(id = R.string.save),
@@ -212,17 +226,17 @@ fun EditCustomerAccount(
                             idUser = id,
                             editCustomerAccount = EditCustomerAccount(
                                 name,
+                                cpf,
                                 email,
-                                emailNew,
                                 password,
-                                passwordNew
+                                newPassword = password
                             ),
                             onNavigateSuccess = {
                                 onNavigateSuccessEdit(
                                     id.toString()
                                 )
                             },
-                            sharedPreferences = sharedPreferences
+                            sharedPreferences = sharedPreferences,
                         )
                     }
                 }

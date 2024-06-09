@@ -59,7 +59,7 @@ fun RatingBar(
                         isHalfStar = false
                         painterResource(id = R.drawable.star_filled)
                     } else {
-                        painterResource(id = R.drawable.star_filled)
+                        painterResource(id = R.drawable.star_empty)
                     }
                 },
                 contentDescription = null,
