@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -31,15 +30,20 @@ import com.example.foodway.R
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.Indicator
 import com.example.foodway.presentation.components.RatingBar
+import com.example.foodway.utils.EstablishmentName
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun ProfileInfoCard(
     modifier: Modifier,
+    idEstablishment: UUID,
     name: String,
     culinary: String,
     rate: Double,
     qtdComments: Int,
-    qtdUpvotes: Int
+    qtdUpvotes: Int,
+    onNavigateToMenu: (ProfileId, EstablishmentName) -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center
@@ -121,7 +125,12 @@ fun ProfileInfoCard(
                             .width(105.dp)
                             .height(30.dp),
                         isPrimary = true,
-                        onClick = {}
+                        onClick = {
+                            onNavigateToMenu(
+                                idEstablishment.toString(),
+                                name
+                            )
+                        }
                     )
                     Row(
                         horizontalArrangement = Arrangement.SpaceAround,

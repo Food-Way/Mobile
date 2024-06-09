@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.EstablishmentName
 import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 import java.util.UUID
@@ -30,7 +31,8 @@ fun ProfileEstablishment(
     vm2: CommentViewModel,
     idEstablishment: UUID,
     sharedPreferences: PreferencesManager,
-    onPostCommentSuccess: (Destination, ProfileId) -> Unit
+    onPostCommentSuccess: (Destination, ProfileId) -> Unit,
+    onNavigateToMenu: (ProfileId, EstablishmentName) -> Unit
 ) {
     val state by vm.state.observeAsState()
     var establishmentName by remember { mutableStateOf("") }
@@ -90,11 +92,13 @@ fun ProfileEstablishment(
                     ProfileInfoCard(
                         modifier = Modifier
                             .padding(innerPadding),
+                        idEstablishment = idEstablishment,
                         name = profile.establishmentName,
                         culinary = profile.culinary,
                         rate = profile.generalRate,
                         qtdComments = profile.qtdComments,
-                        qtdUpvotes = profile.qtdUpvotes
+                        qtdUpvotes = profile.qtdUpvotes,
+                        onNavigateToMenu = onNavigateToMenu
                     )
                     CommentList(
                         profile.comments

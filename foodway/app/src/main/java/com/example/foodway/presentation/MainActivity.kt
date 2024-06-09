@@ -111,6 +111,9 @@ class MainActivity : ComponentActivity() {
                                     onPostCommentSuccess = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
+                                    onNavigateToMenu = { idEstablishment, establishmentName ->
+                                        navController.navigate("${AppDestination.MenuEstablishment.route}/$idEstablishment/$establishmentName")
+                                    }
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {
@@ -192,10 +195,17 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                 )
                             }
-                            composable(AppDestination.MenuEstablishment.route) {
+                            composable("${AppDestination.MenuEstablishment.route}/{idEstablishment}/{establishmentName}") {
+                                val id = UUID.fromString(it.arguments?.getString("idEstablishment"))
+                                val establishmentName = it.arguments?.getString("establishmentName")
                                 val vm by inject<MenuEstablishmentViewModel>()
                                 MenuEstablishment(
-                                    vm = vm
+                                    vm = vm,
+                                    idEstablishment = id,
+                                    establishmentName = establishmentName!!,
+//                                    onNavigateToProfile = { route, idProfile ->
+//                                        navController.navigate("${route}/$idProfile")
+//                                    },
                                 )
                             }
                             composable(AppDestination.SignIn.route) {
@@ -213,7 +223,7 @@ class MainActivity : ComponentActivity() {
                             composable(AppDestination.SelectUserType.route) {
                                 SelectUserType(
                                     onNavigate = { route ->
-                                        navController.navigate("${route}")
+                                        navController.navigate(route)
                                     }
                                 )
                             }
@@ -287,7 +297,8 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         }
-                    })
+                    }
+                )
             }
         }
         startKoin {

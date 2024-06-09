@@ -30,7 +30,9 @@ import java.util.UUID
 
 @Composable
 fun MenuEstablishment(
-    vm: MenuEstablishmentViewModel
+    vm: MenuEstablishmentViewModel,
+    idEstablishment: UUID,
+    establishmentName: String = "",
 ) {
     val state by vm.state.observeAsState()
     ScreenBorder {
@@ -51,7 +53,7 @@ fun MenuEstablishment(
             Text(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.establishment_name),
+                text = establishmentName
             )
 
             when (state) {
@@ -61,7 +63,7 @@ fun MenuEstablishment(
                         loadingText = stringResource(id = R.string.loading_products)
                     )
                     vm.getEstablishmentMenu(
-                        idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                        idEstablishment = idEstablishment
                     )
                 }
 
@@ -70,7 +72,7 @@ fun MenuEstablishment(
                     Log.d("Error", "Error state")
                     ErrorView(message = errorMessage) {
                         vm.getEstablishmentMenu(
-                            idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                            idEstablishment = idEstablishment
                         )
                     }
                 }

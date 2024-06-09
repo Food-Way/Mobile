@@ -47,8 +47,8 @@ class UpdateAccountUseCase(
 //                validateField(fantasyName, "Fantasy name")
 //                validateField(responsible, "Responsible")
 //                validateField(cnpj, "CNPJ")
-                validateField(email, "Email")
-                validateField(password, "Password")
+//                validateField(email, "Email")
+//                validateField(password, "Password")
             }
             val response = establishmentRepository.updateAccount(
                 idEstablishment = idEstablishment,
