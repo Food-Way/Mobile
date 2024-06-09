@@ -40,14 +40,18 @@ import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.presentation.edit.UploadImage
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
 fun EditCustomerProfile(
     vm: EditViewModel,
     onNavigateEditAccount: () -> Unit,
-    onNavigateSuccessEdit: () -> Unit,
+    onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
+    onNavigateSuccessEditImage: (Destination) -> Unit,
     sharedPreferences: PreferencesManager,
 ) {
     val state by vm.state.observeAsState()
@@ -119,9 +123,9 @@ fun EditCustomerProfile(
                             vm.editImage(
                                 uri = imageUri.value,
                                 context = context,
-                                onNavigateToLogin = {
-                                    onNavigateSuccessEdit()
-                                }
+                                sharedPreferences = sharedPreferences,
+                                typeUser = UserType.CLIENT.name,
+                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
                             )
                         },
                         size = 80.dp
@@ -185,7 +189,13 @@ fun EditCustomerProfile(
                                     photo = imageUri.value,
                                     bio = bio
                                 ),
-                                onNavigateSuccessEdit = { onNavigateSuccessEdit() }
+                                onNavigateSuccessEdit = {
+                                    onNavigateSuccessEdit(
+                                        AppDestination.ProfileCustomer.route,
+                                        UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
+                                    )
+                                },
+                                sharedPreferences = sharedPreferences
                             )
                         }
 

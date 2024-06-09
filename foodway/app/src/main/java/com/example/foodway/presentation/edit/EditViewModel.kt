@@ -18,6 +18,8 @@ import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
 import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -48,6 +50,7 @@ class EditViewModel(
                 state.value = MainScreenState.Loading
 
                 Log.d("teste", "editAccount: $editCustomerAccount")
+                Log.d("teste", "editAccount: $idUser")
 
                 val response = when {
                     editCustomerAccount != null -> updateAccountUseCase(
@@ -66,7 +69,7 @@ class EditViewModel(
                 }
 
                 Log.d("Samuel", "Loading success: $response")
-//                onNavigateSuccess()
+                onNavigateSuccess()
 
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
@@ -90,6 +93,7 @@ class EditViewModel(
         editCustomerProfile: EditCustomerProfile? = null,
         editEstablishmentProfile: EditEstablishmentProfile? = null,
         onNavigateSuccessEdit: () -> Unit = {},
+        sharedPreferences: PreferencesManager,
     ) {
         viewModelScope.launch {
             try {
@@ -107,17 +111,18 @@ class EditViewModel(
 
                     editEstablishmentProfile != null -> updateProfileUseCase(
                         idEstablishment = idUser,
-                        editEstablishmentProfile = editEstablishmentProfile
+                        editEstablishmentProfile = editEstablishmentProfile,
+                        token = sharedPreferences.getSavedData("token", "")
                     )
 
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
 
-                Log.d("SignUpViewModel", "Loading success: $response")
                 onNavigateSuccessEdit()
 
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                Log.e("SignUpViewModel", "Status code: ${e.code()}")
                 val message = when (e.code()) {
                     404 -> "Culinária não encontrada"
                     400 -> "Parâmetros incorretos"
@@ -173,7 +178,9 @@ class EditViewModel(
     fun editImage(
         uri: String,
         context: Context,
-        onNavigateToLogin: () -> Unit = {}
+        sharedPreferences: PreferencesManager,
+        onNavigateSuccessEditImage: (Destination) -> Unit,
+        typeUser: String
     ) {
         viewModelScope.launch {
             try {
@@ -181,14 +188,36 @@ class EditViewModel(
                 val filePath = getPathFromUri(context, uri.toUri())
                 val file = File(filePath)
 
-                val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val imagePart = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                val fileRequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val filePart = MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
                 val pathPart = MultipartBody.Part.createFormData("path", "user-images")
-                val typePart = MultipartBody.Part.createFormData("type", UserType.CLIENT.name)
-                Log.d("SignUpViewModel", "Loading success: $imagePart")
+                val userTypePart = MultipartBody.Part.createFormData("typeUser", typeUser)
+                val idUserPart = MultipartBody.Part.createFormData(
+                    "idUser",
+                    sharedPreferences.getSavedData("id", "")
+                )
 
-                val response = postImageUseCase(imagePart, pathPart, typePart)
-                onNavigateToLogin()
+                val formData = listOf(filePart, pathPart, userTypePart, idUserPart)
+                Log.d("SignUpViewModel", "Loading success: $formData")
+
+                val response = postImageUseCase(
+                    formData = formData,
+                    token = sharedPreferences.getSavedData("token", "")
+                )
+                //toast de sucesso ?
+                when (typeUser) {
+                    "CLIENT" -> {
+                        onNavigateSuccessEditImage(
+                            AppDestination.EditCustomerProfile.route
+                        )
+
+                    }
+                    "ESTABLISHMENT" -> {
+                        onNavigateSuccessEditImage(
+                            AppDestination.EditEstablishmentProfile.route
+                        )
+                    }
+                }
             } catch (e: Exception) {
                 val message = e.message ?: "Algo deu errado. Por favor, contate o suporte."
                 state.value = MainScreenState.Error(message)

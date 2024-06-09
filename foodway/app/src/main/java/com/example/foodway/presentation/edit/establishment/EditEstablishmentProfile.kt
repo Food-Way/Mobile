@@ -3,9 +3,9 @@ package com.example.foodway.presentation.edit.establishment
 import ErrorView
 import LoadingBar
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,12 +19,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,18 +40,24 @@ import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.edit.EditViewModel
+import com.example.foodway.presentation.edit.UploadImage
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
 fun EditEstablishmentProfile(
     vm: EditViewModel,
     sharedPreferences: PreferencesManager,
-    onNavigateSuccessEdit: () -> Unit,
+    onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
+    onNavigateSuccessEditImage : (Destination) -> Unit,
     onNavigateEditAccount: () -> Unit
 ) {
 
     val state by vm.state.observeAsState()
+    val context = LocalContext.current
 
     when (state) {
         is MainScreenState.Loading -> {
@@ -75,8 +84,9 @@ fun EditEstablishmentProfile(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
-            var name by remember { mutableStateOf(profile.establishmentName) }
-            var description by remember { mutableStateOf(profile.description) }
+            var email by remember { mutableStateOf(profile.email) }
+            var password by remember { mutableStateOf("") }
+            var imageUri = rememberSaveable { mutableStateOf(profile.profilePhoto) }
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -86,47 +96,47 @@ fun EditEstablishmentProfile(
                     .fillMaxSize()
 
             ) {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.edit_perfil_emoji),
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 18.sp,
-                    )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .width(320.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = stringResource(id = R.string.edit_perfil_emoji),
+                            color = colorResource(id = R.color.light_black),
+                            fontWeight = FontWeight.Bold,
+                        )
 
-                    Text(
-                        text = stringResource(id = R.string.adjust_necessary),
-                        fontSize = 15.sp,
+                        Text(
+                            text = stringResource(id = R.string.adjust_necessary),
+                            fontSize = 12.sp,
+                        )
+                    }
+
+                    UploadImage(
+                        imageUri = imageUri.value,
+                        onChangeImage = { newImageUri ->
+                            imageUri.value = newImageUri
+                        },
+                        onclick = {
+                            vm.editImage(
+                                uri = imageUri.value,
+                                context = context,
+                                sharedPreferences = sharedPreferences,
+                                typeUser = UserType.ESTABLISHMENT.name,
+                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
+                            )
+                        },
+                        size = 80.dp
                     )
                 }
-
-                Spacer(modifier = Modifier.height(30.dp))
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-
-                    Image(
-                        painter = painterResource(id = R.drawable.foodway_logo),
-                        contentDescription = stringResource(id = R.string.logo),
-                        modifier = Modifier
-                            .width(95.dp)
-                            .height(98.dp)
-                            .align(Alignment.CenterHorizontally)
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    ButtonGeneric(
-                        text = stringResource(id = R.string.save),
-                        textSize = 18,
-                        modifier = Modifier
-                            .width(270.dp)
-                            .height(43.dp),
-                        isPrimary = true
-                    ) {}
-
-                    Spacer(modifier = Modifier.height(30.dp))
 
                     Column(
                         modifier = Modifier
@@ -142,9 +152,9 @@ fun EditEstablishmentProfile(
                                 keyboardType = profileEstablishmentInputInfos[0].type
                             ),
                             visualTransformation = VisualTransformation.None,
-                            labelState = name,
+                            labelState = email,
                             onValueChange = {
-                                name = it
+                                email = it
                             },
                         )
                         InputGeneric(
@@ -153,10 +163,10 @@ fun EditEstablishmentProfile(
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = profileEstablishmentInputInfos[1].type
                             ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = description,
+                            visualTransformation = PasswordVisualTransformation(),
+                            labelState = password,
                             onValueChange = {
-                                description = it
+                                password = it
                             },
                         )
 
@@ -173,11 +183,18 @@ fun EditEstablishmentProfile(
                             vm.editProfile(
                                 UUID.fromString(sharedPreferences.getSavedData("id", "")),
                                 editEstablishmentProfile = EditEstablishmentProfile(
-                                    name = name,
-                                    photo = profile.profilePhoto ?: "",
-                                    description = description ?: ""
+                                    emailActual = email,
+                                    passwordActual = password,
+                                    profilePhoto = imageUri.value ?: "",
+                                    profileHeaderImg = ""
                                 ),
-                                onNavigateSuccessEdit = { onNavigateSuccessEdit() }
+                                onNavigateSuccessEdit = {
+                                    onNavigateSuccessEdit(
+                                        AppDestination.ProfileEstablishment.route,
+                                        UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
+                                    )
+                                },
+                                sharedPreferences = sharedPreferences
                             )
                         }
 
@@ -189,7 +206,7 @@ fun EditEstablishmentProfile(
                             modifier = Modifier
                                 .width(270.dp)
                                 .height(43.dp),
-                            isPrimary = true
+                            isPrimary = false
                         ) {
                             onNavigateEditAccount()
                         }

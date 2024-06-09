@@ -1,9 +1,8 @@
 package com.example.foodway.domain.edit.customer.model
 
 data class EditCustomerAccount(
-    val name: String,
-    val email: String,
-    val newEmail: String,
+    val emailActual: String,
+    val emailNew: String,
     val password: String,
-    val newPassword: String
+    val passwordNew: String
 )

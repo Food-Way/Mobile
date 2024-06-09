@@ -4,7 +4,6 @@ import com.example.foodway.domain.edit.customer.model.EditCustomerAccount
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.repository.ICustomerRepository
 import com.example.foodway.domain.repository.IEstablishmentRepository
-import com.example.foodway.utils.validateField
 import java.util.UUID
 
 class UpdateAccountUseCase(
@@ -18,9 +17,8 @@ class UpdateAccountUseCase(
     ) {
         try {
             with(editCustomerAccount) {
-                validateField(name, "Name")
-                validateField(email, "Email")
-                validateField(password, "Password")
+//                validateField(email, "Email")
+//                validateField(password, "Password")
             }
             val response = customerRepository.updateAccount(
                 idCustomer = idCustomer,

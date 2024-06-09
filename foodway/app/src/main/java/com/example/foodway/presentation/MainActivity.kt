@@ -250,8 +250,11 @@ class MainActivity : ComponentActivity() {
                                     onNavigateEditAccount = {
                                         navController.navigate(AppDestination.EditCustomerAccount.route)
                                     },
-                                    onNavigateSuccessEdit = {
-                                        navController.navigate(AppDestination.ProfileCustomer.route)
+                                    onNavigateSuccessEdit = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateSuccessEditImage = { route ->
+                                        navController.navigate(route)
                                     }
                                 )
                             }
@@ -275,11 +278,14 @@ class MainActivity : ComponentActivity() {
                                 EditEstablishmentProfile(
                                     sharedPreferences = sharedPreferences,
                                     vm = vm,
-                                    onNavigateSuccessEdit = {
-                                        navController.navigate(AppDestination.ProfileEstablishment.route)
+                                    onNavigateSuccessEdit = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
                                     },
                                     onNavigateEditAccount = {
                                         navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    },
+                                    onNavigateSuccessEditImage = { route ->
+                                        navController.navigate(route)
                                     }
                                 )
                             }

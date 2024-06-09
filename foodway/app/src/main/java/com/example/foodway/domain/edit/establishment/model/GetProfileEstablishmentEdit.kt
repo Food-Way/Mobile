@@ -8,5 +8,6 @@ data class GetProfileEstablishmentEdit(
     val establishmentName: String,
     val email: String,
     val description: String,
+    val phone: String,
     val profilePhoto: String,
 )

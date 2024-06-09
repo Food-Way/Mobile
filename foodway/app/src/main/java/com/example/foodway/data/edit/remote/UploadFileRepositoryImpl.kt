@@ -8,10 +8,11 @@ class UploadFileRepositoryImpl(
     private val api: UploadFileService
 ) : IUploadFileRepository {
     override suspend fun upload(
-        image: MultipartBody.Part,
-        pathPart: MultipartBody.Part,
-        typePart: MultipartBody.Part
+        formData: List<MultipartBody.Part>,
+        token: String
     ): Response<Unit> {
-        return api.upload(image, pathPart, typePart)
+        return api.upload(
+            parts = formData, token = token
+        )
     }
 }

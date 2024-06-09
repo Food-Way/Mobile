@@ -120,6 +120,7 @@
     <string name="user_information">Informações do usuário</string>
 
     <string name="newPass">Nova Senha</string>
+    <string name="newEmail">Novo Email</string>
     <string name="oldPass">Senha Antiga</string>
 
     <!--Select Type User-->

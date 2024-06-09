@@ -8,6 +8,7 @@ import com.example.foodway.domain.profile.establishment.model.ProfileEstablishme
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.Path
 import java.util.UUID
@@ -21,10 +22,11 @@ interface EstablishmentService {
     @GET("establishments/search")
     suspend fun searchEstablishments(): Response<List<Establishment>>
 
-    @PATCH("establishments/profile/{idEstablishment}")
+    @PATCH("establishments/profile/{id}")
     suspend fun updateCustomerProfileInfo(
-        @Path("idEstablishment") idEstablishment: UUID,
-        @Body editEstablishmentProfile: EditEstablishmentProfile
+        @Path("id") idEstablishment: UUID,
+        @Body editEstablishmentProfile: EditEstablishmentProfile,
+        @Header("Authorization") token: String
     ): Response<Unit>
 
     @PATCH("establishments/personal/{idEstablishment}")

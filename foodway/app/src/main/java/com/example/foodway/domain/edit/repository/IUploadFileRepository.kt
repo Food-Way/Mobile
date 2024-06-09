@@ -5,8 +5,7 @@ import retrofit2.Response
 
 interface IUploadFileRepository {
     suspend fun upload(
-        image: MultipartBody.Part,
-        pathPart: MultipartBody.Part,
-        typePart: MultipartBody.Part
+        formData: List<MultipartBody.Part>,
+        token: String
     ): Response<Unit>
 }

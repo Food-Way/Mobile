@@ -4,7 +4,6 @@ import ErrorView
 import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -87,12 +85,11 @@ fun EditCustomerAccount(
             val profile = (state as MainScreenState.Success<ProfileCustomer>).data
             Log.d("Success", "Success state")
 
-            var name by remember { mutableStateOf(profile.name) }
-//            var lastName by remember { mutableStateOf(profile.lastName) }
             var cpf by remember { mutableStateOf(profile.cpf ?: "000.000.000-00") }
             var email by remember { mutableStateOf(profile.email) }
+            var newEmail by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
-            var confPassword by remember { mutableStateOf("") }
+            var newPassword by remember { mutableStateOf("") }
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -140,21 +137,6 @@ fun EditCustomerAccount(
                 ) {
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[0].inputLabel,
-                        icon = CustomerInputManager.personalCustomerInputInfos[0].icon,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = CustomerInputManager.personalCustomerInputInfos[0].type
-                        ),
-                        visualTransformation = VisualTransformation.None,
-                        labelState = name,
-                        onValueChange = {
-                            name = it
-                        },
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    InputGeneric(
                         inputLabel = CustomerInputManager.personalCustomerInputInfos[2].inputLabel,
                         icon = CustomerInputManager.personalCustomerInputInfos[2].icon,
                         keyboardOptions = KeyboardOptions(
@@ -170,22 +152,22 @@ fun EditCustomerAccount(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[3].inputLabel,
+                        inputLabel = R.string.newEmail,
                         icon = CustomerInputManager.personalCustomerInputInfos[3].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[3].type
                         ),
                         visualTransformation = VisualTransformation.None,
-                        labelState = email,
+                        labelState = newEmail,
                         onValueChange = {
-                            email = it
+                            newEmail = it
                         },
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[4].inputLabel,
+                        inputLabel = R.string.oldPass,
                         icon = CustomerInputManager.personalCustomerInputInfos[4].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[4].type
@@ -200,15 +182,15 @@ fun EditCustomerAccount(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     InputGeneric(
-                        inputLabel = CustomerInputManager.personalCustomerInputInfos[5].inputLabel,
+                        inputLabel = R.string.newPass,
                         icon = CustomerInputManager.personalCustomerInputInfos[5].icon,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = CustomerInputManager.personalCustomerInputInfos[5].type
                         ),
                         visualTransformation = PasswordVisualTransformation(),
-                        labelState = confPassword,
+                        labelState = newPassword,
                         onValueChange = {
-                            confPassword = it
+                            newPassword = it
                         },
                     )
 
@@ -225,11 +207,10 @@ fun EditCustomerAccount(
                         vm.editAccount(
                             idUser = id,
                             editCustomerAccount = EditCustomerAccount(
-                                name,
-                                cpf,
-                                email,
-                                password,
-                                newPassword = password
+                                emailActual = email,
+                                emailNew = newEmail,
+                                password = password,
+                                passwordNew = newPassword
                             ),
                             onNavigateSuccess = {
                                 onNavigateSuccessEdit(

@@ -33,11 +33,13 @@ class EstablishmentRepositoryImpl(
 
     override suspend fun updateProfile(
         idEstablishment: UUID,
-        editEstablishmentProfile: EditEstablishmentProfile
+        editEstablishmentProfile: EditEstablishmentProfile,
+        token: String
     ): Response<Unit> {
         return api.updateCustomerProfileInfo(
             idEstablishment = idEstablishment,
-            editEstablishmentProfile = editEstablishmentProfile
+            editEstablishmentProfile = editEstablishmentProfile,
+            token = token
         )
     }
 

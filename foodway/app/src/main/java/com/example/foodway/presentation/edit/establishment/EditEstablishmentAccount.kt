@@ -3,7 +3,7 @@ package com.example.foodway.presentation.edit.establishment
 import ErrorView
 import LoadingBar
 import android.util.Log
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,12 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,6 +42,7 @@ import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.components.NoBorderScreen
+import com.example.foodway.presentation.components.ProfileImage
 import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
 import com.example.foodway.utils.PreferencesManager
@@ -82,9 +83,9 @@ fun EditEstablishmentAccount(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
-//            var fantasyName by remember { mutableStateOf(profile.fantasyName) }
-//            var responsible by remember { mutableStateOf(profile.responsible) }
-//            var email by remember { mutableStateOf(profile.email) }
+            var name by remember { mutableStateOf(profile.name) }
+            var establishmentName by remember { mutableStateOf(profile.establishmentName) }
+            var email by remember { mutableStateOf(profile.email) }
             var password by remember { mutableStateOf("") }
             var confPassword by remember { mutableStateOf("") }
 
@@ -105,15 +106,6 @@ fun EditEstablishmentAccount(
                                     textAlign = TextAlign.Left,
                                     text = stringResource(id = R.string.edit_account)
                                 )
-                                Image(
-                                    painter = painterResource(id = R.drawable.edit_icon),
-                                    contentDescription = stringResource(id = R.string.image_profile_desc),
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                        .clip(CircleShape)
-                                        .padding(start = 8.dp),
-                                    contentScale = ContentScale.Fit
-                                )
                             }
                             Text(
                                 fontSize = 16.sp,
@@ -121,14 +113,14 @@ fun EditEstablishmentAccount(
                             )
                         }
 
-                        Image(
-                            painter = painterResource(id = R.drawable.goku),
-                            contentDescription = stringResource(id = R.string.image_profile_desc),
+                        Card(
+                            shape = CircleShape,
+                            border = BorderStroke(2.dp, colorResource(id = R.color.light_gray)),
                             modifier = Modifier
-                                .size(70.dp)
-                                .clip(CircleShape)
-                                .padding(0.dp)
-                        )
+                                .size(80.dp)
+                        ) {
+                            ProfileImage(photo = profile.profilePhoto, size = 80.dp)
+                        }
                     }
 
                     Column(
@@ -140,42 +132,42 @@ fun EditEstablishmentAccount(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
 
-//                        InputGeneric(
-//                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
-//                            icon = personalEstablishmentInputInfos[0].icon,
-//                            keyboardOptions = KeyboardOptions(
-//                                keyboardType = personalEstablishmentInputInfos[0].type
-//                            ),
-//                            visualTransformation = VisualTransformation.None,
-//                            labelState = fantasyName,
-//                            onValueChange = {
-//                                fantasyName = it
-//                            },
-//                        )
-//                        InputGeneric(
-//                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
-//                            icon = personalEstablishmentInputInfos[1].icon,
-//                            keyboardOptions = KeyboardOptions(
-//                                keyboardType = personalEstablishmentInputInfos[1].type
-//                            ),
-//                            visualTransformation = VisualTransformation.None,
-//                            labelState = responsible,
-//                            onValueChange = {
-//                                responsible = it
-//                            },
-//                        )
-//                        InputGeneric(
-//                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
-//                            icon = personalEstablishmentInputInfos[2].icon,
-//                            keyboardOptions = KeyboardOptions(
-//                                keyboardType = personalEstablishmentInputInfos[2].type
-//                            ),
-//                            visualTransformation = VisualTransformation.None,
-//                            labelState = email,
-//                            onValueChange = {
-//                                email = it
-//                            },
-//                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
+                            icon = personalEstablishmentInputInfos[0].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[0].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = name,
+                            onValueChange = {
+                                name = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
+                            icon = personalEstablishmentInputInfos[1].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[1].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = establishmentName,
+                            onValueChange = {
+                                establishmentName = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
+                            icon = personalEstablishmentInputInfos[2].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[2].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = email,
+                            onValueChange = {
+                                email = it
+                            },
+                        )
                         InputGeneric(
                             inputLabel = personalEstablishmentInputInfos[3].inputLabel,
                             icon = personalEstablishmentInputInfos[3].icon,
@@ -186,6 +178,18 @@ fun EditEstablishmentAccount(
                             labelState = password,
                             onValueChange = {
                                 password = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = personalEstablishmentInputInfos[4].inputLabel,
+                            icon = personalEstablishmentInputInfos[4].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = personalEstablishmentInputInfos[4].type
+                            ),
+                            visualTransformation = PasswordVisualTransformation(),
+                            labelState = confPassword,
+                            onValueChange = {
+                                confPassword = it
                             },
                         )
                         InputGeneric(

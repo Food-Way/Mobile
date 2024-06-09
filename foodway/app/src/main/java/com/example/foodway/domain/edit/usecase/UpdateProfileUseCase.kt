@@ -1,5 +1,6 @@
 package com.example.foodway.domain.edit.usecase
 
+import android.util.Log
 import com.example.foodway.domain.edit.customer.model.EditCustomerProfile
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
 import com.example.foodway.domain.repository.ICustomerRepository
@@ -37,19 +38,23 @@ class UpdateProfileUseCase(
 
     suspend operator fun invoke(
         idEstablishment: UUID,
-        editEstablishmentProfile: EditEstablishmentProfile
+        editEstablishmentProfile: EditEstablishmentProfile,
+        token: String
     ) {
         try {
             with(editEstablishmentProfile) {
-                validateField(name, "Name")
-                validateField(description, "Description")
-                validateField(photo, "Photo")
+                validateField(emailActual, "Email")
+                validateField(passwordActual, "Password")
+                validateField(profilePhoto, "Photo")
             }
             val response = establishmentRepository.updateProfile(
                 idEstablishment = idEstablishment,
-                editEstablishmentProfile = editEstablishmentProfile
+                editEstablishmentProfile = editEstablishmentProfile,
+                token = "Bearer $token"
             )
+            Log.d("token", "Bearer $token")
             if (response.isSuccessful) {
+            Log.d("Response", response.toString())
                 return response.body() ?: throw Exception("Response body is null")
             } else {
                 throw Exception(response.errorBody().toString())

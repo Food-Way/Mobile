@@ -7,20 +7,18 @@ class PostImageUseCase(
     private val uploadFileRepository: IUploadFileRepository
 ) {
     suspend operator fun invoke(
-        image: MultipartBody.Part,
-        pathPart: MultipartBody.Part,
-        typePart: MultipartBody.Part
+        formData: List<MultipartBody.Part>,
+        token: String
     ) {
         try {
             val response = uploadFileRepository.upload(
-                image = image,
-                pathPart = pathPart,
-                typePart = typePart
+                formData = formData,
+                token = token
             )
             if (response.isSuccessful) {
-                return response.body() ?: throw Exception("Response body is null")
+                response.body() ?: throw Exception("Response body is null")
             } else {
-                throw Exception(response.errorBody().toString())
+                throw Exception(response.errorBody()?.string() ?: "Unknown error")
             }
         } catch (e: Exception) {
             throw e

@@ -10,6 +10,14 @@ import java.util.UUID
 interface IEstablishmentRepository {
     suspend fun getEstablishmentProfile(idEstablishment: UUID): Response<ProfileEstablishment>
     suspend fun getEstablishment(idEstablishment: UUID): Response<GetProfileEstablishmentEdit>
-    suspend fun updateAccount(idEstablishment: UUID, editEstablishmentAccount: EditEstablishmentAccount): Response<Unit>
-    suspend fun updateProfile(idEstablishment: UUID, editEstablishmentProfile: EditEstablishmentProfile): Response<Unit>
+    suspend fun updateAccount(
+        idEstablishment: UUID,
+        editEstablishmentAccount: EditEstablishmentAccount
+    ): Response<Unit>
+
+    suspend fun updateProfile(
+        idEstablishment: UUID,
+        editEstablishmentProfile: EditEstablishmentProfile,
+        token: String
+    ): Response<Unit>
 }
