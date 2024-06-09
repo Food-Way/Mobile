@@ -89,18 +89,18 @@ fun EditEstablishmentProfile(
             var imageUri = rememberSaveable { mutableStateOf(profile.profilePhoto) }
 
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth()
                     .fillMaxSize()
-
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .width(320.dp)
+                        .width(310.dp)
                 ) {
                     Column {
                         Text(

@@ -36,6 +36,8 @@ fun ProfileImage(
         )
     } else {
         Image(
+            modifier = Modifier
+                .size(size),
             painter = painterResource(id = R.drawable.foodway_logo),
             contentDescription = stringResource(id = R.string.logo),
             contentScale = ContentScale.Fit,

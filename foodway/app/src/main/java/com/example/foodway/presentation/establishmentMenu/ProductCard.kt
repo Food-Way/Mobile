@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,6 +62,9 @@ fun ProductCard(
     }
 
     OutlinedCard(
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(id = R.color.white)
+        ),
         onClick = { showModal = !showModal },
         modifier = Modifier
             .size(width = 200.dp, height = 150.dp)
@@ -72,9 +77,11 @@ fun ProductCard(
                 description = data.name,
                 modifier = Modifier
                     .height(70.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             )
+
             Spacer(modifier = Modifier.height(4.dp))
+
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {

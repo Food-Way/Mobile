@@ -60,7 +60,7 @@ fun ProfileInfoCard(
             modifier = Modifier
                 .background(Color.White.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
 //                .blur(radius = 16.dp)
-                .width(240.dp)
+                .width(270.dp)
                 .zIndex(1f)
                 .height(180.dp)
                 .border(1.dp, colorResource(id = R.color.gray), RoundedCornerShape(20.dp))
@@ -98,16 +98,17 @@ fun ProfileInfoCard(
                     editable = false,
                     sizeStar = 20
                 )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp, 0.dp),
-                    horizontalArrangement = Arrangement.Start
-                ) {
+
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(10.dp, 0.dp),
+//                    horizontalArrangement = Arrangement.Start
+//                ) {
 //                    CulinaryCard(
 //                        culinary = culinary
 //                    )
-                }
+//                }
 
                 Spacer(modifier = Modifier.height(60.dp))
 
@@ -135,10 +136,10 @@ fun ProfileInfoCard(
                     Row(
                         horizontalArrangement = Arrangement.SpaceAround,
                         modifier = Modifier
-                            .width(80.dp)
+                            .width(100.dp)
                             .background(
                                 colorResource(id = R.color.white),
-                                RoundedCornerShape(10.dp)
+                                RoundedCornerShape(5.dp)
                             )
                     ) {
                         Indicator(

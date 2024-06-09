@@ -4,6 +4,7 @@ import ErrorView
 import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -91,141 +93,158 @@ fun EditEstablishmentAccount(
 
             FoodwayTheme {
                 NoBorderScreen {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column(
-                            horizontalAlignment = Alignment.Start
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .width(310.dp)
                         ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Column(
+                                horizontalAlignment = Alignment.Start
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
 
+                                    Text(
+                                        fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Left,
+                                        text = stringResource(id = R.string.edit_account)
+                                    )
+                                }
                                 Text(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    textAlign = TextAlign.Left,
-                                    text = stringResource(id = R.string.edit_account)
+                                    fontSize = 12.sp,
+                                    text = stringResource(id = R.string.adjust)
                                 )
                             }
-                            Text(
-                                fontSize = 16.sp,
-                                text = stringResource(id = R.string.adjust)
+
+                            Card(
+                                shape = CircleShape,
+                                border = BorderStroke(2.dp, colorResource(id = R.color.light_gray)),
+                                modifier = Modifier
+                                    .size(80.dp)
+                            ) {
+                                ProfileImage(photo = profile.profilePhoto, size = 80.dp)
+                            }
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.SpaceAround
+                        ) {
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            InputGeneric(
+                                inputLabel = personalEstablishmentInputInfos[0].inputLabel,
+                                icon = personalEstablishmentInputInfos[0].icon,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = personalEstablishmentInputInfos[0].type
+                                ),
+                                visualTransformation = VisualTransformation.None,
+                                labelState = name,
+                                onValueChange = {
+                                    name = it
+                                },
                             )
-                        }
 
-                        Card(
-                            shape = CircleShape,
-                            border = BorderStroke(2.dp, colorResource(id = R.color.light_gray)),
-                            modifier = Modifier
-                                .size(80.dp)
-                        ) {
-                            ProfileImage(photo = profile.profilePhoto, size = 80.dp)
-                        }
-                    }
+                            Spacer(modifier = Modifier.height(10.dp))
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .padding(20.dp, 21.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceAround
-                    ) {
+                            InputGeneric(
+                                inputLabel = personalEstablishmentInputInfos[1].inputLabel,
+                                icon = personalEstablishmentInputInfos[1].icon,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = personalEstablishmentInputInfos[1].type
+                                ),
+                                visualTransformation = VisualTransformation.None,
+                                labelState = establishmentName,
+                                onValueChange = {
+                                    establishmentName = it
+                                },
+                            )
 
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[0].inputLabel,
-                            icon = personalEstablishmentInputInfos[0].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[0].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = name,
-                            onValueChange = {
-                                name = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[1].inputLabel,
-                            icon = personalEstablishmentInputInfos[1].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[1].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = establishmentName,
-                            onValueChange = {
-                                establishmentName = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[2].inputLabel,
-                            icon = personalEstablishmentInputInfos[2].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[2].type
-                            ),
-                            visualTransformation = VisualTransformation.None,
-                            labelState = email,
-                            onValueChange = {
-                                email = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[3].inputLabel,
-                            icon = personalEstablishmentInputInfos[3].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[3].type
-                            ),
-                            visualTransformation = PasswordVisualTransformation(),
-                            labelState = password,
-                            onValueChange = {
-                                password = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[4].inputLabel,
-                            icon = personalEstablishmentInputInfos[4].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[4].type
-                            ),
-                            visualTransformation = PasswordVisualTransformation(),
-                            labelState = confPassword,
-                            onValueChange = {
-                                confPassword = it
-                            },
-                        )
-                        InputGeneric(
-                            inputLabel = personalEstablishmentInputInfos[4].inputLabel,
-                            icon = personalEstablishmentInputInfos[4].icon,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = personalEstablishmentInputInfos[4].type
-                            ),
-                            visualTransformation = PasswordVisualTransformation(),
-                            labelState = confPassword,
-                            onValueChange = {
-                                confPassword = it
-                            },
-                        )
+                            Spacer(modifier = Modifier.height(10.dp))
 
-                        Spacer(modifier = Modifier.height(30.dp))
+                            InputGeneric(
+                                inputLabel = personalEstablishmentInputInfos[2].inputLabel,
+                                icon = personalEstablishmentInputInfos[2].icon,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = personalEstablishmentInputInfos[2].type
+                                ),
+                                visualTransformation = VisualTransformation.None,
+                                labelState = email,
+                                onValueChange = {
+                                    email = it
+                                },
+                            )
 
-                        ButtonGeneric(
-                            text = stringResource(id = R.string.save_button),
-                            textSize = 18,
-                            modifier = Modifier
-                                .width(250.dp)
-                                .height(45.dp),
-                            isPrimary = true
-                        ) {
-                            vm.editAccount(
-                                UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            InputGeneric(
+                                inputLabel = personalEstablishmentInputInfos[3].inputLabel,
+                                icon = personalEstablishmentInputInfos[3].icon,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = personalEstablishmentInputInfos[3].type
+                                ),
+                                visualTransformation = PasswordVisualTransformation(),
+                                labelState = password,
+                                onValueChange = {
+                                    password = it
+                                },
+                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            InputGeneric(
+                                inputLabel = personalEstablishmentInputInfos[4].inputLabel,
+                                icon = personalEstablishmentInputInfos[4].icon,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = personalEstablishmentInputInfos[4].type
+                                ),
+                                visualTransformation = PasswordVisualTransformation(),
+                                labelState = confPassword,
+                                onValueChange = {
+                                    confPassword = it
+                                },
+                            )
+//                        InputGeneric(
+//                            inputLabel = personalEstablishmentInputInfos[4].inputLabel,
+//                            icon = personalEstablishmentInputInfos[4].icon,
+//                            keyboardOptions = KeyboardOptions(
+//                                keyboardType = personalEstablishmentInputInfos[4].type
+//                            ),
+//                            visualTransformation = PasswordVisualTransformation(),
+//                            labelState = confPassword,
+//                            onValueChange = {
+//                                confPassword = it
+//                            },
+//                        )
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            ButtonGeneric(
+                                text = stringResource(id = R.string.save_button),
+                                textSize = 18,
+                                modifier = Modifier
+                                    .width(250.dp)
+                                    .height(45.dp),
+                                isPrimary = true
+                            ) {
+                                vm.editAccount(
+                                    UUID.fromString(sharedPreferences.getSavedData("id", "")),
 //                                editEstablishmentAccount = EditEstablishmentAccount(
 ////                                    fantasyName = fantasyName,
 ////                                    responsible = responsible,
 ////                                    email = email,
 ////                                    password = password,
 //                                ),
-                                onNavigateSuccess = { onNavigateSuccessEdit() },
-                                sharedPreferences = sharedPreferences
-                            )
+                                    onNavigateSuccess = { onNavigateSuccessEdit() },
+                                    sharedPreferences = sharedPreferences
+                                )
+                            }
                         }
                     }
                 }
