@@ -2,7 +2,7 @@ package com.example.foodway.di
 
 import com.example.foodway.data.edit.remote.UploadFileRepositoryImpl
 import com.example.foodway.data.establishmentMenu.remote.ProductRepositoryImpl
-import com.example.foodway.data.profile.establishment.remote.PostCommentRepositoryImpl
+import com.example.foodway.data.profile.establishment.remote.CommentRepositoryImpl
 import com.example.foodway.data.remote.CustomerRepositoryImpl
 import com.example.foodway.data.remote.EstablishmentRepositoryImpl
 import com.example.foodway.data.searchUser.remote.SearchUserRepositoryImpl
@@ -17,8 +17,9 @@ import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
 import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.establishmentMenu.usecase.GetEstablishmentMenuUseCase
 import com.example.foodway.domain.profile.customer.usecase.GetCustomerProfileUseCase
-import com.example.foodway.domain.profile.establishment.repository.IPostCommentRepository
+import com.example.foodway.domain.profile.establishment.repository.ICommentRepository
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
+import com.example.foodway.domain.profile.establishment.usecase.PatchUpvoteUseCase
 import com.example.foodway.domain.profile.establishment.usecase.PostCommentUseCase
 import com.example.foodway.domain.repository.ICulinaryRepository
 import com.example.foodway.domain.repository.ICustomerRepository
@@ -128,12 +129,16 @@ val domainModule = module {
         GetCustomerAccountUseCase(get())
     }
 
-    single<IPostCommentRepository> {
-        PostCommentRepositoryImpl(get())
+    single<ICommentRepository> {
+        CommentRepositoryImpl(get())
     }
 
     single {
         PostCommentUseCase(get())
+    }
+
+    single {
+        PatchUpvoteUseCase(get())
     }
 
 }

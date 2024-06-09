@@ -18,8 +18,6 @@ import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
 import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
-import com.example.foodway.presentation.navigation.AppDestination
-import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -94,6 +92,9 @@ class EditViewModel(
         editEstablishmentProfile: EditEstablishmentProfile? = null,
         onNavigateSuccessEdit: () -> Unit = {},
         sharedPreferences: PreferencesManager,
+        uri: String,
+        context: Context,
+        typeUser: String
     ) {
         viewModelScope.launch {
             try {
@@ -103,17 +104,40 @@ class EditViewModel(
                 Log.i("teste", "getProfile: $editEstablishmentProfile")
 
                 val response = when {
-                    editCustomerProfile != null -> updateProfileUseCase(
-                        idCustomer = idUser,
-                        editCustomerProfile = editCustomerProfile
-                    )
+                    editCustomerProfile != null -> {
+                        val photo = editImage(
+                            sharedPreferences = sharedPreferences,
+                            typeUser = typeUser,
+                            uri = uri,
+                            context = context,
+                        )
+
+                        editCustomerProfile.photo = photo.toString()
+
+                        updateProfileUseCase(
+                            idCustomer = idUser,
+                            editCustomerProfile = editCustomerProfile
+                        )
+                    }
 
 
-                    editEstablishmentProfile != null -> updateProfileUseCase(
-                        idEstablishment = idUser,
-                        editEstablishmentProfile = editEstablishmentProfile,
-                        token = sharedPreferences.getSavedData("token", "")
-                    )
+                    editEstablishmentProfile != null -> {
+
+                        val photo = editImage(
+                            sharedPreferences = sharedPreferences,
+                            typeUser = typeUser,
+                            uri = uri,
+                            context = context,
+                        )
+
+                        editEstablishmentProfile.profilePhoto = photo.toString()
+
+                        updateProfileUseCase(
+                            idEstablishment = idUser,
+                            editEstablishmentProfile = editEstablishmentProfile,
+                            token = sharedPreferences.getSavedData("token", "")
+                        )
+                    }
 
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
@@ -179,7 +203,7 @@ class EditViewModel(
         uri: String,
         context: Context,
         sharedPreferences: PreferencesManager,
-        onNavigateSuccessEditImage: (Destination) -> Unit,
+//        onNavigateSuccessEditImage: (Destination) -> Unit,
         typeUser: String
     ) {
         viewModelScope.launch {
@@ -192,10 +216,7 @@ class EditViewModel(
                 val filePart = MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
                 val pathPart = MultipartBody.Part.createFormData("path", "user-images")
                 val userTypePart = MultipartBody.Part.createFormData("typeUser", typeUser)
-                val idUserPart = MultipartBody.Part.createFormData(
-                    "idUser",
-                    sharedPreferences.getSavedData("id", "")
-                )
+                val idUserPart = MultipartBody.Part.createFormData("idUser",sharedPreferences.getSavedData("id", ""))
 
                 val formData = listOf(filePart, pathPart, userTypePart, idUserPart)
                 Log.d("SignUpViewModel", "Loading success: $formData")
@@ -204,20 +225,9 @@ class EditViewModel(
                     formData = formData,
                     token = sharedPreferences.getSavedData("token", "")
                 )
-                //toast de sucesso ?
-                when (typeUser) {
-                    "CLIENT" -> {
-                        onNavigateSuccessEditImage(
-                            AppDestination.EditCustomerProfile.route
-                        )
 
-                    }
-                    "ESTABLISHMENT" -> {
-                        onNavigateSuccessEditImage(
-                            AppDestination.EditEstablishmentProfile.route
-                        )
-                    }
-                }
+//                //toast de sucesso ?
+
             } catch (e: Exception) {
                 val message = e.message ?: "Algo deu errado. Por favor, contate o suporte."
                 state.value = MainScreenState.Error(message)

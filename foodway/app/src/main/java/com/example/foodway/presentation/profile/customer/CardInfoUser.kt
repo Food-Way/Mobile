@@ -47,7 +47,8 @@ fun CardInfoUser(
                 description = R.string.comments,
                 size = 20.dp,
                 fontSize = 14,
-                widthIndicator = 40.dp
+                widthIndicator = 40.dp,
+                onclick = {}
             )
         }
         Column(
@@ -70,7 +71,8 @@ fun CardInfoUser(
                 description = R.string.upvotes,
                 size = 20.dp,
                 fontSize = 14,
-                widthIndicator = 35.dp
+                widthIndicator = 35.dp,
+                onclick = {}
             )
         }
     }

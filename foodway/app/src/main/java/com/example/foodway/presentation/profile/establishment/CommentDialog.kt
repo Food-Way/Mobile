@@ -38,7 +38,7 @@ fun CommentDialog(
     name: String,
     culinary: String,
     idEstablishment: UUID,
-    vm: CommentViewModel,
+    vm: ProfileEstablishmentViewModel,
     sharedPreferences: PreferencesManager,
     onPostCommentSuccess: (Destination, ProfileId) -> Unit,
     onDismissRequest: () -> Unit,

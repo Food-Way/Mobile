@@ -126,7 +126,7 @@ fun EditEstablishmentProfile(
                                 context = context,
                                 sharedPreferences = sharedPreferences,
                                 typeUser = UserType.ESTABLISHMENT.name,
-                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
+//                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
                             )
                         },
                         size = 80.dp
@@ -194,7 +194,10 @@ fun EditEstablishmentProfile(
                                         UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
                                     )
                                 },
-                                sharedPreferences = sharedPreferences
+                                uri = imageUri.value,
+                                context = context,
+                                typeUser = UserType.ESTABLISHMENT.name,
+                                sharedPreferences = sharedPreferences,
                             )
                         }
 

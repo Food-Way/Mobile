@@ -32,27 +32,28 @@ fun ProfileEstablishment(
     idEstablishment: UUID,
     sharedPreferences: PreferencesManager,
     onPostCommentSuccess: (Destination, ProfileId) -> Unit,
-    onNavigateToMenu: (ProfileId, EstablishmentName) -> Unit
+    onNavigateToMenu: (ProfileId, EstablishmentName) -> Unit,
+    onUpvoteSuccess: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
     var establishmentName by remember { mutableStateOf("") }
     var culinary by remember { mutableStateOf("") }
 
-    val showModal by vm2.modalState.observeAsState()
+    val showModal by vm.modalState.observeAsState()
 
     if (showModal == true) {
         Dialog(
-            onDismissRequest = { vm2.toggleModal(showModal = false) },
+            onDismissRequest = { vm.toggleModal(showModal = false) },
             content = {
                 CommentDialog(
                     name = establishmentName,
                     culinary = culinary,
-                    vm = vm2,
+                    vm = vm,
                     idEstablishment = idEstablishment,
                     sharedPreferences = sharedPreferences,
                     onPostCommentSuccess = onPostCommentSuccess
                 ) {
-                    vm2.toggleModal(showModal = false)
+                    vm.toggleModal(showModal = false)
                 }
             }
         )
@@ -101,11 +102,15 @@ fun ProfileEstablishment(
                         onNavigateToMenu = onNavigateToMenu
                     )
                     CommentList(
-                        profile.comments
+                        comments = profile.comments,
+                        idEstablishment = idEstablishment,
+                        sharedPreferences = sharedPreferences,
+                        vm = vm,
+                        onUpvoteSuccess = onUpvoteSuccess
                     )
                     CommentBoxHandler(
                         showCommentDialog = {
-                            vm2.toggleModal()
+                            vm.toggleModal()
                         }
                     )
                 }

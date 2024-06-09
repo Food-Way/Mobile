@@ -149,7 +149,8 @@ fun ProfileInfoCard(
                             description = R.string.comments,
                             size = 20.dp,
                             fontSize = 10,
-                            widthIndicator = 30.dp
+                            widthIndicator = 30.dp,
+                            onclick = {}
                         )
                         Indicator(
                             quantity = qtdUpvotes,
@@ -158,7 +159,8 @@ fun ProfileInfoCard(
                             description = R.string.upvotes,
                             size = 20.dp,
                             fontSize = 10,
-                            widthIndicator = 30.dp
+                            widthIndicator = 30.dp,
+                            onclick = {}
                         )
                     }
                 }

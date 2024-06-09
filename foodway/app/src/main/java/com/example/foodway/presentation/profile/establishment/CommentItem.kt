@@ -1,7 +1,6 @@
 package com.example.foodway.presentation.profile.establishment
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,9 +26,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 import com.example.foodway.domain.model.CommentChild
+import com.example.foodway.domain.profile.establishment.model.PatchUpvote
 import com.example.foodway.presentation.components.Indicator
 import com.example.foodway.presentation.components.ProfileImage
 import com.example.foodway.presentation.components.RatingBar
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
@@ -42,7 +45,11 @@ fun CommentItem(
     commentChild: List<CommentChild>,
     width: Dp,
     height: Dp,
-    isChild: Boolean
+    isChild: Boolean,
+    idEstablishment: UUID,
+    vm: ProfileEstablishmentViewModel,
+    sharedPreferences: PreferencesManager,
+    onUpvoteSuccess: (Destination, ProfileId) -> Unit
 ) {
     OutlinedCard(
         colors = CardDefaults.cardColors(
@@ -116,7 +123,18 @@ fun CommentItem(
                 description = R.string.upvotes,
                 size = 20.dp,
                 fontSize = 10,
-                widthIndicator = 30.dp
+                widthIndicator = 30.dp,
+                onclick = {
+                    vm.patchUpvote(
+                        token = sharedPreferences.getSavedData("token", ""),
+                        patchUpvote = PatchUpvote(
+                            idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                            idComment = idComment,
+                            idEstablishment = idEstablishment
+                        ),
+                        onUpvoteSuccess = onUpvoteSuccess,
+                    )
+                }
             )
 
             Spacer(modifier = Modifier.width(10.dp))
@@ -129,6 +147,7 @@ fun CommentItem(
                 size = 20.dp,
                 fontSize = 10,
                 widthIndicator = 30.dp,
+                onclick = {}
             )
         }
     }

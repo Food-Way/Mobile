@@ -119,15 +119,6 @@ fun EditCustomerProfile(
                         onChangeImage = { newImageUri ->
                             imageUri.value = newImageUri
                         },
-                        onclick = {
-                            vm.editImage(
-                                uri = imageUri.value,
-                                context = context,
-                                sharedPreferences = sharedPreferences,
-                                typeUser = UserType.CLIENT.name,
-                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
-                            )
-                        },
                         size = 80.dp
                     )
                 }
@@ -195,7 +186,10 @@ fun EditCustomerProfile(
                                         UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
                                     )
                                 },
-                                sharedPreferences = sharedPreferences
+                                uri = imageUri.value,
+                                context = context,
+                                typeUser = UserType.CLIENT.name,
+                                sharedPreferences = sharedPreferences,
                             )
                         }
 

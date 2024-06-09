@@ -129,7 +129,8 @@ fun ListCardUser(
                             description = R.string.comments,
                             size = 15.dp,
                             fontSize = 10,
-                            widthIndicator = 35.dp
+                            widthIndicator = 35.dp,
+                            onclick = {}
                         )
                         Indicator(
                             quantity = qtdUpVotes,
@@ -138,7 +139,8 @@ fun ListCardUser(
                             description = R.string.upvotes,
                             size = 15.dp,
                             fontSize = 10,
-                            widthIndicator = 35.dp
+                            widthIndicator = 35.dp,
+                            onclick = {}
                         )
                     }
                 }
