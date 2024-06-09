@@ -12,11 +12,11 @@ import com.example.foodway.domain.edit.customer.model.EditCustomerProfile
 import com.example.foodway.domain.edit.customer.usecase.GetCustomerAccountUseCase
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
+import com.example.foodway.domain.edit.establishment.repository.GetEstablishmentAccountUseCase
 import com.example.foodway.domain.edit.usecase.PostImageUseCase
 import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
 import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
 import com.example.foodway.domain.model.UserType
-import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ class EditViewModel(
     private val updateAccountUseCase: UpdateAccountUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
     private val getCustomerAccountUseCase: GetCustomerAccountUseCase,
-    private val getEstablishmentProfileUseCase: GetEstablishmentProfileUseCase,
+    private val getEstablishmentAccountUseCase: GetEstablishmentAccountUseCase,
     private val postImageUseCase: PostImageUseCase
 ) : ViewModel() {
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
@@ -95,11 +95,15 @@ class EditViewModel(
             try {
                 state.value = MainScreenState.Loading
 
+                Log.i("teste", "getProfile: $idUser")
+                Log.i("teste", "getProfile: $editEstablishmentProfile")
+
                 val response = when {
                     editCustomerProfile != null -> updateProfileUseCase(
                         idCustomer = idUser,
                         editCustomerProfile = editCustomerProfile
                     )
+
 
                     editEstablishmentProfile != null -> updateProfileUseCase(
                         idEstablishment = idUser,
@@ -138,24 +142,27 @@ class EditViewModel(
                 state.value = MainScreenState.Loading
 
                 val response = when (type) {
+                    UserType.ESTABLISHMENT -> getEstablishmentAccountUseCase(idUser)
                     UserType.CLIENT -> getCustomerAccountUseCase(idUser)
-                    UserType.ESTABLISHMENT -> getEstablishmentProfileUseCase(idUser)
+                    else -> {
+                        Log.e("User Profile", "Type not found")
+                    }
                 }
 
                 state.value = MainScreenState.Success(data = response)
 
-                Log.d("SignUpViewModel", "Loading success: $response")
+                Log.d("EditViewModel", "Loading success: $response")
 
             } catch (e: HttpException) {
-                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                Log.e("EditViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
-                    404 -> "Culinária não encontrada"
+                    404 -> "Perfil não encontrado"
                     400 -> "Parâmetros incorretos"
                     else -> "Erro desconhecido"
                 }
                 state.value = MainScreenState.Error(message)
             } catch (e: Exception) {
-                Log.e("SignUpViewModel", "Exception: ${e.message}")
+                Log.e("EditViewModel", "Exception: ${e.message}")
                 state.value = MainScreenState.Error(
                     e.message ?: "Erro desconhecido"
                 )

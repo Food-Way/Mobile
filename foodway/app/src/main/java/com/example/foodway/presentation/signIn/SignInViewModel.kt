@@ -41,8 +41,9 @@ class SignInViewModel(
                 response.let {
                     sharedPreferences.saveAuthenticatedData("id", it.idUser.toString() ?: "")
                     sharedPreferences.saveAuthenticatedData("token", it.token ?: "")
-                    sharedPreferences.saveAuthenticatedData("photo", "nao" ?: "")
+                    sharedPreferences.saveAuthenticatedData("photo", "https://foodway.s3.amazonaws.com/public-images/vietnam.webp" ?: "")
                     sharedPreferences.saveAuthenticatedData("name", it.name ?: "")
+                    sharedPreferences.saveAuthenticatedData("typeUser", it.typeUser ?: "")
                     val route = when (it.typeUser) {
                         UserType.CLIENT.name -> {
                             AppDestination.ProfileCustomer.route

@@ -7,12 +7,12 @@ import com.example.foodway.utils.validateField
 class PostCommentUseCase(
     private val repository: IPostCommentRepository
 ) {
-    suspend operator fun invoke(postComment: PostComment) {
+    suspend operator fun invoke(token: String, postComment: PostComment) {
         try {
             with(postComment) {
                 validateField(comment, "Comment")
             }
-            val response = repository.create(postComment = postComment)
+            val response = repository.create(token = token,postComment = postComment)
             if (response.isSuccessful) {
                 return response.body() ?: throw Exception("Response body is null")
             } else {

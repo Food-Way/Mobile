@@ -19,33 +19,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
+import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
 @Composable
 fun ProfileEstablishment(
     vm: ProfileEstablishmentViewModel,
+    vm2: CommentViewModel,
     idEstablishment: UUID,
-    sharedPreferences: PreferencesManager
+    sharedPreferences: PreferencesManager,
+    onPostCommentSuccess: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
     var establishmentName by remember { mutableStateOf("") }
     var culinary by remember { mutableStateOf("") }
 
-    val showModal by vm.modalState.observeAsState()
+    val showModal by vm2.modalState.observeAsState()
 
     if (showModal == true) {
         Dialog(
-            onDismissRequest = { vm.toggleModal(showModal = false) },
+            onDismissRequest = { vm2.toggleModal(showModal = false) },
             content = {
                 CommentDialog(
                     name = establishmentName,
                     culinary = culinary,
-                    vm = vm,
+                    vm = vm2,
                     idEstablishment = idEstablishment,
-                    sharedPreferences = sharedPreferences
+                    sharedPreferences = sharedPreferences,
+                    onPostCommentSuccess = onPostCommentSuccess
                 ) {
-                    vm.toggleModal(showModal = false)
+                    vm2.toggleModal(showModal = false)
                 }
             }
         )
@@ -53,7 +58,6 @@ fun ProfileEstablishment(
 
     when (state) {
         is MainScreenState.Loading -> {
-            Log.d("loading", "loading state")
             LoadingBar(
                 loadingText = "Carregando Perfil..."
             )
@@ -62,7 +66,7 @@ fun ProfileEstablishment(
 
         is MainScreenState.Error, null -> {
             val errorMessage = (state as MainScreenState.Error).message
-            Log.d("Error", "Error state")
+            Log.d("Error", "Error state$errorMessage")
             ErrorView(message = errorMessage) {
                 vm.getEstablishmentProfile(idEstablishment = idEstablishment)
             }
@@ -70,8 +74,6 @@ fun ProfileEstablishment(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<ProfileEstablishment>).data
-            Log.d("Success", "Success state")
-            Log.d("PROFILE", profile.toString())
             establishmentName = profile.establishmentName
             culinary = profile.culinary
 
@@ -99,7 +101,7 @@ fun ProfileEstablishment(
                     )
                     CommentBoxHandler(
                         showCommentDialog = {
-                            vm.toggleModal()
+                            vm2.toggleModal()
                         }
                     )
                 }

@@ -10,6 +10,7 @@ import com.example.foodway.data.signIn.remote.SignInRepositoryImpl
 import com.example.foodway.data.signUp.remote.CulinaryRepositoryImpl
 import com.example.foodway.data.signUp.remote.SignUpRepositoryImpl
 import com.example.foodway.domain.edit.customer.usecase.GetCustomerAccountUseCase
+import com.example.foodway.domain.edit.establishment.repository.GetEstablishmentAccountUseCase
 import com.example.foodway.domain.edit.repository.IUploadFileRepository
 import com.example.foodway.domain.edit.usecase.PostImageUseCase
 import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
@@ -68,8 +69,12 @@ val domainModule = module {
         GetEstablishmentProfileUseCase(get())
     }
 
+    single {
+        GetEstablishmentAccountUseCase(get())
+    }
 
-    single<ISearchUserRepository> {
+
+    factory <ISearchUserRepository> {
         SearchUserRepositoryImpl(get())
     }
 

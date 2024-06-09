@@ -25,7 +25,7 @@ val dataModule = module {
             .create(SignUpService::class.java)
     }
 
-    single<SearchUserService> {
+    factory<SearchUserService> {
         ApiConfig
             .getInstance()
             .create(SearchUserService::class.java)
