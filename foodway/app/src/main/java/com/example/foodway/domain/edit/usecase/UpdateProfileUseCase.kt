@@ -43,16 +43,15 @@ class UpdateProfileUseCase(
     ) {
         try {
             with(editEstablishmentProfile) {
-                validateField(emailActual, "Email")
-                validateField(passwordActual, "Password")
+//                validateField(emailActual, "Email")
+//                validateField(passwordActual, "Password")
                 validateField(profilePhoto, "Photo")
             }
             val response = establishmentRepository.updateProfile(
                 idEstablishment = idEstablishment,
                 editEstablishmentProfile = editEstablishmentProfile,
-                token = "Bearer $token"
+                token = token
             )
-            Log.d("token", "Bearer $token")
             if (response.isSuccessful) {
             Log.d("Response", response.toString())
                 return response.body() ?: throw Exception("Response body is null")

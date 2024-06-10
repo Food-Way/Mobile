@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +51,7 @@ fun EditEstablishmentProfile(
     vm: EditViewModel,
     sharedPreferences: PreferencesManager,
     onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
-    onNavigateSuccessEditImage : (Destination) -> Unit,
+    onNavigateSuccessEditImage: (Destination) -> Unit,
     onNavigateEditAccount: () -> Unit
 ) {
 
@@ -84,8 +83,9 @@ fun EditEstablishmentProfile(
 
         is MainScreenState.Success<*> -> {
             val profile = (state as MainScreenState.Success<GetProfileEstablishmentEdit>).data
-            var email by remember { mutableStateOf(profile.email) }
-            var password by remember { mutableStateOf("") }
+            var name by remember { mutableStateOf(profile.establishmentName) }
+            var description by remember { mutableStateOf(profile.description) }
+            var phone by remember { mutableStateOf(profile.phone) }
             var imageUri = rememberSaveable { mutableStateOf(profile.profilePhoto) }
 
             Column(
@@ -152,9 +152,21 @@ fun EditEstablishmentProfile(
                                 keyboardType = profileEstablishmentInputInfos[0].type
                             ),
                             visualTransformation = VisualTransformation.None,
-                            labelState = email,
+                            labelState = name,
                             onValueChange = {
-                                email = it
+                                name = it
+                            },
+                        )
+                        InputGeneric(
+                            inputLabel = profileEstablishmentInputInfos[0].inputLabel,
+                            icon = profileEstablishmentInputInfos[0].icon,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = profileEstablishmentInputInfos[0].type
+                            ),
+                            visualTransformation = VisualTransformation.None,
+                            labelState = description,
+                            onValueChange = {
+                                description = it
                             },
                         )
                         InputGeneric(
@@ -163,10 +175,10 @@ fun EditEstablishmentProfile(
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = profileEstablishmentInputInfos[1].type
                             ),
-                            visualTransformation = PasswordVisualTransformation(),
-                            labelState = password,
+                            visualTransformation = VisualTransformation.None,
+                            labelState = phone,
                             onValueChange = {
-                                password = it
+                                phone = it
                             },
                         )
 
@@ -183,21 +195,23 @@ fun EditEstablishmentProfile(
                             vm.editProfile(
                                 UUID.fromString(sharedPreferences.getSavedData("id", "")),
                                 editEstablishmentProfile = EditEstablishmentProfile(
-                                    emailActual = email,
-                                    passwordActual = password,
+                                    establishmentName = name,
+                                    description = description,
+                                    phone = phone,
                                     profilePhoto = imageUri.value ?: "",
-                                    profileHeaderImg = ""
                                 ),
                                 onNavigateSuccessEdit = {
                                     onNavigateSuccessEdit(
                                         AppDestination.ProfileEstablishment.route,
-                                        UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
+                                        UUID.fromString(sharedPreferences.getSavedData("id", ""))
+                                            .toString(),
                                     )
                                 },
                                 uri = imageUri.value,
                                 context = context,
                                 typeUser = UserType.ESTABLISHMENT.name,
                                 sharedPreferences = sharedPreferences,
+                                profilePhotoOld = profile.profilePhoto
                             )
                         }
 

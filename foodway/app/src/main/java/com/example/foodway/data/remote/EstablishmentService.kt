@@ -22,16 +22,16 @@ interface EstablishmentService {
     @GET("establishments/search")
     suspend fun searchEstablishments(): Response<List<Establishment>>
 
-    @PATCH("establishments/profile/{id}")
+    @PATCH("establishments/mobile/profile/{id}")
     suspend fun updateCustomerProfileInfo(
         @Path("id") idEstablishment: UUID,
         @Body editEstablishmentProfile: EditEstablishmentProfile,
         @Header("Authorization") token: String
     ): Response<Unit>
 
-    @PATCH("establishments/personal/{idEstablishment}")
+    @PATCH("establishments/mobile/account/{id}")
     suspend fun updateCustomerPersonalInfo(
-        @Path("idEstablishment") idEstablishment: UUID,
+        @Path("id") idEstablishment: UUID,
         @Body editEstablishmentAccount: EditEstablishmentAccount
     ): Response<Unit>
 
