@@ -43,7 +43,7 @@ fun NavBarComponent(
 
     Surface(
         modifier = Modifier
-            .width(300.dp)
+            .width(355.dp)
             .padding(top = 8.dp)
             .height(navBarHeight)
             .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp)),
