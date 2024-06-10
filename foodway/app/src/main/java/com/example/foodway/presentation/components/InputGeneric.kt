@@ -35,7 +35,8 @@ fun InputGeneric(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation,
     labelState: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
 ) {
 
     var mutableLabelState by remember { mutableStateOf("") }
@@ -67,8 +68,6 @@ fun InputGeneric(
             unfocusedLabelColor = colorResource(id = R.color.black),
         ),
         shape = RoundedCornerShape(25.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+        modifier = modifier
     )
 }

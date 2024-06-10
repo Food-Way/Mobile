@@ -77,8 +77,8 @@ fun ListCardUser(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .padding(8.dp, 0.dp),
+                .height(100.dp)
+                .padding(8.dp, 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (photo != null && photo != "") {
@@ -100,7 +100,9 @@ fun ListCardUser(
                     contentScale = ContentScale.Fit,
                 )
             }
+
             Spacer(modifier = Modifier.width(5.dp))
+
             Column(
                 modifier = Modifier
                     .padding(0.dp, 10.dp),
@@ -115,6 +117,7 @@ fun ListCardUser(
                 ) {
                     Text(
                         text = name,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     Row(

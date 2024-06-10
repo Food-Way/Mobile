@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -43,12 +44,24 @@ fun CommentDialog(
     onPostCommentSuccess: (Destination, ProfileId) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
-    var rating by remember {
+    var ratingEnvironment by remember {
+        mutableDoubleStateOf(0.0)
+    }
+
+    var ratingFood by remember {
+        mutableDoubleStateOf(0.0)
+    }
+
+    var ratingService by remember {
         mutableDoubleStateOf(0.0)
     }
 
     var comment by remember {
         mutableStateOf("")
+    }
+
+    val avg by remember {
+        derivedStateOf { ((ratingEnvironment + ratingFood + ratingService) / 3) }
     }
 
     Column(
@@ -77,10 +90,9 @@ fun CommentDialog(
                 )
             }
             RatingBar(
-                rating = rating,
+                rating = avg,
                 stars = 1,
                 onRatingChanged = {
-                    rating = it
                 },
                 starsColor = Color.Yellow,
                 editable = true
@@ -89,23 +101,84 @@ fun CommentDialog(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        RatingBar(
-            modifier = Modifier
-                .width(200.dp),
-            rating = rating,
-            stars = 5,
-            onRatingChanged = {
-                rating = it
-            },
-            starsColor = Color.Yellow,
-            editable = true,
-            viewValue = false,
-            sizeStar = 30
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RatingBar(
+                modifier = Modifier
+                    .width(200.dp),
+                rating = ratingEnvironment,
+                stars = 5,
+                onRatingChanged = {
+                    ratingEnvironment = it
+                },
+                starsColor = Color.Yellow,
+                editable = true,
+                viewValue = false,
+                sizeStar = 25
+            )
+
+            Text(
+                text = "Ambiente",
+                fontSize = 12.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RatingBar(
+                modifier = Modifier
+                    .width(200.dp),
+                rating = ratingFood,
+                stars = 5,
+                onRatingChanged = {
+                    ratingFood = it
+                },
+                starsColor = Color.Yellow,
+                editable = true,
+                viewValue = false,
+                sizeStar = 25
+            )
+
+            Text(
+                text = "Comida",
+                fontSize = 12.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RatingBar(
+                modifier = Modifier
+                    .width(200.dp),
+                rating = ratingService,
+                stars = 5,
+                onRatingChanged = {
+                    ratingService = it
+                },
+                starsColor = Color.Yellow,
+                editable = true,
+                viewValue = false,
+                sizeStar = 25
+            )
+
+            Text(
+                text = "Atendimento",
+                fontSize = 12.sp
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         InputGeneric(
+            modifier = Modifier
+                .width(500.dp),
             inputLabel = R.string.comment_modal_initial,
             visualTransformation = VisualTransformation.None,
             labelState = comment,

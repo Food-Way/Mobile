@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import kotlin.math.round
+import kotlin.math.roundToLong
 
 @Composable
 fun RatingBar(
@@ -45,7 +47,7 @@ fun RatingBar(
     ) {
         if (viewValue) {
             Text(
-                text = rating.toString().replace(".",","),
+                text = (round(rating * 10) / 10).toString().replace(".",","),
                 color = textColor
             )
         }

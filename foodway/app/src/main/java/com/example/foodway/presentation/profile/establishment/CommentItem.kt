@@ -108,6 +108,7 @@ fun CommentItem(
             horizontalArrangement = Arrangement.End,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(end = 10.dp)
         ) {
             Indicator(
                 quantity = qtdUpvotes,

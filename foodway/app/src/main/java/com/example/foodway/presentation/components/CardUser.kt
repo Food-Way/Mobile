@@ -74,7 +74,14 @@ fun CardUser(
                 .fillMaxHeight()
                 .padding(3.dp)
         ) {
-            MovingText(name)
+            if (name.length > 10) {
+                MovingText(name)
+            } else {
+                Text(
+                    text = name,
+                    fontSize = 12.sp
+                )
+            }
             ProfileImage(photo = photo, size = 55.dp)
             Row {
                 RateUser(rate = rate)
@@ -87,20 +94,22 @@ fun MovingText(contentText: String) {
     val infiniteTransition = rememberInfiniteTransition()
 
     val animatedOffsetX by infiniteTransition.animateFloat(
-        initialValue = 300f, // Start outside the screen (right side)
-        targetValue = -300f, // End outside the screen (left side)
+        initialValue = 100f,
+        targetValue = -100f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 3000, easing = LinearEasing),
+            animation = tween(durationMillis = 4000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
     Box(
         modifier = Modifier
-            .width(500.dp)
+            .fillMaxWidth()
             .height(20.dp)
     ) {
         Text(
+            softWrap = false,
+            maxLines = 1,
             text = contentText,
             fontSize = 12.sp,
             modifier = Modifier.offset(x = animatedOffsetX.dp)

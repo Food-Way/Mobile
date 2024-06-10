@@ -31,7 +31,7 @@ fun Indicator(
 ) {
     Row(
         modifier = Modifier.width(widthIndicator),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
 

@@ -134,9 +134,11 @@ fun ProfileInfoCard(
                         }
                     )
                     Row(
+                        verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceAround,
                         modifier = Modifier
                             .width(100.dp)
+                            .height(25.dp)
                             .background(
                                 colorResource(id = R.color.white),
                                 RoundedCornerShape(5.dp)

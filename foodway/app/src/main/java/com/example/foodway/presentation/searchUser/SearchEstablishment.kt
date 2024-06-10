@@ -7,8 +7,11 @@ import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
@@ -35,9 +38,9 @@ fun SearchEstablishment(
     val state by vm.state.observeAsState()
 
     Column {
-        UserSearchComponent(
-            vm = vm,
-        )
+//        UserSearchComponent(
+//            vm = vm,
+//        )
         when (state) {
             is MainScreenState.Loading -> {
                 Log.d("loading", "loading state")
@@ -58,6 +61,8 @@ fun SearchEstablishment(
             is MainScreenState.Success<*> -> {
                 val establishments = (state as MainScreenState.Success<List<Establishment>>).data
                 Log.d("Success", "Success state")
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Column {
                     Text(
