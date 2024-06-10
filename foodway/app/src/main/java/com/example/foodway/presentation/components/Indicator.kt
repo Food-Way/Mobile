@@ -1,9 +1,9 @@
 package com.example.foodway.presentation.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -27,7 +27,8 @@ fun Indicator(
     description: Int,
     size: Dp,
     fontSize: Int,
-    widthIndicator: Dp
+    widthIndicator: Dp,
+    onclick : () -> Unit
 ) {
     Row(
         modifier = Modifier.width(widthIndicator),
@@ -46,7 +47,8 @@ fun Indicator(
             painter = painterResource(icon),
             contentDescription = stringResource(description),
             modifier = Modifier
-                .size(size),
+                .size(size)
+                .clickable { onclick() },
             contentScale = ContentScale.Fit
         )
     }
@@ -62,7 +64,8 @@ fun CommentIndicatorPreview() {
         description = R.string.comments,
         size = 10.dp,
         fontSize = 10,
-        widthIndicator = 30.dp
+        widthIndicator = 30.dp,
+        onclick = {}
     )
 }
 
@@ -76,6 +79,7 @@ fun UpvotesIndicatorPreview() {
         description = R.string.upvotes,
         size = 10.dp,
         fontSize = 10,
-        widthIndicator = 30.dp
+        widthIndicator = 30.dp,
+        onclick = {}
     )
 }

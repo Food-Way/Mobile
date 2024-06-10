@@ -113,6 +113,9 @@ class MainActivity : ComponentActivity() {
                                     },
                                     onNavigateToMenu = { idEstablishment, establishmentName ->
                                         navController.navigate("${AppDestination.MenuEstablishment.route}/$idEstablishment/$establishmentName")
+                                    },
+                                    onUpvoteSuccess = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
                                     }
                                 )
                             }

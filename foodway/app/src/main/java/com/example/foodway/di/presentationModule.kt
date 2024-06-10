@@ -50,9 +50,11 @@ val presentationModule = module {
         )
     }
 
-    single<ProfileEstablishmentViewModel> {
+    factory<ProfileEstablishmentViewModel> {
         ProfileEstablishmentViewModel(
             getEstablishmentProfileUseCase = get(),
+            postCommentUseCase = get(),
+            patchUpvoteUseCase = get()
         )
     }
 
