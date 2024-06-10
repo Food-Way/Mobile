@@ -28,7 +28,6 @@ import java.util.UUID
 @Composable
 fun ProfileEstablishment(
     vm: ProfileEstablishmentViewModel,
-    vm2: CommentViewModel,
     idEstablishment: UUID,
     sharedPreferences: PreferencesManager,
     onPostCommentSuccess: (Destination, ProfileId) -> Unit,

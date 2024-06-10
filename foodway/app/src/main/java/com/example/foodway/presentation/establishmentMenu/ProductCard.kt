@@ -45,13 +45,9 @@ fun ProductCard(
                 showModal = false
             },
             content = { ProductDialog(
-                photo = "https://foodway.s3.amazonaws.com/public-images/product-image.png",
-                description = "teste",
-//                name = "Teste",
-//                price = 20.00,
                 name = data.name,
-//                photo = data.photo,
-//                description = data.description,
+                photo = data.photo ?: "https://foodway.s3.amazonaws.com/public-images/product-image.webp",
+                description = data.description ?: "Sem descrição",
                 price = data.value,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -190,6 +190,7 @@ fun EditCustomerProfile(
                                 context = context,
                                 typeUser = UserType.CLIENT.name,
                                 sharedPreferences = sharedPreferences,
+                                profilePhotoOld = profile.profilePhoto
                             )
                         }
 

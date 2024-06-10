@@ -61,20 +61,25 @@ object EstablishmentInputManager {
     )
     val profileEstablishmentInputInfos = listOf(
         InputInfo(
-            inputLabel = R.string.email,
-            icon = R.drawable.email_icon,
-            type = KeyboardType.Email
+            inputLabel = R.string.fantasy_name,
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Text
         ),
         InputInfo(
-            inputLabel = R.string.password,
-            icon = R.drawable.lock_icon,
-            type = KeyboardType.Password
+            inputLabel = R.string.phone,
+            icon = R.drawable.baseline_phone_24,
+            type = KeyboardType.Phone
         ),
-//        InputInfo(
-//            inputLabel = R.string.description,
-//            icon = R.drawable.stars,
-//            type = KeyboardType.Text
-//        ),
+        InputInfo(
+            inputLabel = R.string.description,
+            icon = R.drawable.stars,
+            type = KeyboardType.Text
+        ),
+        InputInfo(
+            inputLabel = R.string.name,
+            icon = R.drawable.person_icon,
+            type = KeyboardType.Text
+        ),
     )
 }
 

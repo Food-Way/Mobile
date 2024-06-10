@@ -125,5 +125,6 @@
 
     <!--Select Type User-->
     <string name="user_select">Selecionar</string>
+    <string name="phone">Telefone</string>
 </resources>
 

@@ -41,7 +41,7 @@ class EditViewModel(
         editCustomerAccount: EditCustomerAccount? = null,
         editEstablishmentAccount: EditEstablishmentAccount? = null,
         sharedPreferences: PreferencesManager,
-        onNavigateSuccess: () -> Unit = {},
+        onNavigateSuccess: () -> Unit,
     ) {
         viewModelScope.launch {
             try {
@@ -94,7 +94,8 @@ class EditViewModel(
         sharedPreferences: PreferencesManager,
         uri: String,
         context: Context,
-        typeUser: String
+        typeUser: String,
+        profilePhotoOld: String
     ) {
         viewModelScope.launch {
             try {
@@ -105,43 +106,39 @@ class EditViewModel(
 
                 val response = when {
                     editCustomerProfile != null -> {
-                        val photo = editImage(
-                            sharedPreferences = sharedPreferences,
-                            typeUser = typeUser,
-                            uri = uri,
-                            context = context,
-                        )
-
-                        editCustomerProfile.photo = photo.toString()
-
+                        if (uri != profilePhotoOld) {
+                            val photo = editImage(
+                                sharedPreferences = sharedPreferences,
+                                typeUser = typeUser,
+                                uri = uri,
+                                context = context,
+                            )
+                            editCustomerProfile.photo = photo.toString()
+                        }
                         updateProfileUseCase(
                             idCustomer = idUser,
                             editCustomerProfile = editCustomerProfile
                         )
                     }
 
-
                     editEstablishmentProfile != null -> {
-
-                        val photo = editImage(
-                            sharedPreferences = sharedPreferences,
-                            typeUser = typeUser,
-                            uri = uri,
-                            context = context,
-                        )
-
-                        editEstablishmentProfile.profilePhoto = photo.toString()
-
+                        if (uri != profilePhotoOld) {
+                            val photo = editImage(
+                                sharedPreferences = sharedPreferences,
+                                typeUser = typeUser,
+                                uri = uri,
+                                context = context,
+                            )
+                            editEstablishmentProfile.profilePhoto = photo.toString()
+                        }
                         updateProfileUseCase(
                             idEstablishment = idUser,
                             editEstablishmentProfile = editEstablishmentProfile,
                             token = sharedPreferences.getSavedData("token", "")
                         )
                     }
-
                     else -> throw IllegalArgumentException("No edit account data provided")
                 }
-
                 onNavigateSuccessEdit()
 
             } catch (e: HttpException) {
@@ -216,7 +213,10 @@ class EditViewModel(
                 val filePart = MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
                 val pathPart = MultipartBody.Part.createFormData("path", "user-images")
                 val userTypePart = MultipartBody.Part.createFormData("typeUser", typeUser)
-                val idUserPart = MultipartBody.Part.createFormData("idUser",sharedPreferences.getSavedData("id", ""))
+                val idUserPart = MultipartBody.Part.createFormData(
+                    "idUser",
+                    sharedPreferences.getSavedData("id", "")
+                )
 
                 val formData = listOf(filePart, pathPart, userTypePart, idUserPart)
                 Log.d("SignUpViewModel", "Loading success: $formData")

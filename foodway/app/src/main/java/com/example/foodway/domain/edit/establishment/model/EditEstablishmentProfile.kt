@@ -1,8 +1,8 @@
 package com.example.foodway.domain.edit.establishment.model
 
 data class EditEstablishmentProfile(
-    val emailActual: String,
-    val passwordActual: String,
-    var profilePhoto: String,
-    val profileHeaderImg: String
+    val establishmentName: String,
+    val phone: String,
+    var description: String,
+    var profilePhoto: String
 )
