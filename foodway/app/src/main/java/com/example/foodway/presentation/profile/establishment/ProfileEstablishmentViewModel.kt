@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.foodway.domain.model.Comment
 import com.example.foodway.domain.profile.establishment.model.PatchUpvote
 import com.example.foodway.domain.profile.establishment.model.PostComment
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
@@ -25,11 +26,25 @@ class ProfileEstablishmentViewModel(
 
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
-    var modalState = MutableLiveData(false)
+    var modalStateComment = MutableLiveData(false)
         private set
 
-    fun toggleModal(showModal: Boolean = true) {
-        modalState.value = showModal
+    var modalStateCommentReply = MutableLiveData(false)
+        private set
+
+    var commentSelected = MutableLiveData<Comment?>()
+        private set
+
+    fun toggleModalComment(showModal: Boolean = true) {
+        modalStateComment.value = showModal
+    }
+
+    fun toggleModalCommentReply(showModal: Boolean = true) {
+        modalStateCommentReply.value = showModal
+    }
+
+    fun setSelectedComment(comment: Comment) {
+        commentSelected.value = comment
     }
 
 //    val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -38,11 +39,12 @@ fun ProfileEstablishment(
     var establishmentName by remember { mutableStateOf("") }
     var culinary by remember { mutableStateOf("") }
 
-    val showModal by vm.modalState.observeAsState()
+    val showModalComment by vm.modalStateComment.observeAsState()
+    val showModalCommentReply by vm.modalStateCommentReply.observeAsState()
 
-    if (showModal == true) {
+    if (showModalComment == true) {
         Dialog(
-            onDismissRequest = { vm.toggleModal(showModal = false) },
+            onDismissRequest = { vm.toggleModalComment(showModal = false) },
             content = {
                 CommentDialog(
                     name = establishmentName,
@@ -52,11 +54,38 @@ fun ProfileEstablishment(
                     sharedPreferences = sharedPreferences,
                     onPostCommentSuccess = onPostCommentSuccess
                 ) {
-                    vm.toggleModal(showModal = false)
+                    vm.toggleModalComment(showModal = false)
                 }
             }
         )
     }
+
+    val comment by vm.commentSelected.observeAsState()
+
+    if (showModalCommentReply == true) {
+        Dialog(
+            onDismissRequest = { vm.toggleModalCommentReply(showModal = false) },
+            content = {
+                comment?.let { commentSelected ->
+                    CommentReplyDialog(
+                        commentSelected = commentSelected,
+                        idEstablishment = idEstablishment,
+                        sharedPreferences = sharedPreferences,
+                        vm = vm,
+                        onPostCommentSuccess = { destination, profileId ->
+                            onPostCommentSuccess(destination, profileId)
+                        },
+                        onUpvoteSuccess = onUpvoteSuccess,
+                        showCommentDialog = {
+                            vm.toggleModalCommentReply()
+                        },
+                        commentChild = emptyList()
+                    )
+                } ?: Text("No comment selected")
+            }
+        )
+    }
+
 
     when (state) {
         is MainScreenState.Loading -> {
@@ -105,11 +134,14 @@ fun ProfileEstablishment(
                         idEstablishment = idEstablishment,
                         sharedPreferences = sharedPreferences,
                         vm = vm,
-                        onUpvoteSuccess = onUpvoteSuccess
+                        onUpvoteSuccess = onUpvoteSuccess,
+                        showCommentDialog = {
+                            vm.toggleModalCommentReply()
+                        }
                     )
                     CommentBoxHandler(
                         showCommentDialog = {
-                            vm.toggleModal()
+                            vm.toggleModalComment()
                         }
                     )
                 }

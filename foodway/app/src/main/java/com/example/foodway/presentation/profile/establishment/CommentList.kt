@@ -22,7 +22,8 @@ fun CommentList(
     idEstablishment: UUID,
     vm: ProfileEstablishmentViewModel,
     sharedPreferences: PreferencesManager,
-    onUpvoteSuccess: (Destination, ProfileId) -> Unit
+    onUpvoteSuccess: (Destination, ProfileId) -> Unit,
+    showCommentDialog: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Box(
@@ -50,7 +51,8 @@ fun CommentList(
                         idEstablishment = idEstablishment,
                         vm = vm,
                         sharedPreferences = sharedPreferences,
-                        onUpvoteSuccess = onUpvoteSuccess
+                        onUpvoteSuccess = onUpvoteSuccess,
+                        showCommentDialog = showCommentDialog
                     )
                 }
             }

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.domain.model.Comment
 import com.example.foodway.domain.model.CommentChild
 import com.example.foodway.domain.profile.establishment.model.PatchUpvote
 import com.example.foodway.presentation.components.Indicator
@@ -49,7 +50,8 @@ fun CommentItem(
     idEstablishment: UUID,
     vm: ProfileEstablishmentViewModel,
     sharedPreferences: PreferencesManager,
-    onUpvoteSuccess: (Destination, ProfileId) -> Unit
+    onUpvoteSuccess: (Destination, ProfileId) -> Unit,
+    showCommentDialog: () -> Unit
 ) {
     OutlinedCard(
         colors = CardDefaults.cardColors(
@@ -148,7 +150,19 @@ fun CommentItem(
                 size = 20.dp,
                 fontSize = 10,
                 widthIndicator = 30.dp,
-                onclick = {}
+                onclick = {
+                    vm.setSelectedComment(
+                        Comment(
+                            idComment,
+                            photo,
+                            comment,
+                            rate,
+                            qtdUpvotes,
+                            commentChild,
+                        )
+                    )
+                    showCommentDialog()
+                }
             )
         }
     }
