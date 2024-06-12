@@ -1,6 +1,6 @@
 package com.example.foodway.domain.searchUser.usecase
 
-import com.example.foodway.domain.model.Establishment
+import com.example.foodway.domain.searchUser.model.SearchedEstablishment
 import com.example.foodway.domain.searchUser.repository.ISearchUserRepository
 import java.util.UUID
 
@@ -10,7 +10,7 @@ class GetEstablishmentUseCase (
     suspend operator fun invoke(
         idSession: UUID,
         searchFilter: String
-    ): List<Establishment> {
+    ): List<SearchedEstablishment> {
         try {
             val response = repository.getAllEstablishments(
                 idSession = idSession,

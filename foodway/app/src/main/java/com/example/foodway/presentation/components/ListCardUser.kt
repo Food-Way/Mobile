@@ -1,5 +1,6 @@
 package com.example.foodway.presentation.components
 
+import SearchUserViewModel
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -38,6 +39,7 @@ import com.example.foodway.R
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
@@ -51,9 +53,12 @@ fun ListCardUser(
     qtdComment: Int,
     qtdUpVotes: Int,
     typeUser: UserType,
+    isFavorite: Boolean,
+    vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
     onNavigateToProfile: (Destination, ProfileId) -> Unit
 ) {
-    var heartValue by remember { mutableStateOf(false) }
+    var isFavoriteImage by remember { mutableStateOf(isFavorite) }
     var heartImg by remember { mutableStateOf(R.drawable.heart_empty) }
 
     Card(
@@ -173,16 +178,18 @@ fun ListCardUser(
                         Image(
                             modifier = Modifier
                                 .clickable {
-                                    if (heartValue) {
-                                        heartImg = R.drawable.heart_empty
-                                        heartValue = false
-                                    } else {
+                                    if (isFavorite) {
                                         heartImg = R.drawable.heart_full
-                                        heartValue = true
+                                        vm.patchFavorite(
+                                            idEstablishment = id,
+                                            idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", ""))
+                                        )
+                                    } else {
+                                        heartImg = R.drawable.heart_empty
                                     }
                                 },
                             alignment = Alignment.BottomEnd,
-                            painter = painterResource(id = heartImg),
+                            painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
                             contentDescription = stringResource(id = R.string.estab_tab),
                         )
                     }
