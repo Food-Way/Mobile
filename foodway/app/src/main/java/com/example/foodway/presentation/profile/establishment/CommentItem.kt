@@ -36,6 +36,15 @@ import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 import java.util.UUID
 
+fun generateRandomName(): String {
+    val firstNames = listOf("Alice", "Bob", "Charlie", "Diana", "Edward", "Fiona", "George", "Hannah", "Irene", "Jack")
+    val lastNames = listOf("Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Rodriguez")
+    
+    val randomFirstName = firstNames.random()
+    val randomLastName = lastNames.random()
+    return "$randomFirstName $randomLastName"
+}
+
 @Composable
 fun CommentItem(
     idComment: UUID,
@@ -96,6 +105,8 @@ fun CommentItem(
                             viewValue = false,
                             sizeStar = 20
                         )
+                    } else {
+                        Text(text = generateRandomName())
                     }
                 }
             }

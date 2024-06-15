@@ -69,8 +69,8 @@ fun ProductCard(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             CoilImage(
-                photo = data.photo,
-                description = data.name,
+                photo = data.photo ?: "https://foodway.s3.amazonaws.com/public-images/product-image.webp",
+                description = data.name ?: "Sem nome",
                 modifier = Modifier
                     .height(70.dp)
                     .fillMaxWidth(),

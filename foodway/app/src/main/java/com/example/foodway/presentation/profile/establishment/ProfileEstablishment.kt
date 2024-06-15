@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.foodway.domain.profile.establishment.model.ProfileEstablishment
 import com.example.foodway.presentation.MainScreenState
@@ -59,32 +62,79 @@ fun ProfileEstablishment(
             }
         )
     }
-
     val comment by vm.commentSelected.observeAsState()
+
+//    FUNCIONOU MAS PRECISA AJUSTAR
 
     if (showModalCommentReply == true) {
         Dialog(
             onDismissRequest = { vm.toggleModalCommentReply(showModal = false) },
             content = {
                 comment?.let { commentSelected ->
-                    CommentReplyDialog(
-                        commentSelected = commentSelected,
-                        idEstablishment = idEstablishment,
-                        sharedPreferences = sharedPreferences,
-                        vm = vm,
-                        onPostCommentSuccess = { destination, profileId ->
-                            onPostCommentSuccess(destination, profileId)
-                        },
-                        onUpvoteSuccess = onUpvoteSuccess,
-                        showCommentDialog = {
-                            vm.toggleModalCommentReply()
-                        },
-                        commentChild = emptyList()
-                    )
+                    if (commentSelected.replies?.isNotEmpty() == true) {
+                        CommentReplyDialog(
+                            commentSelected = commentSelected,
+                            idEstablishment = idEstablishment,
+                            sharedPreferences = sharedPreferences,
+                            vm = vm,
+                            onPostCommentSuccess = { destination, profileId ->
+                                onPostCommentSuccess(destination, profileId)
+                            },
+                            onUpvoteSuccess = onUpvoteSuccess,
+                            showCommentDialog = {
+                                vm.toggleModalCommentReply()
+                            },
+                            commentChild = commentSelected.replies
+                        )
+                    } else {
+                        if (commentSelected.replies?.isEmpty() == true) {
+                            CommentReplyDialog(
+                                commentSelected = commentSelected,
+                                idEstablishment = idEstablishment,
+                                sharedPreferences = sharedPreferences,
+                                vm = vm,
+                                onPostCommentSuccess = { destination, profileId ->
+                                    onPostCommentSuccess(destination, profileId)
+                                },
+                                onUpvoteSuccess = onUpvoteSuccess,
+                                showCommentDialog = {
+                                    vm.toggleModalCommentReply()
+                                },
+                                commentChild = commentSelected.replies
+                            )
+                        }
+                    }
                 } ?: Text("No comment selected")
             }
         )
     }
+
+//
+//    if (showModalCommentReply == true) {
+//        Dialog(
+//            onDismissRequest = { vm.toggleModalCommentReply(showModal = false) },
+//            content = {
+//                comment?.let { commentSelected ->
+//                    if (commentSelected.replies?.isEmpty() == true) {
+//                        CommentReplyDialog(
+//                            commentSelected = commentSelected,
+//                            idEstablishment = idEstablishment,
+//                            sharedPreferences = sharedPreferences,
+//                            vm = vm,
+//                            onPostCommentSuccess = { destination, profileId ->
+//                                onPostCommentSuccess(destination, profileId)
+//                            },
+//                            onUpvoteSuccess = onUpvoteSuccess,
+//                            showCommentDialog = {
+//                                vm.toggleModalCommentReply()
+//                            },
+//                            commentChild = commentSelected.replies
+//                        )
+//                    }
+//                } ?: Text("No comment selected")
+//            }
+//        )
+//    }
 
 
     when (state) {

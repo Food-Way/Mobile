@@ -4,10 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -19,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -92,6 +97,42 @@ fun CommentReplyDialog(
             )
         }
 
+        if (commentChild.isNotEmpty()) {
+            LazyColumn(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            ) {
+                items(commentChild) { commentChild ->
+                    Row {
+                        Divider(
+                            modifier = Modifier
+                                .height(180.dp) // A linha preencherá toda a altura disponível
+                                .width(2.dp), // Defina a largura da linha
+                            color = colorResource(id = R.color.light_black) // Defina a cor da linha
+                        )
+                        CommentItem(
+                            width = 250.dp,
+                            height = 180.dp,
+                            isChild = true,
+                            idComment = commentChild.idPost,
+                            photo = commentChild.userPhoto,
+                            comment = commentChild.comment,
+                            rate = 0.0,
+                            qtdUpvotes = commentChild.upvotes,
+                            commentChild = emptyList(),
+                            idEstablishment = idEstablishment,
+                            vm = vm,
+                            sharedPreferences = sharedPreferences,
+                            onUpvoteSuccess = onUpvoteSuccess,
+                            showCommentDialog = showCommentDialog
+                        )
+                    }
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
 
         InputGeneric(
@@ -104,6 +145,7 @@ fun CommentReplyDialog(
                 comment = it
             }
         )
+
         Spacer(modifier = Modifier.height(36.dp))
 
         ButtonGeneric(

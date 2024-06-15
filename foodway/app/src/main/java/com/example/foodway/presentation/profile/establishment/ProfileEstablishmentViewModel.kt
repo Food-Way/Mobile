@@ -44,6 +44,7 @@ class ProfileEstablishmentViewModel(
     }
 
     fun setSelectedComment(comment: Comment) {
+        Log.d("COMMENT", comment.toString())
         commentSelected.value = comment
     }
 
