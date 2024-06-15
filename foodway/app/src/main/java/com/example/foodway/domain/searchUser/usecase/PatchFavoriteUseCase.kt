@@ -1,23 +1,24 @@
 package com.example.foodway.domain.searchUser.usecase
 
-import com.example.foodway.domain.searchUser.model.SearchedCustomer
 import com.example.foodway.domain.searchUser.repository.ISearchUserRepository
 import java.util.UUID
 
-class GetCustomerUseCase(
+class PatchFavoriteUseCase(
     private val repository: ISearchUserRepository
 ) {
     suspend operator fun invoke(
-        idSession: UUID,
+        idCustomer: UUID,
+        idEstablishment: UUID,
         token: String
-    ): List<SearchedCustomer> {
+    ) {
         try {
-            val response = repository.getAllCustomers(
-                idSession = idSession,
+            val response = repository.patchFavorite(
+                idCustomer = idCustomer,
+                idEstablishment = idEstablishment,
                 token = token
             )
             if (response.isSuccessful) {
-                return response.body() ?: emptyList()
+                return response.body() ?: throw Exception("Empty response")
             } else {
                 throw Exception(response.errorBody().toString())
             }

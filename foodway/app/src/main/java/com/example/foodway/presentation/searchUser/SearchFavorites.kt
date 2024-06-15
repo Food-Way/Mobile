@@ -2,6 +2,7 @@ package com.example.foodway.presentation.searchUser
 
 import ErrorView
 import LoadingBar
+import SearchUserViewModel
 import UserSearchComponent
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -20,46 +21,46 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.Establishment
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun SearchFavorites(
     vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
     onNavigateToFavorite: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
+    val favorites by vm.favorites.observeAsState(emptyList())
 
-    when (state) {
-        is MainScreenState.Loading -> {
-            Log.d("loading", "loading state")
-            LoadingBar(
-                loadingText = "Carregando Favoritos..."
-            )
-            vm.getAllFavorites()
-        }
-
-        is MainScreenState.Error, null -> {
-            val errorMessage = (state as MainScreenState.Error).message
-            Log.d("Error", "Error state")
-            ErrorView(message = errorMessage) {
-                vm.getAllFavorites()
-            }
-        }
-
-        is MainScreenState.Success<*> -> {
-            val favorites = (state as MainScreenState.Success<List<Establishment>>).data
-            Log.d("Success", "Success state")
-
-            Column {
-                UserSearchComponent(
-                    vm = vm
+    Column {
+        UserSearchComponent(
+            vm = vm
+        )
+        when (state) {
+            is MainScreenState.Loading -> {
+                Log.d("loading", "loading state")
+                LoadingBar(
+                    loadingText = "Carregando Favoritos..."
                 )
+//                vm.getAllFavorites()
+            }
+
+            is MainScreenState.Error, null -> {
+                val errorMessage = (state as? MainScreenState.Error)?.message ?: "Erro desconhecido"
+                Log.d("Error", "Error state")
+                ErrorView(message = errorMessage) {
+//                    vm.getAllFavorites()
+                }
+            }
+
+            is MainScreenState.Success<*> -> {
                 Column {
                     Text(
                         modifier = Modifier
@@ -73,20 +74,27 @@ fun SearchFavorites(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
+                        Log.d("favorites", favorites.toString())
+
                         val topThree = favorites.take(3)
 
-                        topThree.forEach { favorite ->
-                            CardUser(
-                                id = favorite.idEstablishment,
-                                name = favorite.name,
-                                rate = favorite.rate ?: 0.0,
-                                photo = favorite.profilePhoto ?: "",
-                                typeUser = UserType.ESTABLISHMENT,
-                                onNavigateToProfile = onNavigateToFavorite
-                            )
+                        if (favorites.isEmpty()) {
+//                            vm.getAllFavorites()
+                        } else {
+                            topThree.forEach { favorite ->
+                                CardUser(
+                                    id = UUID.fromString(favorite.idEstablishment),
+                                    name = favorite.name,
+                                    rate = favorite.generalRate ?: 0.0,
+                                    photo = favorite.photo ?: "",
+                                    typeUser = UserType.ESTABLISHMENT,
+                                    onNavigateToProfile = onNavigateToFavorite
+                                )
+                            }
                         }
                     }
                 }
+
                 Column(
                     modifier = Modifier
                         .padding(top = 10.dp),
@@ -105,15 +113,18 @@ fun SearchFavorites(
                     ) {
                         items(favorites.drop(3)) { favorite ->
                             ListCardUser(
-                                id = favorite.idEstablishment,
-                                photo = favorite.profilePhoto ?: "",
+                                id = UUID.fromString(favorite.idEstablishment),
+                                photo = favorite.photo ?: "",
                                 name = favorite.name,
-                                rateStar = favorite.rate ?: 0.0,
-                                description = favorite.description ?: "Sem descrição",
+                                rateStar = favorite.generalRate ?: 0.0,
+                                description = favorite.bio ?: "Sem descrição",
                                 qtdComment = favorite.qtdComments ?: 0,
-                                qtdUpVotes = favorite.qtdUpvotes ?: 0,
+                                qtdUpVotes = favorite.upvote ?: 0,
                                 typeUser = UserType.ESTABLISHMENT,
-                                onNavigateToProfile = onNavigateToFavorite
+                                onNavigateToProfile = onNavigateToFavorite,
+                                isFavorite = favorite.isFavorite,
+                                vm = vm,
+                                sharedPreferences = sharedPreferences
                             )
                         }
                     }

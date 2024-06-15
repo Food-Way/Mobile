@@ -28,7 +28,7 @@ import com.example.foodway.domain.repository.IProductRepository
 import com.example.foodway.domain.searchUser.repository.ISearchUserRepository
 import com.example.foodway.domain.searchUser.usecase.GetCustomerUseCase
 import com.example.foodway.domain.searchUser.usecase.GetEstablishmentUseCase
-import com.example.foodway.domain.searchUser.usecase.GetFavoriteUseCase
+import com.example.foodway.domain.searchUser.usecase.PatchFavoriteUseCase
 import com.example.foodway.domain.signIn.repository.ISignInRepository
 import com.example.foodway.domain.signIn.usecase.GetUserUseCase
 import com.example.foodway.domain.signUp.repository.ISignUpRepository
@@ -39,7 +39,9 @@ import org.koin.dsl.module
 val domainModule = module {
 
     factory<ICulinaryRepository> {
-        CulinaryRepositoryImpl(get())
+        CulinaryRepositoryImpl(
+            api = get()
+        )
     }
 
     single<IProductRepository> {
@@ -49,97 +51,150 @@ val domainModule = module {
     }
 
     single {
-        GetEstablishmentMenuUseCase(get())
+        GetEstablishmentMenuUseCase(
+            repository = get()
+        )
     }
 
 
     single<ICustomerRepository> {
-        CustomerRepositoryImpl(get())
+        CustomerRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        GetCustomerProfileUseCase(get())
+        GetCustomerProfileUseCase(
+            repository = get()
+        )
     }
 
 
     single<IEstablishmentRepository> {
-        EstablishmentRepositoryImpl(get())
+        EstablishmentRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        GetEstablishmentProfileUseCase(get())
+        GetEstablishmentProfileUseCase(
+            repository = get()
+        )
     }
 
     single {
-        GetEstablishmentAccountUseCase(get())
+        GetEstablishmentAccountUseCase(
+            establishmentRepository = get()
+        )
     }
 
 
-    factory <ISearchUserRepository> {
-        SearchUserRepositoryImpl(get())
-    }
-
-    single {
-        GetCustomerUseCase(get())
-    }
-
-    single {
-        GetEstablishmentUseCase(get())
+    factory<ISearchUserRepository> {
+        SearchUserRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        GetFavoriteUseCase(get())
+        GetCustomerUseCase(
+            repository = get()
+        )
+    }
+
+    single {
+        GetEstablishmentUseCase(
+            repository = get()
+        )
+    }
+
+//    single {
+//        GetFavoriteUseCase(
+//            repository = get()
+//        )
+//    }
+
+    single {
+        PatchFavoriteUseCase(
+            repository = get()
+        )
     }
 
 
     single<ISignInRepository> {
-        SignInRepositoryImpl(get())
+        SignInRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        GetUserUseCase(get())
+        GetUserUseCase(
+            repository = get()
+        )
     }
 
     factory<ISignUpRepository> {
-        SignUpRepositoryImpl(get())
+        SignUpRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        CreateUserUseCase(get())
+        CreateUserUseCase(
+            repository = get()
+        )
     }
 
     single {
-        GetAllCulinariesUseCase(get())
+        GetAllCulinariesUseCase(
+            repository = get()
+        )
     }
 
     single<IUploadFileRepository> {
-        UploadFileRepositoryImpl(get())
+        UploadFileRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        PostImageUseCase(get())
+        PostImageUseCase(
+            uploadFileRepository = get()
+        )
     }
     single {
-        UpdateAccountUseCase(get(), get())
+        UpdateAccountUseCase(
+            establishmentRepository = get(),
+            customerRepository = get()
+        )
     }
     single {
-        UpdateProfileUseCase(get(), get())
+        UpdateProfileUseCase(
+            establishmentRepository = get(),
+            customerRepository = get()
+        )
     }
     single {
-        GetCustomerAccountUseCase(get())
+        GetCustomerAccountUseCase(
+            customerRepository = get()
+        )
     }
 
     single<ICommentRepository> {
-        CommentRepositoryImpl(get())
+        CommentRepositoryImpl(
+            api = get()
+        )
     }
 
     single {
-        PostCommentUseCase(get())
+        PostCommentUseCase(
+            repository = get()
+        )
     }
 
     single {
-        PatchUpvoteUseCase(get())
+        PatchUpvoteUseCase(
+            repository = get()
+        )
     }
-
 }
 

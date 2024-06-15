@@ -2,7 +2,7 @@ package com.example.foodway.presentation.searchUser
 
 import ErrorView
 import LoadingBar
-import UserSearchComponent
+import SearchUserViewModel
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
@@ -22,17 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.Establishment
 import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.searchUser.model.SearchedEstablishment
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun SearchEstablishment(
     vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
     onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
 ) {
     val state by vm.state.observeAsState()
@@ -59,8 +61,8 @@ fun SearchEstablishment(
             }
 
             is MainScreenState.Success<*> -> {
-                val establishments = (state as MainScreenState.Success<List<Establishment>>).data
-                Log.d("Success", "Success state")
+                val establishments = (state as MainScreenState.Success<List<SearchedEstablishment>>).data
+//                Log.d("Success", "Success state$establishments")
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -81,10 +83,10 @@ fun SearchEstablishment(
 
                         topThree.forEach { establishment ->
                             CardUser(
-                                id = establishment.idEstablishment,
+                                id = UUID.fromString(establishment.idEstablishment),
                                 name = establishment.name,
-                                rate = establishment.rate ?: 0.0,
-                                photo = establishment.profilePhoto ?: "",
+                                rate = establishment.generalRate ?: 0.0,
+                                photo = establishment.photo ?: "",
                                 typeUser = UserType.ESTABLISHMENT,
                                 onNavigateToProfile = onNavigateToEstablishment
                             )
@@ -108,15 +110,18 @@ fun SearchEstablishment(
                     ) {
                         items(establishments.drop(3)) { establishment ->
                             ListCardUser(
-                                id = establishment.idEstablishment,
-                                photo = establishment.profilePhoto ?: "",
+                                id = UUID.fromString(establishment.idEstablishment),
+                                photo = establishment.photo ?: "",
                                 name = establishment.name,
-                                rateStar = establishment.rate ?: 0.0,
-                                description = establishment.description ?: "Sem descrição",
+                                rateStar = establishment.generalRate ?: 0.0,
+                                description = establishment.bio ?: "Sem descrição",
                                 qtdComment = establishment.qtdComments ?: 0,
-                                qtdUpVotes = establishment.qtdUpvotes ?: 0,
+                                qtdUpVotes = establishment.upvote ?: 0,
                                 typeUser = UserType.ESTABLISHMENT,
-                                onNavigateToProfile = onNavigateToEstablishment
+                                isFavorite = establishment.isFavorite,
+                                vm = vm,
+                                onNavigateToProfile = onNavigateToEstablishment,
+                                sharedPreferences = sharedPreferences
                             )
                         }
                     }

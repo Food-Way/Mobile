@@ -1,5 +1,6 @@
 package com.example.foodway.presentation
 
+import SearchUserViewModel
 import SelectUserType
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,7 +36,6 @@ import com.example.foodway.presentation.profile.customer.ProfileCustomerViewMode
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishment
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
 import com.example.foodway.presentation.searchUser.SearchUser
-import com.example.foodway.presentation.searchUser.SearchUserViewModel
 import com.example.foodway.presentation.signIn.SignIn
 import com.example.foodway.presentation.signIn.SignInViewModel
 import com.example.foodway.presentation.signUp.SignUpViewModel
@@ -240,6 +240,7 @@ class MainActivity : ComponentActivity() {
                                     onNavigateToFavorites = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
+                                    sharedPreferences = sharedPreferences
                                 )
                             }
                             composable(AppDestination.EditCustomerProfile.route) {

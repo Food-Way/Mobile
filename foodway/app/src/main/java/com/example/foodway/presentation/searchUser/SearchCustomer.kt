@@ -2,6 +2,7 @@ package com.example.foodway.presentation.searchUser
 
 import ErrorView
 import LoadingBar
+import SearchUserViewModel
 import UserSearchComponent
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -19,20 +20,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.Customer
 import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 
 @Composable
 fun SearchCustomer(
     vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
     onNavigateToCustomer: (Destination, ProfileId) -> Unit
 ) {
     val state by vm.state.observeAsState()
+    val customers by vm.customers.observeAsState(emptyList())
 
     Column {
         UserSearchComponent(
@@ -44,11 +47,13 @@ fun SearchCustomer(
                 LoadingBar(
                     loadingText = "Carregando Clientes..."
                 )
-                vm.getAllCustomers()
+                if (customers.isEmpty()) {
+                    vm.getAllCustomers()
+                }
             }
 
             is MainScreenState.Error, null -> {
-                val errorMessage = (state as MainScreenState.Error).message
+                val errorMessage = (state as? MainScreenState.Error)?.message ?: "Erro desconhecido"
                 Log.d("Error", "Error state")
                 ErrorView(message = errorMessage) {
                     vm.getAllCustomers()
@@ -56,8 +61,6 @@ fun SearchCustomer(
             }
 
             is MainScreenState.Success<*> -> {
-                val customers = (state as MainScreenState.Success<List<Customer>>).data
-
                 Column {
                     Text(
                         modifier = Modifier
@@ -75,16 +78,21 @@ fun SearchCustomer(
 
                         val topThree = customers.take(3)
 
-                        topThree.forEach { customer ->
-                            CardUser(
-                                id = customer.idUser,
-                                name = customer.name,
-                                rate = customer.rate ?: 0.0,
-                                photo = customer.profilePhoto ?: "",
-                                typeUser = UserType.CLIENT,
-                                onNavigateToProfile = onNavigateToCustomer
-                            )
+                        if (customers.isEmpty()) {
+                            vm.getAllCustomers()
+                        } else {
+                            topThree.forEach { customer ->
+                                CardUser(
+                                    id = customer.idCustomer,
+                                    name = customer.name,
+                                    rate = customer.generalRate ?: 0.0,
+                                    photo = customer.photo ?: "",
+                                    typeUser = UserType.CLIENT,
+                                    onNavigateToProfile = onNavigateToCustomer
+                                )
+                            }
                         }
+
                     }
                 }
 
@@ -104,15 +112,18 @@ fun SearchCustomer(
                     ) {
                         items(customers.drop(3)) { customer ->
                             ListCardUser(
-                                id = customer.idUser,
-                                photo = customer.profilePhoto ?: "",
+                                id = customer.idCustomer,
+                                photo = customer.photo ?: "",
                                 name = customer.name,
-                                rateStar = customer.rate ?: 0.0,
+                                rateStar = customer.generalRate ?: 0.0,
                                 description = customer.bio ?: "Sem descrição",
                                 qtdComment = customer.qtdComments ?: 0,
-                                qtdUpVotes = customer.qtdUpvotes ?: 0,
+                                qtdUpVotes = customer.upvotes ?: 0,
                                 typeUser = UserType.CLIENT,
-                                onNavigateToProfile = onNavigateToCustomer
+                                onNavigateToProfile = onNavigateToCustomer,
+                                isFavorite = false,
+                                vm = vm,
+                                sharedPreferences = sharedPreferences
                             )
                         }
                     }

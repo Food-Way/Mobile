@@ -36,8 +36,8 @@ import com.example.foodway.R
 import com.example.foodway.presentation.searchUser.SearchCustomer
 import com.example.foodway.presentation.searchUser.SearchEstablishment
 import com.example.foodway.presentation.searchUser.SearchFavorites
-import com.example.foodway.presentation.searchUser.SearchUserViewModel
 import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -49,6 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TabScreen(
     vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
     onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
     onNavigateToCustomer: (Destination, ProfileId) -> Unit,
     onNavigateToFavorites: (Destination, ProfileId) -> Unit
@@ -178,14 +179,17 @@ fun TabScreen(
             when (index) {
                 0 -> SearchEstablishment(
                     vm = vm,
+                    sharedPreferences = sharedPreferences,
                     onNavigateToEstablishment = onNavigateToEstablishment
                 )
                 1 -> SearchCustomer(
                     vm = vm,
+                    sharedPreferences = sharedPreferences,
                     onNavigateToCustomer = onNavigateToCustomer
                 )
                 else -> SearchFavorites(
                     vm = vm,
+                    sharedPreferences = sharedPreferences,
                     onNavigateToFavorite = onNavigateToFavorites
                 )
             }
