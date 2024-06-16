@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
@@ -74,8 +74,6 @@ fun SearchCustomer(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        Log.d("customers", customers.toString())
-
                         val topThree = customers.take(3)
 
                         if (customers.isEmpty()) {
@@ -87,12 +85,11 @@ fun SearchCustomer(
                                     name = customer.name,
                                     rate = customer.generalRate ?: 0.0,
                                     photo = customer.photo ?: "",
-                                    typeUser = UserType.CLIENT,
+                                    typeUser = ETypeUser.CLIENT,
                                     onNavigateToProfile = onNavigateToCustomer
                                 )
                             }
                         }
-
                     }
                 }
 
@@ -119,7 +116,7 @@ fun SearchCustomer(
                                 description = customer.bio ?: "Sem descrição",
                                 qtdComment = customer.qtdComments ?: 0,
                                 qtdUpVotes = customer.upvotes ?: 0,
-                                typeUser = UserType.CLIENT,
+                                typeUser = ETypeUser.CLIENT,
                                 onNavigateToProfile = onNavigateToCustomer,
                                 isFavorite = false,
                                 vm = vm,

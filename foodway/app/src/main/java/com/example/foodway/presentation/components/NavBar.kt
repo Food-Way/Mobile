@@ -24,7 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.PreferencesManager
 
@@ -58,7 +58,7 @@ fun NavBarComponent(
             val typeUser = sharedPreferences.getSavedData("typeUser", "")
             items.forEachIndexed { index, value ->
                 val route = when (typeUser) {
-                    UserType.ESTABLISHMENT.name -> {
+                    ETypeUser.ESTABLISHMENT.name -> {
                         when (index) {
                             0 -> "${AppDestination.ProfileEstablishment.route}/$idUser"
                             1 -> AppDestination.SearchUser.route
@@ -66,7 +66,7 @@ fun NavBarComponent(
                             else -> ""
                         }
                     }
-                    UserType.CLIENT.name -> {
+                    ETypeUser.CLIENT.name -> {
                         when (index) {
                             0 -> "${AppDestination.ProfileCustomer.route}/$idUser"
                             1 -> AppDestination.SearchUser.route

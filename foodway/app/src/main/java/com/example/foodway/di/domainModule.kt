@@ -21,6 +21,7 @@ import com.example.foodway.domain.profile.establishment.repository.ICommentRepos
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.domain.profile.establishment.usecase.PatchUpvoteUseCase
 import com.example.foodway.domain.profile.establishment.usecase.PostCommentUseCase
+import com.example.foodway.domain.profile.establishment.usecase.PostRateUseCase
 import com.example.foodway.domain.repository.ICulinaryRepository
 import com.example.foodway.domain.repository.ICustomerRepository
 import com.example.foodway.domain.repository.IEstablishmentRepository
@@ -50,7 +51,7 @@ val domainModule = module {
         )
     }
 
-    single {
+    factory {
         GetEstablishmentMenuUseCase(
             repository = get()
         )
@@ -193,6 +194,12 @@ val domainModule = module {
 
     single {
         PatchUpvoteUseCase(
+            repository = get()
+        )
+    }
+
+    single {
+        PostRateUseCase(
             repository = get()
         )
     }

@@ -1,6 +1,6 @@
 package com.example.foodway.domain.model
 
-enum class UserType {
+enum class ETypeUser {
     CLIENT,
     ESTABLISHMENT
 }

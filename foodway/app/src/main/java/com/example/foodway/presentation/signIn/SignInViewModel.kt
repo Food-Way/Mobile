@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.domain.signIn.model.SignIn
 import com.example.foodway.domain.signIn.usecase.GetUserUseCase
 import com.example.foodway.presentation.MainScreenState
@@ -45,7 +45,7 @@ class SignInViewModel(
                     sharedPreferences.saveAuthenticatedData("name", it.name ?: "")
                     sharedPreferences.saveAuthenticatedData("typeUser", it.typeUser ?: "")
                     val route = when (it.typeUser) {
-                        UserType.CLIENT.name -> {
+                        ETypeUser.CLIENT.name -> {
                             AppDestination.ProfileCustomer.route
                         }
                         else -> {

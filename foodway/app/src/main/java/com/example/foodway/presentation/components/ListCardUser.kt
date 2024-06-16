@@ -36,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
@@ -52,7 +52,7 @@ fun ListCardUser(
     description: String,
     qtdComment: Int,
     qtdUpVotes: Int,
-    typeUser: UserType,
+    typeUser: ETypeUser,
     isFavorite: Boolean,
     vm: SearchUserViewModel,
     sharedPreferences: PreferencesManager,
@@ -69,8 +69,8 @@ fun ListCardUser(
             .clickable {
                 onNavigateToProfile(
                     when (typeUser) {
-                        UserType.CLIENT -> AppDestination.ProfileCustomer.route
-                        UserType.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                        ETypeUser.CLIENT -> AppDestination.ProfileCustomer.route
+                        ETypeUser.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
                     },
                     id.toString()
                 )
@@ -182,14 +182,23 @@ fun ListCardUser(
                                         heartImg = R.drawable.heart_full
                                         vm.patchFavorite(
                                             idEstablishment = id,
-                                            idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", ""))
+                                            idCustomer = UUID.fromString(
+                                                sharedPreferences.getSavedData(
+                                                    "id",
+                                                    ""
+                                                )
+                                            )
                                         )
                                     } else {
                                         heartImg = R.drawable.heart_empty
                                     }
                                 },
                             alignment = Alignment.BottomEnd,
-                            painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
+                            painter = if (typeUser == ETypeUser.ESTABLISHMENT) {
+                                painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty)
+                            } else {
+                                painterResource(id = R.drawable.form_step_empty)
+                            },
                             contentDescription = stringResource(id = R.string.estab_tab),
                         )
                     }

@@ -6,9 +6,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.establishmentMenu.model.Product
 import com.example.foodway.presentation.MainScreenState
-import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.CardGrid
 import com.example.foodway.presentation.components.ScreenBorder
 import java.util.UUID
@@ -34,6 +31,7 @@ fun MenuEstablishment(
     idEstablishment: UUID,
     establishmentName: String = "",
 ) {
+    Log.d("a", "$idEstablishment")
     val state by vm.state.observeAsState()
     ScreenBorder {
         Column(
@@ -84,17 +82,6 @@ fun MenuEstablishment(
                         ProductCard(product)
                     })
                 }
-            }
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.next),
-                textSize = 18,
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(45.dp),
-                isPrimary = false
-            ) {
-//                onNavigate()
             }
         }
     }

@@ -24,8 +24,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
+import com.example.foodway.domain.profile.establishment.model.ETypeRate
 import com.example.foodway.domain.profile.establishment.model.PostComment
+import com.example.foodway.domain.profile.establishment.model.Rate
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
 import com.example.foodway.presentation.components.RatingBar
@@ -197,17 +199,22 @@ fun CommentDialog(
             isPrimary = true,
             onClick = {
                 vm.postComment(
+                    token = sharedPreferences.getSavedData("token", ""),
                     postComment = PostComment(
                         idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
                         idEstablishment = idEstablishment.toString(),
                         comment = comment,
                         userPhoto = sharedPreferences.getSavedData("photo", ""),
                         userName = sharedPreferences.getSavedData("name", ""),
-                        typeUser = UserType.CLIENT.name,
+                        typeUser = ETypeUser.CLIENT.name,
                         images = listOf()
                     ),
-                    onPostCommentSuccess = onPostCommentSuccess,
-                    token = sharedPreferences.getSavedData("token", "")
+                    rates = listOf(
+                        Rate(name = ETypeRate.FOOD.name, ratePoint = ratingFood),
+                        Rate(name = ETypeRate.AMBIENT.name, ratePoint = ratingEnvironment),
+                        Rate(name = ETypeRate.SERVICE.name, ratePoint = ratingService),
+                    ),
+                    onPostCommentSuccess = onPostCommentSuccess
                 )
             }
         )

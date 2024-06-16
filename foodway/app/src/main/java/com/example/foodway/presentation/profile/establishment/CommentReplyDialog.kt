@@ -1,10 +1,8 @@
 package com.example.foodway.presentation.profile.establishment
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -22,20 +19,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.model.Comment
 import com.example.foodway.domain.model.CommentChild
-import com.example.foodway.domain.model.UserType
-import com.example.foodway.domain.profile.establishment.model.PostComment
+import com.example.foodway.domain.model.ETypeUser
+import com.example.foodway.domain.profile.establishment.model.PostCommentChild
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
-import com.example.foodway.presentation.components.RatingBar
 import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId
@@ -156,19 +149,23 @@ fun CommentReplyDialog(
                 .height(40.dp),
             isPrimary = true,
             onClick = {
-                vm.postComment(
-                    postComment = PostComment(
-                        idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
-                        idEstablishment = idEstablishment.toString(),
-                        comment = comment,
-                        userPhoto = sharedPreferences.getSavedData("photo", ""),
-                        userName = sharedPreferences.getSavedData("name", ""),
-                        typeUser = UserType.CLIENT.name,
-                        images = listOf()
-                    ),
-                    onPostCommentSuccess = onPostCommentSuccess,
-                    token = sharedPreferences.getSavedData("token", "")
-                )
+                if (commentSelected != null) {
+                    vm.postComment(
+                        postCommentChild = PostCommentChild(
+                            idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                            idEstablishment = UUID.fromString(idEstablishment.toString()),
+                            idParent = UUID.fromString(commentSelected.idPost.toString()),
+                            comment = comment,
+                            userPhoto = sharedPreferences.getSavedData("photo", ""),
+                            userName = sharedPreferences.getSavedData("name", ""),
+                            typeUser = ETypeUser.CLIENT,
+                            images = listOf()
+                        ),
+                        onPostCommentSuccess = onPostCommentSuccess,
+                        rates = null,
+                        token = sharedPreferences.getSavedData("token", ""),
+                    )
+                }
             }
         )
     }

@@ -64,7 +64,7 @@ fun ProfileCustomer(
 
                     is MainScreenState.Success<*> -> {
                         val profile = (state as MainScreenState.Success<ProfileCustomer>).data
-                        Log.d("Success", "Success state")
+                        Log.d("Success", "Success state$profile")
 
                         WelcomeProfile(
                             name = profile.name,

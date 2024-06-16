@@ -1,14 +1,27 @@
+
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,23 +32,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.model.SelectTypeUser
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.components.ButtonGeneric
-import com.example.foodway.presentation.components.CoilImage
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
 
 @Composable
 fun UserTypeSelection(
-    data: UserType,
+    data: ETypeUser,
     imageResId: Int,
     isChecked: Boolean,
-    onClick: (UserType) -> Unit
+    onClick: (ETypeUser) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -85,7 +95,7 @@ fun UserTypeSelection(
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = if(data.name == UserType.CLIENT.toString()) "Cliente" else "Estabelecimento",
+                text = if(data.name == ETypeUser.CLIENT.toString()) "Cliente" else "Estabelecimento",
                 color = colorResource(id = R.color.black),
                 fontWeight = FontWeight.SemiBold
             )
@@ -97,7 +107,7 @@ fun UserTypeSelection(
 fun SelectUserType(
     onNavigate: (Destination) -> Unit
 ) {
-    var selectedUserType by remember { mutableStateOf<UserType?>(null) }
+    var selectedUserType by remember { mutableStateOf<ETypeUser?>(null) }
 
     Column(
         modifier = Modifier
@@ -119,17 +129,17 @@ fun SelectUserType(
             verticalAlignment = Alignment.CenterVertically
         ) {
             UserTypeSelection(
-                data = UserType.CLIENT,
+                data = ETypeUser.CLIENT,
                 imageResId = R.drawable.usertypeclient,
-                isChecked = selectedUserType == UserType.CLIENT
+                isChecked = selectedUserType == ETypeUser.CLIENT
             ) {
                 selectedUserType = if (selectedUserType == it) null else it
             }
             Spacer(modifier = Modifier.width(16.dp))
             UserTypeSelection(
-                data = UserType.ESTABLISHMENT,
+                data = ETypeUser.ESTABLISHMENT,
                 imageResId = R.drawable.usertypestab,
-                isChecked = selectedUserType == UserType.ESTABLISHMENT
+                isChecked = selectedUserType == ETypeUser.ESTABLISHMENT
             ) {
                 selectedUserType = if (selectedUserType == it) null else it
             }
@@ -144,7 +154,7 @@ fun SelectUserType(
                 .height(43.dp),
             isPrimary = true,
         ) {
-            if (selectedUserType == UserType.ESTABLISHMENT) {
+            if (selectedUserType == ETypeUser.ESTABLISHMENT) {
                 onNavigate(
                     AppDestination.StepOneSignUpEstablishment.route,
                 )

@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentProfile
 import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.domain.model.EstablishmentInputManager.profileEstablishmentInputInfos
-import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
@@ -66,7 +66,7 @@ fun EditEstablishmentProfile(
             )
             vm.getProfile(
                 idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                type = UserType.ESTABLISHMENT
+                type = ETypeUser.ESTABLISHMENT
             )
         }
 
@@ -76,7 +76,7 @@ fun EditEstablishmentProfile(
             ErrorView(message = errorMessage) {
                 vm.getProfile(
                     idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                    type = UserType.ESTABLISHMENT
+                    type = ETypeUser.ESTABLISHMENT
                 )
             }
         }
@@ -125,7 +125,7 @@ fun EditEstablishmentProfile(
                                 uri = imageUri.value,
                                 context = context,
                                 sharedPreferences = sharedPreferences,
-                                typeUser = UserType.ESTABLISHMENT.name,
+                                typeUser = ETypeUser.ESTABLISHMENT.name,
 //                                onNavigateSuccessEditImage = onNavigateSuccessEditImage
                             )
                         },
@@ -209,7 +209,7 @@ fun EditEstablishmentProfile(
                                 },
                                 uri = imageUri.value,
                                 context = context,
-                                typeUser = UserType.ESTABLISHMENT.name,
+                                typeUser = ETypeUser.ESTABLISHMENT.name,
                                 sharedPreferences = sharedPreferences,
                                 profilePhotoOld = profile.profilePhoto
                             )

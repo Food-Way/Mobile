@@ -7,9 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodway.domain.model.Comment
 import com.example.foodway.domain.profile.establishment.model.PatchUpvote
 import com.example.foodway.domain.profile.establishment.model.PostComment
+import com.example.foodway.domain.profile.establishment.model.PostCommentChild
+import com.example.foodway.domain.profile.establishment.model.PostRate
+import com.example.foodway.domain.profile.establishment.model.Rate
 import com.example.foodway.domain.profile.establishment.usecase.GetEstablishmentProfileUseCase
 import com.example.foodway.domain.profile.establishment.usecase.PatchUpvoteUseCase
 import com.example.foodway.domain.profile.establishment.usecase.PostCommentUseCase
+import com.example.foodway.domain.profile.establishment.usecase.PostRateUseCase
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
@@ -21,7 +25,8 @@ import java.util.UUID
 class ProfileEstablishmentViewModel(
     private val getEstablishmentProfileUseCase: GetEstablishmentProfileUseCase,
     private val postCommentUseCase: PostCommentUseCase,
-    private val patchUpvoteUseCase: PatchUpvoteUseCase
+    private val patchUpvoteUseCase: PatchUpvoteUseCase,
+    private val postRateUseCase: PostRateUseCase
 ) : ViewModel() {
 
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
@@ -44,29 +49,53 @@ class ProfileEstablishmentViewModel(
     }
 
     fun setSelectedComment(comment: Comment) {
-        Log.d("COMMENT", comment.toString())
         commentSelected.value = comment
     }
 
-//    val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
-
     fun postComment(
         token: String,
-        postComment: PostComment,
+        postComment: PostComment? = null,
+        postCommentChild: PostCommentChild? = null,
+        rates: List<Rate>? = null,
         onPostCommentSuccess: (Destination, ProfileId) -> Unit,
     ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
-                Log.d("SignUpViewModel", "Comment$postComment")
-                val response = postCommentUseCase(
-                    token = token,
-                    postComment = postComment
-                )
-                onPostCommentSuccess(
-                    AppDestination.ProfileEstablishment.route,
-                    postComment.idEstablishment.toString()
-                )
+
+                when (postComment) {
+                    null -> {
+                        Log.d("teste", "$postCommentChild")
+                        Log.d("teste", token)
+                        val response = postCommentUseCase(
+                            token = token,
+                            postCommentChild = postCommentChild!!
+                        )
+                    }
+
+                    else -> {
+                        postRate(
+                            token = token,
+                            rates = PostRate(
+                                idEstablishment = UUID.fromString(postComment.idEstablishment),
+                                idCustomer = UUID.fromString(postComment.idCustomer),
+                                rates = rates!!
+                            )
+                        )
+
+                        val response = postCommentUseCase(
+                            token = token,
+                            postComment = postComment
+                        )
+                    }
+                }
+
+                if (postComment != null) {
+                    onPostCommentSuccess(
+                        AppDestination.ProfileEstablishment.route,
+                        postComment.idEstablishment
+                    )
+                }
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
@@ -83,6 +112,41 @@ class ProfileEstablishmentViewModel(
             }
         }
     }
+
+    private fun postRate(
+        token: String,
+        rates: PostRate
+    ) {
+        viewModelScope.launch {
+            try {
+                state.value = MainScreenState.Loading
+
+                Log.d("Postrate", "$rates")
+
+                val response = postRateUseCase(
+                    token = token,
+                    rates = rates
+                )
+
+                Log.d("Postrate response", response.toString())
+
+            } catch (e: HttpException) {
+                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                val message = when (e.code()) {
+                    404 -> "Perfil não encontrado"
+                    400 -> "Parâmetros incorretos"
+                    else -> "Erro desconhecido"
+                }
+                state.value = MainScreenState.Error(message)
+            } catch (e: Exception) {
+                Log.e("SignUpViewModel", "Exception: ${e.message}")
+                state.value = MainScreenState.Error(
+                    e.message ?: "Erro desconhecido"
+                )
+            }
+        }
+    }
+
 
     fun getEstablishmentProfile(
         idEstablishment: UUID

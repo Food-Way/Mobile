@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -29,11 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
 import com.example.foodway.utils.ProfileId
@@ -45,7 +43,7 @@ fun CardUser(
     name: String,
     photo: String,
     rate: Double,
-    typeUser: UserType,
+    typeUser: ETypeUser,
     onNavigateToProfile : (Destination, ProfileId) -> Unit
 ) {
     Card(
@@ -59,8 +57,8 @@ fun CardUser(
             .clickable {
                 onNavigateToProfile(
                     when (typeUser) {
-                        UserType.CLIENT -> AppDestination.ProfileCustomer.route
-                        UserType.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                        ETypeUser.CLIENT -> AppDestination.ProfileCustomer.route
+                        ETypeUser.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
                     },
                     id.toString()
                 )
