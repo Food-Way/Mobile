@@ -5,6 +5,7 @@ import ErrorView
 import LoadingBar
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -90,17 +91,33 @@ fun StepThreeEstablishment(
 
             }
 
-            Spacer(modifier = Modifier.height(37.dp))
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.next),
-                textSize = 18,
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
-                    .width(250.dp)
-                    .height(45.dp),
-                isPrimary = false
+                    .height(100.dp)
             ) {
-                onStepComplete()
+                ButtonGeneric(
+                    text = stringResource(id = R.string.next),
+                    textSize = 18,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(45.dp),
+                    isPrimary = true,
+                    onClick = {
+                        onStepComplete()
+                    }
+                )
+                ButtonGeneric(
+                    text = stringResource(id = R.string.previous),
+                    textSize = 18,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(45.dp),
+                    isPrimary = false,
+                    onClick = {
+                        onGoBack()
+                    }
+                )
             }
         }
     }

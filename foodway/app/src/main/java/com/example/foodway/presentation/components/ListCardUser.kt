@@ -21,6 +21,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.domain.model.ETypeUser
+import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
@@ -52,14 +53,15 @@ fun ListCardUser(
     description: String,
     qtdComment: Int,
     qtdUpVotes: Int,
-    typeUser: ETypeUser,
+    typeUser: UserType,
     isFavorite: Boolean,
     vm: SearchUserViewModel,
     sharedPreferences: PreferencesManager,
-    onNavigateToProfile: (Destination, ProfileId) -> Unit
+    onNavigateToProfile: (Destination, ProfileId) -> Unit,
+    haveFavorite: Boolean
 ) {
     var isFavoriteImage by remember { mutableStateOf(isFavorite) }
-    var heartImg by remember { mutableStateOf(R.drawable.heart_empty) }
+    var heartImg by remember { mutableIntStateOf(R.drawable.heart_empty) }
 
     Card(
         modifier = Modifier
@@ -69,8 +71,8 @@ fun ListCardUser(
             .clickable {
                 onNavigateToProfile(
                     when (typeUser) {
-                        ETypeUser.CLIENT -> AppDestination.ProfileCustomer.route
-                        ETypeUser.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                        UserType.CLIENT -> AppDestination.ProfileCustomer.route
+                        UserType.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
                     },
                     id.toString()
                 )
@@ -168,39 +170,37 @@ fun ListCardUser(
                         fontSize = 9.sp,
                         lineHeight = 11.sp
                     )
-                    Column(
-                        modifier = Modifier
-                            .width(35.dp)
-                            .height(35.dp),
-                        verticalArrangement = Arrangement.Bottom,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Image(
+                    if (haveFavorite) {
+                        Column(
                             modifier = Modifier
-                                .clickable {
-                                    if (isFavorite) {
-                                        heartImg = R.drawable.heart_full
-                                        vm.patchFavorite(
-                                            idEstablishment = id,
-                                            idCustomer = UUID.fromString(
-                                                sharedPreferences.getSavedData(
-                                                    "id",
-                                                    ""
+                                .width(35.dp)
+                                .height(35.dp),
+                            verticalArrangement = Arrangement.Bottom,
+                            horizontalAlignment = Alignment.End
+                        ) {
+                            Image(
+                                modifier = Modifier
+                                    .clickable {
+                                        if (isFavorite) {
+                                            heartImg = R.drawable.heart_full
+                                            vm.patchFavorite(
+                                                idEstablishment = id,
+                                                idCustomer = UUID.fromString(
+                                                    sharedPreferences.getSavedData(
+                                                        "id",
+                                                        ""
+                                                    )
                                                 )
                                             )
-                                        )
-                                    } else {
-                                        heartImg = R.drawable.heart_empty
-                                    }
-                                },
-                            alignment = Alignment.BottomEnd,
-                            painter = if (typeUser == ETypeUser.ESTABLISHMENT) {
-                                painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty)
-                            } else {
-                                painterResource(id = R.drawable.form_step_empty)
-                            },
-                            contentDescription = stringResource(id = R.string.estab_tab),
-                        )
+                                        } else {
+                                            heartImg = R.drawable.heart_empty
+                                        }
+                                    },
+                                alignment = Alignment.BottomEnd,
+                                painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
+                                contentDescription = stringResource(id = R.string.estab_tab),
+                            )
+                        }
                     }
                 }
             }

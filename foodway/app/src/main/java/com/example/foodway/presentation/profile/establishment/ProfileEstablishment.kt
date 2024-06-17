@@ -61,8 +61,6 @@ fun ProfileEstablishment(
     }
     val comment by vm.commentSelected.observeAsState()
 
-//    FUNCIONOU MAS PRECISA AJUSTAR
-
     if (showModalCommentReply == true) {
         Dialog(
             onDismissRequest = { vm.toggleModalCommentReply(showModal = false) },

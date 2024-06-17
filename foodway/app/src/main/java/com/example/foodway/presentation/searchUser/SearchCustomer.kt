@@ -38,9 +38,9 @@ fun SearchCustomer(
     val customers by vm.customers.observeAsState(emptyList())
 
     Column {
-        UserSearchComponent(
-            vm = vm
-        )
+//        UserSearchComponent(
+//            vm = vm
+//        )
         when (state) {
             is MainScreenState.Loading -> {
                 Log.d("loading", "loading state")
@@ -120,7 +120,8 @@ fun SearchCustomer(
                                 onNavigateToProfile = onNavigateToCustomer,
                                 isFavorite = false,
                                 vm = vm,
-                                sharedPreferences = sharedPreferences
+                                sharedPreferences = sharedPreferences,
+                                haveFavorite = false
                             )
                         }
                     }

@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import kotlin.math.round
 
 @Composable
 fun RateUser(rate: Double) {
@@ -22,7 +23,7 @@ fun RateUser(rate: Double) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = rate.toString().replace(".",","),
+            text = (round(rate * 10) / 10).toString().replace(".",","),
             color = colorResource(id = R.color.black),
             fontSize = 14.sp
         )

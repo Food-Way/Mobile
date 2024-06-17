@@ -131,6 +131,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpCustomer.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier,
                                 )
@@ -143,7 +146,9 @@ class MainActivity : ComponentActivity() {
                                     },
                                     vm = vm,
                                     modifier = Modifier,
-                                    onGoBack = {}
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepOneSignUpCustomer.route)
+                                    }
                                 )
                             }
                             composable(AppDestination.StepThreeSignUpCustomer.route) {
@@ -161,6 +166,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier
                                 )
@@ -171,6 +179,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepThreeSignUpEstablishment.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepOneSignUpEstablishment.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier
                                 )
@@ -180,6 +191,9 @@ class MainActivity : ComponentActivity() {
                                 StepThreeEstablishment(
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
+                                    },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                                     },
                                     vm = vm,
                                     modifier = Modifier
@@ -206,6 +220,9 @@ class MainActivity : ComponentActivity() {
 //                                    onNavigateToProfile = { route, idProfile ->
 //                                        navController.navigate("${route}/$idProfile")
 //                                    },
+                                    onGoBack = {
+                                        navController.navigate("${AppDestination.ProfileEstablishment.route}/$id")
+                                    },
                                 )
                             }
                             composable(AppDestination.SignIn.route) {
