@@ -61,7 +61,7 @@ val dataModule = module {
             .create(UploadFileService::class.java)
     }
 
-    single<CommentService> {
+    factory<CommentService> {
         ApiConfig
             .getInstance()
             .create(CommentService::class.java)

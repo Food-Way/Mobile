@@ -207,12 +207,12 @@ fun CommentDialog(
                     userPhoto = sharedPreferences.getSavedData("photo", ""),
                     userName = sharedPreferences.getSavedData("name", ""),
                     typeUser = ETypeUser.CLIENT,
-                    images = listOf()
+                    images = listOf("")
                 )
                 val rates = listOf(
-                    Rate(name = ETypeRate.FOOD.name, ratePoint = ratingFood),
-                    Rate(name = ETypeRate.AMBIENT.name, ratePoint = ratingEnvironment),
-                    Rate(name = ETypeRate.SERVICE.name, ratePoint = ratingService)
+                    Rate(name = ETypeRate.FOOD, ratePoint = ratingFood),
+                    Rate(name = ETypeRate.AMBIENT, ratePoint = ratingEnvironment),
+                    Rate(name = ETypeRate.SERVICE, ratePoint = ratingService)
                 )
                 vm.postComment(
                     token = token,

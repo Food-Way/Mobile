@@ -108,12 +108,6 @@ val domainModule = module {
         )
     }
 
-//    single {
-//        GetFavoriteUseCase(
-//            repository = get()
-//        )
-//    }
-
     single {
         PatchFavoriteUseCase(
             repository = get()
@@ -186,7 +180,7 @@ val domainModule = module {
         )
     }
 
-    single {
+    factory {
         PostCommentUseCase(
             repository = get()
         )
@@ -198,7 +192,7 @@ val domainModule = module {
         )
     }
 
-    single {
+    factory {
         PostRateUseCase(
             repository = get()
         )

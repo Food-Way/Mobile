@@ -99,7 +99,7 @@ class ProfileEstablishmentViewModel(
 //                    )
 //                }
             } catch (e: HttpException) {
-                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()} ${e.code()}")
                 val message = when (e.code()) {
                     404 -> "Perfil não encontrado"
                     400 -> "Parâmetros incorretos"
@@ -133,7 +133,7 @@ class ProfileEstablishmentViewModel(
                 Log.d("Postrate response", response.toString())
 
             } catch (e: HttpException) {
-                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
+                Log.e("SignUpViewModel", "HTTP Exception: ${e.message()} ${e.code()}")
                 val message = when (e.code()) {
                     404 -> "Perfil não encontrado"
                     400 -> "Parâmetros incorretos"
