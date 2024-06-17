@@ -170,11 +170,3 @@ fun ProfileEstablishment(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun ProfileEstablishmentPreview() {
-//    ProfileEstablishment(
-//        )
-//    )
-//}

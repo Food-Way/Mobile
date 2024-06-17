@@ -59,9 +59,3 @@ fun CommentList(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun CommentListPreview() {
-//    CommentList()
-//}

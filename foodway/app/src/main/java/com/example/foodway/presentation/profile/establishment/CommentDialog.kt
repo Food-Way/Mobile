@@ -198,32 +198,49 @@ fun CommentDialog(
                 .height(40.dp),
             isPrimary = true,
             onClick = {
+                val token = sharedPreferences.getSavedData("token", "")
+                val idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString()
+                val postComment = PostComment(
+                    idCustomer = idCustomer,
+                    idEstablishment = idEstablishment.toString(),
+                    comment = comment,
+                    userPhoto = sharedPreferences.getSavedData("photo", ""),
+                    userName = sharedPreferences.getSavedData("name", ""),
+                    typeUser = ETypeUser.CLIENT,
+                    images = listOf()
+                )
+                val rates = listOf(
+                    Rate(name = ETypeRate.FOOD.name, ratePoint = ratingFood),
+                    Rate(name = ETypeRate.AMBIENT.name, ratePoint = ratingEnvironment),
+                    Rate(name = ETypeRate.SERVICE.name, ratePoint = ratingService)
+                )
                 vm.postComment(
-                    token = sharedPreferences.getSavedData("token", ""),
-                    postComment = PostComment(
-                        idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
-                        idEstablishment = idEstablishment.toString(),
-                        comment = comment,
-                        userPhoto = sharedPreferences.getSavedData("photo", ""),
-                        userName = sharedPreferences.getSavedData("name", ""),
-                        typeUser = ETypeUser.CLIENT.name,
-                        images = listOf()
-                    ),
-                    rates = listOf(
-                        Rate(name = ETypeRate.FOOD.name, ratePoint = ratingFood),
-                        Rate(name = ETypeRate.AMBIENT.name, ratePoint = ratingEnvironment),
-                        Rate(name = ETypeRate.SERVICE.name, ratePoint = ratingService),
-                    ),
+                    token = token,
+                    postComment = postComment,
+                    rates = rates,
                     onPostCommentSuccess = onPostCommentSuccess
                 )
             }
+//            onClick = {
+//                vm.postComment(
+//                    token = sharedPreferences.getSavedData("token", ""),
+//                    postComment = PostComment(
+//                        idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", "")).toString(),
+//                        idEstablishment = idEstablishment.toString(),
+//                        comment = comment,
+//                        userPhoto = sharedPreferences.getSavedData("photo", ""),
+//                        userName = sharedPreferences.getSavedData("name", ""),
+//                        typeUser = ETypeUser.CLIENT,
+//                        images = listOf()
+//                    ),
+//                    rates = listOf(
+//                        Rate(name = ETypeRate.FOOD.name, ratePoint = ratingFood),
+//                        Rate(name = ETypeRate.AMBIENT.name, ratePoint = ratingEnvironment),
+//                        Rate(name = ETypeRate.SERVICE.name, ratePoint = ratingService),
+//                    ),
+//                    onPostCommentSuccess = onPostCommentSuccess
+//                )
+//            }
         )
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun CommentDialogPreview() {
-//    CommentDialog() {}
-//}

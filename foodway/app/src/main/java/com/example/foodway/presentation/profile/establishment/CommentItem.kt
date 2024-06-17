@@ -206,9 +206,3 @@ fun TextFlexible(comment: String) {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun CommentPreview() {
-//    Comment(width = 270.dp, height = 160.dp, isChild = false)
-//}

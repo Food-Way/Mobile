@@ -1,6 +1,5 @@
 package com.example.foodway.presentation.profile.establishment
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -46,8 +45,6 @@ fun ProfileInfoCard(
     qtdUpvotes: Int,
     onNavigateToMenu: (ProfileId, EstablishmentName) -> Unit
 ) {
-    Log.d("ProfileInfoCard", "$idEstablishment")
-    Log.d("ProfileInfoCard", "$name")
     Box(
         contentAlignment = Alignment.Center
     ) {
@@ -173,9 +170,3 @@ fun ProfileInfoCard(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun ProfileInfoCardPreview() {
-//    ProfileInfoCard(modifier = Modifier)
-//}

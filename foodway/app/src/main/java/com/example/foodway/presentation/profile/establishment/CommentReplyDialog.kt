@@ -101,9 +101,9 @@ fun CommentReplyDialog(
                     Row {
                         Divider(
                             modifier = Modifier
-                                .height(180.dp) // A linha preencherá toda a altura disponível
-                                .width(2.dp), // Defina a largura da linha
-                            color = colorResource(id = R.color.light_black) // Defina a cor da linha
+                                .height(180.dp)
+                                .width(2.dp),
+                            color = colorResource(id = R.color.light_black)
                         )
                         CommentItem(
                             width = 250.dp,
@@ -170,10 +170,3 @@ fun CommentReplyDialog(
         )
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun CommentDialogPreview() {
-//    CommentDialog() {}
-//}

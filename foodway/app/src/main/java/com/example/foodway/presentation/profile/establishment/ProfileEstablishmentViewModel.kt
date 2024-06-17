@@ -74,6 +74,8 @@ class ProfileEstablishmentViewModel(
                     }
 
                     else -> {
+                        Log.d("teste", "$postComment")
+                        Log.d("teste", token)
                         postRate(
                             token = token,
                             rates = PostRate(
@@ -90,12 +92,12 @@ class ProfileEstablishmentViewModel(
                     }
                 }
 
-                if (postComment != null) {
-                    onPostCommentSuccess(
-                        AppDestination.ProfileEstablishment.route,
-                        postComment.idEstablishment
-                    )
-                }
+//                if (postComment != null) {
+//                    onPostCommentSuccess(
+//                        AppDestination.ProfileEstablishment.route,
+//                        postComment.idEstablishment
+//                    )
+//                }
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")
                 val message = when (e.code()) {
