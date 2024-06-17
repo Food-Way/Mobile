@@ -55,17 +55,17 @@ fun TabScreen(
     onNavigateToFavorites: (Destination, ProfileId) -> Unit
 ) {
 
-    val tabs = listOf("", "", "")
+    val tabs = listOf("", "")
     val tabsIconsSelected = listOf(
         painterResource(id = R.drawable.location_white_icon),
         painterResource(id = R.drawable.person_white_icon),
-        painterResource(id = R.drawable.heart_white_icon)
+//        painterResource(id = R.drawable.heart_white_icon)
     )
 
     val tabsIconsUnselected = listOf(
         painterResource(id = R.drawable.location_icon),
         painterResource(id = R.drawable.person_icon),
-        painterResource(id = R.drawable.heart_icon)
+//        painterResource(id = R.drawable.heart_icon)
     )
 
     val pagerState = rememberPagerState(initialPage = 0)
@@ -78,7 +78,7 @@ fun TabScreen(
     ) { page ->
         when (page) {
             0 -> colorResource(id = R.color.light_black)
-            1 -> colorResource(id = R.color.light_black)
+//            1 -> colorResource(id = R.color.light_black)
             else -> colorResource(id = R.color.red)
         }
     }
@@ -187,11 +187,11 @@ fun TabScreen(
                     sharedPreferences = sharedPreferences,
                     onNavigateToCustomer = onNavigateToCustomer
                 )
-                else -> SearchFavorites(
-                    vm = vm,
-                    sharedPreferences = sharedPreferences,
-                    onNavigateToFavorite = onNavigateToFavorites
-                )
+//                else -> SearchFavorites(
+//                    vm = vm,
+//                    sharedPreferences = sharedPreferences,
+//                    onNavigateToFavorite = onNavigateToFavorites
+//                )
             }
         }
     }

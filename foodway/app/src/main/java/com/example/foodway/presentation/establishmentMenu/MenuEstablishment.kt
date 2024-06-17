@@ -33,6 +33,7 @@ fun MenuEstablishment(
     vm: MenuEstablishmentViewModel,
     idEstablishment: UUID,
     establishmentName: String = "",
+    onGoBack: () -> Unit
 ) {
     val state by vm.state.observeAsState()
     ScreenBorder {
@@ -83,18 +84,18 @@ fun MenuEstablishment(
                     CardGrid(products, buildItem = { product ->
                         ProductCard(product)
                     })
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.previous),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onGoBack()
+                        }
+                    )
                 }
-            }
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.next),
-                textSize = 18,
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(45.dp),
-                isPrimary = false
-            ) {
-//                onNavigate()
             }
         }
     }

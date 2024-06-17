@@ -21,12 +21,11 @@ fun Dialog(
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
+            colors = CardDefaults.cardColors(containerColor = Color.White),
             modifier = modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .background(Color.White),
+                .padding(16.dp),
             shape = RoundedCornerShape(8.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
             content()
         }

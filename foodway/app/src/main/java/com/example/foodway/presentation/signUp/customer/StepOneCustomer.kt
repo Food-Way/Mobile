@@ -1,13 +1,20 @@
 package com.example.foodway.presentation.signUp.customer
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -35,6 +44,7 @@ import com.example.foodway.presentation.signUp.SignUpViewModel
 fun StepOneCustomer(
     modifier: Modifier,
     onStepComplete: () -> Unit,
+    onGoBack: () -> Unit,
     vm: SignUpViewModel
 ) {
 
@@ -164,17 +174,34 @@ fun StepOneCustomer(
                     )
                 }
 
-                ButtonGeneric(
-                    text = stringResource(id = R.string.next),
-                    textSize = 18,
+                Column(
+                    verticalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .width(250.dp)
-                        .height(45.dp),
-                    isPrimary = false,
-                    onClick = {
-                        onStepComplete()
-                    }
-                )
+                        .height(100.dp)
+                ) {
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.next),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = true,
+                        onClick = {
+                            onStepComplete()
+                        }
+                    )
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.previous),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onGoBack()
+                        }
+                    )
+                }
             }
         }
     }

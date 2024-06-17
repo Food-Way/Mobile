@@ -124,7 +124,8 @@ fun SearchFavorites(
                                 onNavigateToProfile = onNavigateToFavorite,
                                 isFavorite = favorite.isFavorite,
                                 vm = vm,
-                                sharedPreferences = sharedPreferences
+                                sharedPreferences = sharedPreferences,
+                                haveFavorite = true
                             )
                         }
                     }

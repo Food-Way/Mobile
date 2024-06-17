@@ -121,7 +121,8 @@ fun SearchEstablishment(
                                 isFavorite = establishment.isFavorite,
                                 vm = vm,
                                 onNavigateToProfile = onNavigateToEstablishment,
-                                sharedPreferences = sharedPreferences
+                                sharedPreferences = sharedPreferences,
+                                haveFavorite = true
                             )
                         }
                     }

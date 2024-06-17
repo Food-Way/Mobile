@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.foodway.domain.signUp.model.SignUpCustomer
+import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.presentation.signUp.SignUpViewModel
 
 @Composable
@@ -23,6 +24,7 @@ fun SignUpCustomer(
             1 -> StepOneCustomer(
                 modifier = Modifier.padding(innerPadding),
                 onStepComplete = { step = 2 },
+                onGoBack = {},
                 vm = vm
             )
 

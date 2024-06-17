@@ -21,6 +21,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,10 +57,11 @@ fun ListCardUser(
     isFavorite: Boolean,
     vm: SearchUserViewModel,
     sharedPreferences: PreferencesManager,
-    onNavigateToProfile: (Destination, ProfileId) -> Unit
+    onNavigateToProfile: (Destination, ProfileId) -> Unit,
+    haveFavorite: Boolean
 ) {
     var isFavoriteImage by remember { mutableStateOf(isFavorite) }
-    var heartImg by remember { mutableStateOf(R.drawable.heart_empty) }
+    var heartImg by remember { mutableIntStateOf(R.drawable.heart_empty) }
 
     Card(
         modifier = Modifier
@@ -168,30 +170,37 @@ fun ListCardUser(
                         fontSize = 9.sp,
                         lineHeight = 11.sp
                     )
-                    Column(
-                        modifier = Modifier
-                            .width(35.dp)
-                            .height(35.dp),
-                        verticalArrangement = Arrangement.Bottom,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Image(
+                    if (haveFavorite) {
+                        Column(
                             modifier = Modifier
-                                .clickable {
-                                    if (isFavorite) {
-                                        heartImg = R.drawable.heart_full
-                                        vm.patchFavorite(
-                                            idEstablishment = id,
-                                            idCustomer = UUID.fromString(sharedPreferences.getSavedData("id", ""))
-                                        )
-                                    } else {
-                                        heartImg = R.drawable.heart_empty
-                                    }
-                                },
-                            alignment = Alignment.BottomEnd,
-                            painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
-                            contentDescription = stringResource(id = R.string.estab_tab),
-                        )
+                                .width(35.dp)
+                                .height(35.dp),
+                            verticalArrangement = Arrangement.Bottom,
+                            horizontalAlignment = Alignment.End
+                        ) {
+                            Image(
+                                modifier = Modifier
+                                    .clickable {
+                                        if (isFavorite) {
+                                            heartImg = R.drawable.heart_full
+                                            vm.patchFavorite(
+                                                idEstablishment = id,
+                                                idCustomer = UUID.fromString(
+                                                    sharedPreferences.getSavedData(
+                                                        "id",
+                                                        ""
+                                                    )
+                                                )
+                                            )
+                                        } else {
+                                            heartImg = R.drawable.heart_empty
+                                        }
+                                    },
+                                alignment = Alignment.BottomEnd,
+                                painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
+                                contentDescription = stringResource(id = R.string.estab_tab),
+                            )
+                        }
                     }
                 }
             }
