@@ -1,11 +1,11 @@
 package com.example.foodway.domain.searchUser.model
 
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 
 data class SearchedEstablishment(
     val idEstablishment: String,
     val name: String,
-    val typeUser: UserType,
+    val typeUser: ETypeUser,
     val culinary: String,
     val generalRate: Double,
     val bio: String,

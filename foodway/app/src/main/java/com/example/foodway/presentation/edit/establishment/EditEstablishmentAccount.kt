@@ -36,9 +36,9 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.edit.establishment.model.EditEstablishmentAccount
 import com.example.foodway.domain.edit.establishment.model.GetProfileEstablishmentEdit
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.domain.model.EstablishmentInputManager.locationEstablishmentInputInfos
 import com.example.foodway.domain.model.EstablishmentInputManager.personalEstablishmentInputInfos
-import com.example.foodway.domain.model.UserType
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
 import com.example.foodway.presentation.components.InputGeneric
@@ -67,7 +67,7 @@ fun EditEstablishmentAccount(
             )
             vm.getProfile(
                 idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                type = UserType.ESTABLISHMENT
+                type = ETypeUser.ESTABLISHMENT
             )
         }
 
@@ -77,7 +77,7 @@ fun EditEstablishmentAccount(
             ErrorView(message = errorMessage) {
                 vm.getProfile(
                     idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                    type = UserType.ESTABLISHMENT
+                    type = ETypeUser.ESTABLISHMENT
                 )
             }
         }

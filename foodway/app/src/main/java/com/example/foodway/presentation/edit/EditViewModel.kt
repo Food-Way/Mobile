@@ -16,7 +16,7 @@ import com.example.foodway.domain.edit.establishment.repository.GetEstablishment
 import com.example.foodway.domain.edit.usecase.PostImageUseCase
 import com.example.foodway.domain.edit.usecase.UpdateAccountUseCase
 import com.example.foodway.domain.edit.usecase.UpdateProfileUseCase
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.utils.PreferencesManager
 import kotlinx.coroutines.launch
@@ -161,15 +161,15 @@ class EditViewModel(
 
     fun getProfile(
         idUser: UUID,
-        type: UserType
+        type: ETypeUser
     ) {
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
 
                 val response = when (type) {
-                    UserType.ESTABLISHMENT -> getEstablishmentAccountUseCase(idUser)
-                    UserType.CLIENT -> getCustomerAccountUseCase(idUser)
+                    ETypeUser.ESTABLISHMENT -> getEstablishmentAccountUseCase(idUser)
+                    ETypeUser.CLIENT -> getCustomerAccountUseCase(idUser)
                     else -> {
                         Log.e("User Profile", "Type not found")
                     }

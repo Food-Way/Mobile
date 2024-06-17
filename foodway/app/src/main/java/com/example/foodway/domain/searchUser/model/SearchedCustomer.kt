@@ -1,12 +1,12 @@
 package com.example.foodway.domain.searchUser.model
 
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import java.util.UUID
 
 class SearchedCustomer (
     val idCustomer: UUID,
     val name: String,
-    val typeUser: UserType,
+    val typeUser: ETypeUser,
     val culinary: String,
     val generalRate: Double,
     val bio: String,

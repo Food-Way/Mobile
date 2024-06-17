@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.presentation.searchUser.SearchCustomer
 import com.example.foodway.presentation.searchUser.SearchEstablishment
-import com.example.foodway.presentation.searchUser.SearchFavorites
 import com.example.foodway.utils.Destination
 import com.example.foodway.utils.PreferencesManager
 import com.example.foodway.utils.ProfileId

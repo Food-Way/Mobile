@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.example.foodway.R
 import com.example.foodway.domain.edit.customer.model.EditCustomerProfile
 import com.example.foodway.domain.model.CustomerInputManager.profileCustomerInputInfos
-import com.example.foodway.domain.model.UserType
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.domain.profile.customer.model.ProfileCustomer
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
@@ -65,7 +65,7 @@ fun EditCustomerProfile(
             )
             vm.getProfile(
                 idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                type = UserType.CLIENT
+                type = ETypeUser.CLIENT
             )
         }
 
@@ -75,7 +75,7 @@ fun EditCustomerProfile(
             ErrorView(message = errorMessage) {
                 vm.getProfile(
                     idUser = UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                    type = UserType.CLIENT
+                    type = ETypeUser.CLIENT
                 )
             }
         }
@@ -188,7 +188,7 @@ fun EditCustomerProfile(
                                 },
                                 uri = imageUri.value,
                                 context = context,
-                                typeUser = UserType.CLIENT.name,
+                                typeUser = ETypeUser.CLIENT.name,
                                 sharedPreferences = sharedPreferences,
                                 profilePhotoOld = profile.profilePhoto
                             )

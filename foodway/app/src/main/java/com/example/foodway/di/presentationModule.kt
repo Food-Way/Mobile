@@ -38,7 +38,7 @@ val presentationModule = module {
         )
     }
 
-    single<MenuEstablishmentViewModel> {
+    factory<MenuEstablishmentViewModel> {
         MenuEstablishmentViewModel(
             getEstablishmentMenuUseCase = get()
         )
@@ -54,7 +54,8 @@ val presentationModule = module {
         ProfileEstablishmentViewModel(
             getEstablishmentProfileUseCase = get(),
             postCommentUseCase = get(),
-            patchUpvoteUseCase = get()
+            patchUpvoteUseCase = get(),
+            postRateUseCase = get()
         )
     }
 

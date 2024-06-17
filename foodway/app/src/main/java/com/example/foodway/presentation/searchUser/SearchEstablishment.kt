@@ -21,8 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.UserType
-import com.example.foodway.domain.searchUser.model.SearchedEstablishment
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
@@ -38,6 +37,8 @@ fun SearchEstablishment(
     onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
 ) {
     val state by vm.state.observeAsState()
+    val establishments by vm.establishments.observeAsState(emptyList())
+
 
     Column {
 //        UserSearchComponent(
@@ -61,7 +62,8 @@ fun SearchEstablishment(
             }
 
             is MainScreenState.Success<*> -> {
-                val establishments = (state as MainScreenState.Success<List<SearchedEstablishment>>).data
+//                val establishments =
+//                    (state as MainScreenState.Success<List<SearchedEstablishment>>).data
 //                Log.d("Success", "Success state$establishments")
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -81,15 +83,19 @@ fun SearchEstablishment(
                     ) {
                         val topThree = establishments.take(3)
 
-                        topThree.forEach { establishment ->
-                            CardUser(
-                                id = UUID.fromString(establishment.idEstablishment),
-                                name = establishment.name,
-                                rate = establishment.generalRate ?: 0.0,
-                                photo = establishment.photo ?: "",
-                                typeUser = UserType.ESTABLISHMENT,
-                                onNavigateToProfile = onNavigateToEstablishment
-                            )
+                        if (establishments.isEmpty()) {
+                            vm.getAllEstablishments()
+                        } else {
+                            topThree.forEach { establishment ->
+                                CardUser(
+                                    id = UUID.fromString(establishment.idEstablishment),
+                                    name = establishment.name,
+                                    rate = establishment.generalRate ?: 0.0,
+                                    photo = establishment.photo ?: "",
+                                    typeUser = ETypeUser.ESTABLISHMENT,
+                                    onNavigateToProfile = onNavigateToEstablishment
+                                )
+                            }
                         }
                     }
                 }
@@ -117,7 +123,7 @@ fun SearchEstablishment(
                                 description = establishment.bio ?: "Sem descrição",
                                 qtdComment = establishment.qtdComments ?: 0,
                                 qtdUpVotes = establishment.upvote ?: 0,
-                                typeUser = UserType.ESTABLISHMENT,
+                                typeUser = ETypeUser.ESTABLISHMENT,
                                 isFavorite = establishment.isFavorite,
                                 vm = vm,
                                 onNavigateToProfile = onNavigateToEstablishment,

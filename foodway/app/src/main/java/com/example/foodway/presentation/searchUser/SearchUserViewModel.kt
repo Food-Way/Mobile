@@ -24,9 +24,8 @@ class SearchUserViewModel(
     context: Context
 ) : ViewModel() {
 
-    // Propriedades para armazenar os dados
     val customers = MutableLiveData<List<SearchedCustomer>>()
-    val favorites = MutableLiveData<List<SearchedEstablishment>>()
+    val establishments = MutableLiveData<List<SearchedEstablishment>>()
     val state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
 
     private val sharedPreferences = PreferencesManager(context)
@@ -50,6 +49,7 @@ class SearchUserViewModel(
                     ),
                     searchFilter = searchFilter!!
                 )
+                establishments.value = response
                 state.value = MainScreenState.Success(data = response)
 
                 Log.d("response antes do IF", response.toString())

@@ -10,8 +10,12 @@ class ProductRepositoryImpl(
 ) : IProductRepository {
 
     override suspend fun getAllProducts(
-        idEstablishment: UUID
+        idEstablishment: UUID,
+        orderBy: String
     ): Response<List<Product>> {
-        return api.getAllProducts(idEstablishment)
+        return api.getAllProducts(
+            idEstablishment,
+            orderBy
+        )
     }
 }
