@@ -1,6 +1,5 @@
 package com.example.foodway.presentation.components
 
-import android.content.Context
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,18 +19,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.domain.model.ETypeUser
 import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.PreferencesManager
 
 @Composable
 fun NavBarComponent(
     items: List<Int>,
-    onItemSelected: (String) -> Unit
+    onItemSelected: (String) -> Unit,
+    sharedPreferences: PreferencesManager,
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
     val backgroundColor = Color.White
@@ -42,7 +43,7 @@ fun NavBarComponent(
 
     Surface(
         modifier = Modifier
-            .width(300.dp)
+            .width(355.dp)
             .padding(top = 8.dp)
             .height(navBarHeight)
             .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp)),
@@ -52,16 +53,27 @@ fun NavBarComponent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val context = LocalContext.current
-            val sharedPreferences = remember(context) {
-                context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-            }
-            val customerIdString = sharedPreferences.getString("customerId", "")
+
+            val idUser = sharedPreferences.getSavedData("id", "")
+            val typeUser = sharedPreferences.getSavedData("typeUser", "")
             items.forEachIndexed { index, value ->
-                val route = when (index) {
-                    0 -> "${AppDestination.ProfileCustomer.route}/$customerIdString"
-                    1 -> AppDestination.SearchUser.route
-                    2 -> AppDestination.EditProfileCustomer.route
+                val route = when (typeUser) {
+                    ETypeUser.ESTABLISHMENT.name -> {
+                        when (index) {
+                            0 -> "${AppDestination.ProfileEstablishment.route}/$idUser"
+                            1 -> AppDestination.SearchUser.route
+                            2 -> AppDestination.EditEstablishmentProfile.route
+                            else -> ""
+                        }
+                    }
+                    ETypeUser.CLIENT.name -> {
+                        when (index) {
+                            0 -> "${AppDestination.ProfileCustomer.route}/$idUser"
+                            1 -> AppDestination.SearchUser.route
+                            2 -> AppDestination.EditCustomerProfile.route
+                            else -> ""
+                        }
+                    }
                     else -> ""
                 }
 

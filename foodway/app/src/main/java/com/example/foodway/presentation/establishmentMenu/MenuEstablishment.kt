@@ -24,13 +24,18 @@ import com.example.foodway.R
 import com.example.foodway.domain.establishmentMenu.model.Product
 import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.ButtonGeneric
+import com.example.foodway.presentation.components.CardGrid
 import com.example.foodway.presentation.components.ScreenBorder
 import java.util.UUID
 
 @Composable
 fun MenuEstablishment(
-    vm: MenuEstablishmentViewModel
+    vm: MenuEstablishmentViewModel,
+    idEstablishment: UUID,
+    establishmentName: String = "",
+    onGoBack: () -> Unit
 ) {
+    Log.d("a", "$idEstablishment")
     val state by vm.state.observeAsState()
     ScreenBorder {
         Column(
@@ -50,7 +55,7 @@ fun MenuEstablishment(
             Text(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.establishment_name),
+                text = establishmentName
             )
 
             when (state) {
@@ -60,7 +65,7 @@ fun MenuEstablishment(
                         loadingText = stringResource(id = R.string.loading_products)
                     )
                     vm.getEstablishmentMenu(
-                        idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                        idEstablishment = idEstablishment
                     )
                 }
 
@@ -69,28 +74,29 @@ fun MenuEstablishment(
                     Log.d("Error", "Error state")
                     ErrorView(message = errorMessage) {
                         vm.getEstablishmentMenu(
-                            idEstablishment = UUID.fromString("004cfdcd-4799-4224-8723-8015f8f85b44")
+                            idEstablishment = idEstablishment
                         )
                     }
                 }
 
                 is MainScreenState.Success<*> -> {
-                    val products = (state as MainScreenState.Success<Product>).data as List<Product>
-                    Log.d("Success", "Success state")
-//                    CardGrid(products, buildItem = { product ->
-//                        ProductCard(product)
-//                    })
+                    val products = (state as MainScreenState.Success<List<Product>>).data
+                    Log.d("Success", "Success state$products")
+                    CardGrid(products, buildItem = { product ->
+                        ProductCard(product)
+                    })
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.previous),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onGoBack()
+                        }
+                    )
                 }
-            }
-
-            ButtonGeneric(
-                text = stringResource(id = R.string.next),
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(45.dp),
-                isPrimary = false
-            ) {
-//                onNavigate()
             }
         }
     }

@@ -4,7 +4,9 @@ import CategoryCard
 import ErrorView
 import LoadingBar
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,59 +50,84 @@ fun StepTwoCustomer(
     FoodwayTheme {
         ScreenBorder {
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(.8f)
-                    .padding(20.dp, 21.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center,
-                    text = stringResource(id = R.string.taste_selection)
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(.8f)
+                        .padding(20.dp, 21.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center,
+                        text = stringResource(id = R.string.taste_selection)
+                    )
 
-                when (state) {
-                    is MainScreenState.Loading -> {
-                        Log.d("loading", "loading state")
-                        LoadingBar(
-                            loadingText = "Carregando culinárias..."
-                        )
-                        vm.getAllCulinaries()
-                    }
-
-                    is MainScreenState.Error, null -> {
-                        val errorMessage = (state as MainScreenState.Error).message
-                        Log.d("Error", "Error state")
-                        ErrorView(message = errorMessage) {
+                    when (state) {
+                        is MainScreenState.Loading -> {
+                            Log.d("loading", "loading state")
+                            LoadingBar(
+                                loadingText = "Carregando culinárias..."
+                            )
                             vm.getAllCulinaries()
+                        }
+
+                        is MainScreenState.Error, null -> {
+                            val errorMessage = (state as MainScreenState.Error).message
+                            Log.d("Error", "Error state")
+                            ErrorView(message = errorMessage) {
+                                vm.getAllCulinaries()
+                            }
+                        }
+
+                        is MainScreenState.Success<*> -> {
+                            val culinaries =
+                                (state as MainScreenState.Success<Culinary>).data as List<Culinary>
+                            Log.d("Success", "Success state")
+                            CardGrid(culinaries, buildItem = { culinary ->
+                                CategoryCard(culinary) { clickedCulinary ->
+                                    vm.toggleCulinary(clickedCulinary)
+                                }
+                            })
                         }
                     }
 
-                    is MainScreenState.Success<*> -> {
-                        val culinaries =
-                            (state as MainScreenState.Success<Culinary>).data as List<Culinary>
-                        Log.d("Success", "Success state")
-                        CardGrid(culinaries, buildItem = { culinary ->
-                            CategoryCard(culinary) { clickedCulinary ->
-                                vm.toggleCulinary(clickedCulinary)
-                            }
-                        })
-                    }
                 }
 
-            }
-            ButtonGeneric(
-                text = stringResource(id = R.string.next),
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(45.dp),
-                isPrimary = false,
-                onClick = {
-                    onStepComplete()
+                Column(
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .height(100.dp)
+                ) {
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.next),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = true,
+                        onClick = {
+                            onStepComplete()
+                        }
+                    )
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.previous),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onGoBack()
+                        }
+                    )
                 }
-            )
+            }
         }
     }
 }

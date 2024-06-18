@@ -23,6 +23,7 @@ fun SignUpEstablishment(
             1 -> StepOneEstablishment(
                 modifier = Modifier.padding(innerPadding),
                 onStepComplete = { step = 2 },
+                onGoBack = {},
                 vm = vm
             )
 

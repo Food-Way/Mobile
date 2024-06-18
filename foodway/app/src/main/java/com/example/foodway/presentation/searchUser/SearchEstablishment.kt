@@ -2,12 +2,14 @@ package com.example.foodway.presentation.searchUser
 
 import ErrorView
 import LoadingBar
-import UserSearchComponent
+import SearchUserViewModel
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,21 +21,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.foodway.domain.model.Establishment
+import com.example.foodway.domain.model.ETypeUser
+import com.example.foodway.presentation.MainScreenState
 import com.example.foodway.presentation.components.CardUser
 import com.example.foodway.presentation.components.ListCardUser
-import com.example.foodway.presentation.MainScreenState
-
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun SearchEstablishment(
-    vm: SearchUserViewModel
+    vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
+    onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
 ) {
     val state by vm.state.observeAsState()
-    var users = mutableListOf("", "", "", "")
+    val establishments by vm.establishments.observeAsState(emptyList())
+
 
     Column {
-        UserSearchComponent() {}
+//        UserSearchComponent(
+//            vm = vm,
+//        )
         when (state) {
             is MainScreenState.Loading -> {
                 Log.d("loading", "loading state")
@@ -52,8 +62,11 @@ fun SearchEstablishment(
             }
 
             is MainScreenState.Success<*> -> {
-                val establishments = (state as MainScreenState.Success<List<Establishment>>).data
-                Log.d("Success", "Success state")
+//                val establishments =
+//                    (state as MainScreenState.Success<List<SearchedEstablishment>>).data
+//                Log.d("Success", "Success state$establishments")
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Column {
                     Text(
@@ -68,13 +81,25 @@ fun SearchEstablishment(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        var topTree = listOf('1', '2', '3')
+                        val topThree = establishments.take(3)
 
-                        topTree.forEach { user ->
-                            CardUser()
+                        if (establishments.isEmpty()) {
+                            vm.getAllEstablishments()
+                        } else {
+                            topThree.forEach { establishment ->
+                                CardUser(
+                                    id = UUID.fromString(establishment.idEstablishment),
+                                    name = establishment.name,
+                                    rate = establishment.generalRate ?: 0.0,
+                                    photo = establishment.photo ?: "",
+                                    typeUser = ETypeUser.ESTABLISHMENT,
+                                    onNavigateToProfile = onNavigateToEstablishment
+                                )
+                            }
                         }
                     }
                 }
+
                 Column(
                     modifier = Modifier
                         .padding(top = 10.dp),
@@ -89,14 +114,21 @@ fun SearchEstablishment(
                     LazyColumn(
                         verticalArrangement = Arrangement.SpaceAround
                     ) {
-                        items(establishments) { est ->
+                        items(establishments.drop(3)) { establishment ->
                             ListCardUser(
-                                photo = est.profilePhoto,
-                                name = est.name,
-                                rateStar = est.rate,
-                                description = est.description,
-                                qtdComment = est.qtdComments,
-                                qtdUpVotes = est.qtdUpvotes
+                                id = UUID.fromString(establishment.idEstablishment),
+                                photo = establishment.photo ?: "",
+                                name = establishment.name,
+                                rateStar = establishment.generalRate ?: 0.0,
+                                description = establishment.bio ?: "Sem descrição",
+                                qtdComment = establishment.qtdComments ?: 0,
+                                qtdUpVotes = establishment.upvote ?: 0,
+                                typeUser = ETypeUser.ESTABLISHMENT,
+                                isFavorite = establishment.isFavorite,
+                                vm = vm,
+                                onNavigateToProfile = onNavigateToEstablishment,
+                                sharedPreferences = sharedPreferences,
+                                haveFavorite = true
                             )
                         }
                     }

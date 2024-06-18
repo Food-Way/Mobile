@@ -1,5 +1,6 @@
 package com.example.foodway.presentation.profile.customer
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +16,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
 import com.example.foodway.presentation.components.CoilImage
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun SquareCard(
+    idEstablishment: UUID,
     name: String,
     photo: String,
+    onNavigate: (Destination, ProfileId) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -29,11 +36,18 @@ fun SquareCard(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .clickable {
+                    onNavigate(
+                        AppDestination.ProfileEstablishment.route,
+                        idEstablishment.toString()
+                    )
+                }
         ) {
             CoilImage(
                 photo = photo,
                 description = name,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                type = "card"
             )
             Text(
                 text = name,

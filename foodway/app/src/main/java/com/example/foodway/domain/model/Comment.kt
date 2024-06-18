@@ -3,11 +3,10 @@ package com.example.foodway.domain.model
 import java.util.UUID
 
 data class Comment(
-    val idComment: UUID,
-    val photo: String,
-    val name: String,
+    val idPost: UUID,
+    val userPhoto: String,
     val comment: String,
-    val rate: Double,
-    val qtdUpvotes: Int,
-    val commentChild: List<CommentChild>? = null
+    val generalRate: Double,
+    val upvotes: Int,
+    val replies: List<CommentChild>? = null
 )

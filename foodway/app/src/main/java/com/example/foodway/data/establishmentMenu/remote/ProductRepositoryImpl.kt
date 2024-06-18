@@ -9,7 +9,13 @@ class ProductRepositoryImpl(
     private val api: ProductService
 ) : IProductRepository {
 
-    override suspend fun getAllProducts(idEstablishment: UUID): Response<List<Product>> {
-        return api.getAllProducts(idEstablishment)
+    override suspend fun getAllProducts(
+        idEstablishment: UUID,
+        orderBy: String
+    ): Response<List<Product>> {
+        return api.getAllProducts(
+            idEstablishment,
+            orderBy
+        )
     }
 }

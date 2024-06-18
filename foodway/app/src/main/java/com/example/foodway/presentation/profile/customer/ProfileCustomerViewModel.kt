@@ -22,8 +22,8 @@ class ProfileCustomerViewModel(
         viewModelScope.launch {
             try {
                 state.value = MainScreenState.Loading
-                Log.d("SignUpViewModel", "Loading started")
                 val response = getCustomerProfileUseCase(idCustomer = idCustomer)
+                Log.d("response", response.toString())
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")

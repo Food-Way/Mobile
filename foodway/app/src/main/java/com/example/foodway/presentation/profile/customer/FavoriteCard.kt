@@ -12,13 +12,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.foodway.R
+import com.example.foodway.domain.model.EstablishmentCard
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.ProfileId
 
 @Composable
 fun FavoriteCard(
-//    favorites: List<EstablishmentCard>
+    favorites: List<EstablishmentCard>,
+    onNavigate: (Destination, ProfileId) -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(26.dp, 0.dp)
     ) {
         Text(
             text = stringResource(id = R.string.favorites),
@@ -29,12 +33,14 @@ fun FavoriteCard(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-//            repeat(3) {
-//                SquareCard(
-//                    name = favorites.get(it).establishmentName,
-//                    photo = favorites.get(it).photo
-//                )
-//            }
+            repeat(3) {
+                SquareCard(
+                    idEstablishment = favorites[it].idEstablishment,
+                    name = favorites[it].establishmentName,
+                    photo = favorites[it].photo ?: "https://foodway.s3.amazonaws.com/public-images/establishment.webp",
+                    onNavigate = onNavigate
+                )
+            }
         }
     }
 }

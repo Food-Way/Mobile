@@ -67,13 +67,16 @@ fun SignIn(
                         .width(95.dp)
                         .height(98.dp)
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+
+                Spacer(modifier = Modifier.height(15.dp))
 
                 Text(
                     text = stringResource(id = R.string.welcome_title),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                 )
+
+                Spacer(modifier = Modifier.height(20.dp))
 
                 InputGeneric(
                     inputLabel = R.string.email,
@@ -107,6 +110,7 @@ fun SignIn(
 
                 ButtonGeneric(
                     text = stringResource(id = R.string.enter),
+                    textSize = 18,
                     modifier = Modifier
                         .width(270.dp)
                         .height(43.dp),
@@ -120,16 +124,7 @@ fun SignIn(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = stringResource(id = R.string.forget_password),
-                    fontSize = 15.sp,
-                    modifier = Modifier.clickable {
-                    }
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(60.dp))
 
                 Box(
                     modifier = Modifier
@@ -147,6 +142,7 @@ fun SignIn(
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonGeneric(
                     text = stringResource(id = R.string.signup),
+                    textSize = 18,
                     modifier = Modifier
                         .width(150.dp)
                         .height(43.dp),

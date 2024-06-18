@@ -5,5 +5,8 @@ import retrofit2.Response
 import java.util.UUID
 
 interface IProductRepository {
-    suspend fun getAllProducts(idEstablishment: UUID): Response<List<Product>>
+    suspend fun getAllProducts(
+        idEstablishment: UUID,
+        orderBy: String
+    ): Response<List<Product>>
 }

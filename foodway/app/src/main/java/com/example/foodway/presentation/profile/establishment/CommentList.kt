@@ -2,45 +2,60 @@ package com.example.foodway.presentation.profile.establishment
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.foodway.domain.model.Comment
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun CommentList(
-    comments: List<Comment>
+    comments: List<Comment>,
+    idEstablishment: UUID,
+    vm: ProfileEstablishmentViewModel,
+    sharedPreferences: PreferencesManager,
+    onUpvoteSuccess: (Destination, ProfileId) -> Unit,
+    showCommentDialog: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Box(
-        Modifier.height(400.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(285.dp),
     ) {
-        Column(modifier = Modifier.verticalScroll(scrollState)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState)) {
             repeat(comments.size) {
-                comments[it].commentChild?.let { commentChild ->
+                comments[it].replies?.let { commentChild ->
                     CommentItem(
-                        width = 250.dp,
-                        height = 160.dp,
+                        width = 300.dp,
+                        height = 180.dp,
                         isChild = false,
-                        idComment = comments[it].idComment,
-                        name = comments[it].name,
-                        photo = comments[it].photo,
+                        idComment = comments[it].idPost,
+                        photo = comments[it].userPhoto,
                         comment = comments[it].comment,
-                        rate = comments[it].rate,
-                        qtdUpvotes = comments[it].qtdUpvotes,
-                        commentChild = commentChild
+                        rate = comments[it].generalRate,
+                        qtdUpvotes = comments[it].upvotes,
+                        commentChild = commentChild,
+                        idEstablishment = idEstablishment,
+                        vm = vm,
+                        sharedPreferences = sharedPreferences,
+                        onUpvoteSuccess = onUpvoteSuccess,
+                        showCommentDialog = showCommentDialog
                     )
                 }
             }
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun CommentListPreview() {
-//    CommentList()
-//}

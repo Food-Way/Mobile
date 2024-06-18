@@ -46,7 +46,8 @@ fun CategoryCard(
             photo = data.photo,
             description = data.name,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            type = "card"
         )
 
         if (isChecked) {

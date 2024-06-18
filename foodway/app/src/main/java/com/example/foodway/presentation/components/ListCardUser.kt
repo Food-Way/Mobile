@@ -1,5 +1,6 @@
 package com.example.foodway.presentation.components
 
+import SearchUserViewModel
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -20,6 +21,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,24 +37,46 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.domain.model.ETypeUser
+import com.example.foodway.presentation.navigation.AppDestination
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
+import java.util.UUID
 
 @Composable
 fun ListCardUser(
+    id: UUID,
     photo: String,
     name: String,
     rateStar: Double,
     description: String,
     qtdComment: Int,
-    qtdUpVotes: Int
+    qtdUpVotes: Int,
+    typeUser: ETypeUser,
+    isFavorite: Boolean,
+    vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
+    onNavigateToProfile: (Destination, ProfileId) -> Unit,
+    haveFavorite: Boolean
 ) {
-    var heartValue by remember { mutableStateOf(false) }
-    var heartImg by remember { mutableStateOf(R.drawable.heart_empty) }
+    var isFavoriteImage by remember { mutableStateOf(isFavorite) }
+    var heartImg by remember { mutableIntStateOf(R.drawable.heart_empty) }
 
     Card(
         modifier = Modifier
-            .width(300.dp)
+            .width(350.dp)
             .padding(bottom = 10.dp)
-            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp)),
+            .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp))
+            .clickable {
+                onNavigateToProfile(
+                    when (typeUser) {
+                        ETypeUser.CLIENT -> AppDestination.ProfileCustomer.route
+                        ETypeUser.ESTABLISHMENT -> AppDestination.ProfileEstablishment.route
+                    },
+                    id.toString()
+                )
+            },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
@@ -60,8 +84,8 @@ fun ListCardUser(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .padding(8.dp, 0.dp),
+                .height(100.dp)
+                .padding(15.dp, 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (photo != null && photo != "") {
@@ -71,8 +95,8 @@ fun ListCardUser(
                     description = stringResource(id = R.string.image_establishment_desc),
                     modifier = Modifier
                         .size(80.dp)
-                        .clip(CircleShape)
-                        .padding(0.dp),
+                        .clip(CircleShape),
+                    type = "profile"
                 )
             } else {
                 Image(
@@ -83,7 +107,9 @@ fun ListCardUser(
                     contentScale = ContentScale.Fit,
                 )
             }
+
             Spacer(modifier = Modifier.width(5.dp))
+
             Column(
                 modifier = Modifier
                     .padding(0.dp, 10.dp),
@@ -98,6 +124,7 @@ fun ListCardUser(
                 ) {
                     Text(
                         text = name,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     Row(
@@ -112,16 +139,18 @@ fun ListCardUser(
                             description = R.string.comments,
                             size = 15.dp,
                             fontSize = 10,
-                            widthIndicator = 35.dp
+                            widthIndicator = 35.dp,
+                            onclick = {}
                         )
                         Indicator(
                             quantity = qtdUpVotes,
                             hasQuantity = true,
                             icon = R.drawable.upvote,
                             description = R.string.upvotes,
-                            size =15.dp,
+                            size = 15.dp,
                             fontSize = 10,
-                            widthIndicator = 35.dp
+                            widthIndicator = 35.dp,
+                            onclick = {}
                         )
                     }
                 }
@@ -135,34 +164,43 @@ fun ListCardUser(
                 Row {
                     Text(
                         modifier = Modifier
-                            .width(150.dp)
+                            .width(192.dp)
                             .padding(5.dp),
-                        text = description,
+                        text =  if(description == "" || description == null) "Sem descrição" else description,
                         fontSize = 9.sp,
                         lineHeight = 11.sp
                     )
-                    Column(
-                        modifier = Modifier
-                            .width(35.dp)
-                            .height(35.dp),
-                        verticalArrangement = Arrangement.Bottom,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Image(
+                    if (haveFavorite) {
+                        Column(
                             modifier = Modifier
-                                .clickable {
-                                    if (heartValue) {
-                                        heartImg = R.drawable.heart_empty
-                                        heartValue = false
-                                    } else {
-                                        heartImg = R.drawable.heart_full
-                                        heartValue = true
-                                    }
-                                },
-                            alignment = Alignment.BottomEnd,
-                            painter = painterResource(id = heartImg),
-                            contentDescription = stringResource(id = R.string.estab_tab),
-                        )
+                                .width(35.dp)
+                                .height(35.dp),
+                            verticalArrangement = Arrangement.Bottom,
+                            horizontalAlignment = Alignment.End
+                        ) {
+                            Image(
+                                modifier = Modifier
+                                    .clickable {
+                                        if (isFavorite) {
+                                            heartImg = R.drawable.heart_full
+                                            vm.patchFavorite(
+                                                idEstablishment = id,
+                                                idCustomer = UUID.fromString(
+                                                    sharedPreferences.getSavedData(
+                                                        "id",
+                                                        ""
+                                                    )
+                                                )
+                                            )
+                                        } else {
+                                            heartImg = R.drawable.heart_empty
+                                        }
+                                    },
+                                alignment = Alignment.BottomEnd,
+                                painter = painterResource(id = if (isFavoriteImage) R.drawable.heart_full else R.drawable.heart_empty),
+                                contentDescription = stringResource(id = R.string.estab_tab),
+                            )
+                        }
                     }
                 }
             }

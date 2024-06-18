@@ -23,7 +23,11 @@ class MenuEstablishmentViewModel(
             try {
                 state.value = MainScreenState.Loading
                 Log.d("SignUpViewModel", "Loading started")
-                val response = getEstablishmentMenuUseCase(idEstablishment = idEstablishment)
+                val response = getEstablishmentMenuUseCase(
+                    idEstablishment = idEstablishment,
+                    orderBy = "name"
+                )
+                Log.d("menu", response.toString())
                 state.value = MainScreenState.Success(data = response)
             } catch (e: HttpException) {
                 Log.e("SignUpViewModel", "HTTP Exception: ${e.message()}")

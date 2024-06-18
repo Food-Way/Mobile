@@ -18,7 +18,7 @@ fun NoBorderScreen(content: @Composable () -> Unit) {
             .padding(30.dp)
             .fillMaxSize()
     ) {
-content()
+        content()
     }
 }
 

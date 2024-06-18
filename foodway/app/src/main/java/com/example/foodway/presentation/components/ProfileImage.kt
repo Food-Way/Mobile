@@ -21,7 +21,8 @@ import com.example.foodway.R
 @Composable
 fun ProfileImage(
     photo: String,
-    size: Dp
+    size: Dp,
+    type: String = "profile"
 ) {
 
     if (photo != null && photo != "") {
@@ -33,9 +34,12 @@ fun ProfileImage(
                 .size(size)
                 .clip(CircleShape)
                 .padding(0.dp),
+            type = type
         )
     } else {
         Image(
+            modifier = Modifier
+                .size(size),
             painter = painterResource(id = R.drawable.foodway_logo),
             contentDescription = stringResource(id = R.string.logo),
             contentScale = ContentScale.Fit,

@@ -33,10 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
-import com.example.foodway.presentation.searchUser.SearchClient
+import com.example.foodway.presentation.searchUser.SearchCustomer
 import com.example.foodway.presentation.searchUser.SearchEstablishment
-import com.example.foodway.presentation.searchUser.SearchFavorites
-import com.example.foodway.presentation.searchUser.SearchUserViewModel
+import com.example.foodway.utils.Destination
+import com.example.foodway.utils.PreferencesManager
+import com.example.foodway.utils.ProfileId
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -46,20 +47,24 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 @Composable
 fun TabScreen(
-    vm: SearchUserViewModel
+    vm: SearchUserViewModel,
+    sharedPreferences: PreferencesManager,
+    onNavigateToEstablishment: (Destination, ProfileId) -> Unit,
+    onNavigateToCustomer: (Destination, ProfileId) -> Unit,
+    onNavigateToFavorites: (Destination, ProfileId) -> Unit
 ) {
 
-    val tabs = listOf("", "", "")
+    val tabs = listOf("", "")
     val tabsIconsSelected = listOf(
         painterResource(id = R.drawable.location_white_icon),
         painterResource(id = R.drawable.person_white_icon),
-        painterResource(id = R.drawable.heart_white_icon)
+//        painterResource(id = R.drawable.heart_white_icon)
     )
 
     val tabsIconsUnselected = listOf(
         painterResource(id = R.drawable.location_icon),
         painterResource(id = R.drawable.person_icon),
-        painterResource(id = R.drawable.heart_icon)
+//        painterResource(id = R.drawable.heart_icon)
     )
 
     val pagerState = rememberPagerState(initialPage = 0)
@@ -72,7 +77,7 @@ fun TabScreen(
     ) { page ->
         when (page) {
             0 -> colorResource(id = R.color.light_black)
-            1 -> colorResource(id = R.color.light_black)
+//            1 -> colorResource(id = R.color.light_black)
             else -> colorResource(id = R.color.red)
         }
     }
@@ -115,7 +120,7 @@ fun TabScreen(
 
     Column(
         modifier = Modifier
-            .width(300.dp)
+            .width(350.dp)
             .height(650.dp)
     ) {
         TabRow(
@@ -172,12 +177,20 @@ fun TabScreen(
         ) { index ->
             when (index) {
                 0 -> SearchEstablishment(
-                    vm = vm
+                    vm = vm,
+                    sharedPreferences = sharedPreferences,
+                    onNavigateToEstablishment = onNavigateToEstablishment
                 )
-                1 -> SearchClient(
-                    vm = vm
+                1 -> SearchCustomer(
+                    vm = vm,
+                    sharedPreferences = sharedPreferences,
+                    onNavigateToCustomer = onNavigateToCustomer
                 )
-                else -> SearchFavorites()
+//                else -> SearchFavorites(
+//                    vm = vm,
+//                    sharedPreferences = sharedPreferences,
+//                    onNavigateToFavorite = onNavigateToFavorites
+//                )
             }
         }
     }

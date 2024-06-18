@@ -87,7 +87,7 @@ fun Welcome(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Transparent)
-                .align(Alignment.Center) // Alinha o Box no centro
+                .align(Alignment.Center)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.cake_slice),
@@ -104,6 +104,9 @@ fun Welcome(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+
+            Spacer(modifier = Modifier.height(60.dp))
+
             Text(
                 text = stringResource(id = R.string.welcome_title),
                 style = TextStyle(
@@ -114,7 +117,6 @@ fun Welcome(
                 modifier = Modifier
                     .padding(bottom = 55.dp)
             )
-            Spacer(modifier = Modifier.size(16.dp))
             Text(
                 text = stringResource(id = R.string.welcome_text),
                 style = TextStyle(

@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfileCustomer(
     val name: String,
+    val lastName: String,
+    val email: String,
+    val cpf: String,
     val bio: String,
     val profilePhoto: String,
     val level: Int,

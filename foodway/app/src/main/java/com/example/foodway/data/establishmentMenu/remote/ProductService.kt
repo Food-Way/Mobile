@@ -7,6 +7,9 @@ import retrofit2.http.Path
 import java.util.UUID
 
 interface ProductService {
-    @GET("products/establishmentsAll/{idEstablishment}")
-    suspend fun getAllProducts(@Path("idEstablishment") idEstablishment: UUID): Response<List<Product>>
+    @GET("products/establishments/{idEstablishment}/{orderBy}")
+    suspend fun getAllProducts(
+        @Path("idEstablishment") idEstablishment: UUID,
+        @Path("orderBy") orderBy: String
+    ): Response<List<Product>>
 }

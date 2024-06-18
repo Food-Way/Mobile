@@ -66,6 +66,7 @@
     <string name="save">Salvar</string>
     <string name="edit_account_emoji">Editar conta 🛠️</string>
     <string name="edit_account">Editar conta</string>
+    <string name="logout">Sair</string>
 
     <!--Edit - Account -->
     <string name="surname">Sobrenome</string>
@@ -84,6 +85,7 @@
     <!--Profile Establishment-->
     <string name="menu">Cardápio</string>
     <string name="title_activity_menu_establishment">MenuEstablishmentActivity</string>
+    <string name="comment_modal_initial">Comente sobre ✏️</string>
 
     <!--Error View-->
     <string name="default_error_message">Um erro inesperado ocorreu</string>
@@ -118,5 +120,12 @@
     <!--register-->
     <string name="user_information">Informações do usuário</string>
 
+    <string name="newPass">Nova Senha</string>
+    <string name="newEmail">Novo Email</string>
+    <string name="oldPass">Senha Antiga</string>
+
+    <!--Select Type User-->
+    <string name="user_select">Selecionar</string>
+    <string name="phone">Telefone</string>
 </resources>
 

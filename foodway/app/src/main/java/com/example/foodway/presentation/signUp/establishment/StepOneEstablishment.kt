@@ -36,6 +36,7 @@ fun StepOneEstablishment(
     vm: SignUpViewModel,
     modifier: Modifier,
     onStepComplete : () -> Unit = {},
+    onGoBack: () -> Unit
 ) {
 
     var fantasyName by remember {
@@ -63,7 +64,7 @@ fun StepOneEstablishment(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    .height(600.dp)
                     .padding(20.dp, 21.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround
@@ -144,14 +145,34 @@ fun StepOneEstablishment(
                     },
                 )
 
-                ButtonGeneric(
-                    text = stringResource(id = R.string.next),
+                Column(
+                    verticalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
-                        .width(250.dp)
-                        .height(45.dp),
-                    isPrimary = false,
-                    onClick = { onStepComplete() }
-                )
+                        .height(100.dp)
+                ) {
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.next),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = true,
+                        onClick = {
+                            onStepComplete()
+                        }
+                    )
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.previous),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .height(45.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onGoBack()
+                        }
+                    )
+                }
             }
         }
     }

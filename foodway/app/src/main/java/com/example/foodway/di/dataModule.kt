@@ -1,7 +1,9 @@
 package com.example.foodway.di
 
+import com.example.foodway.data.edit.remote.UploadFileService
 import com.example.foodway.data.establishmentMenu.remote.ProductService
 import com.example.foodway.data.network.ApiConfig
+import com.example.foodway.data.profile.establishment.remote.CommentService
 import com.example.foodway.data.remote.CustomerService
 import com.example.foodway.data.remote.EstablishmentService
 import com.example.foodway.data.searchUser.remote.SearchUserService
@@ -23,7 +25,7 @@ val dataModule = module {
             .create(SignUpService::class.java)
     }
 
-    single<SearchUserService> {
+    factory<SearchUserService> {
         ApiConfig
             .getInstance()
             .create(SearchUserService::class.java)
@@ -51,5 +53,17 @@ val dataModule = module {
         ApiConfig
             .getInstance()
             .create(EstablishmentService::class.java)
+    }
+
+    single<UploadFileService> {
+        ApiConfig
+            .getSimpleInstance()
+            .create(UploadFileService::class.java)
+    }
+
+    factory<CommentService> {
+        ApiConfig
+            .getInstance()
+            .create(CommentService::class.java)
     }
 }

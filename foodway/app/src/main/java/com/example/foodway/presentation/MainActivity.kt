@@ -1,5 +1,7 @@
 package com.example.foodway.presentation
 
+import SearchUserViewModel
+import SelectUserType
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
@@ -20,11 +23,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.foodway.R
 import com.example.foodway.di.appModule
 import com.example.foodway.presentation.components.NavBarComponent
+import com.example.foodway.presentation.edit.EditViewModel
+import com.example.foodway.presentation.edit.customer.EditCustomerAccount
 import com.example.foodway.presentation.edit.customer.EditCustomerProfile
+import com.example.foodway.presentation.edit.establishment.EditEstablishmentAccount
+import com.example.foodway.presentation.edit.establishment.EditEstablishmentProfile
 import com.example.foodway.presentation.establishmentMenu.MenuEstablishment
+import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
 import com.example.foodway.presentation.navigation.AppDestination
 import com.example.foodway.presentation.profile.customer.ProfileCustomer
+import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
 import com.example.foodway.presentation.profile.establishment.ProfileEstablishment
+import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
 import com.example.foodway.presentation.searchUser.SearchUser
 import com.example.foodway.presentation.signIn.SignIn
 import com.example.foodway.presentation.signIn.SignInViewModel
@@ -39,10 +49,7 @@ import com.example.foodway.presentation.signUp.establishment.StepThreeEstablishm
 import com.example.foodway.presentation.signUp.establishment.StepTwoEstablishment
 import com.example.foodway.presentation.ui.theme.FoodwayTheme
 import com.example.foodway.presentation.welcome.Welcome
-import com.example.foodway.presentation.establishmentMenu.MenuEstablishmentViewModel
-import com.example.foodway.presentation.profile.customer.ProfileCustomerViewModel
-import com.example.foodway.presentation.profile.establishment.ProfileEstablishmentViewModel
-import com.example.foodway.presentation.searchUser.SearchUserViewModel
+import com.example.foodway.utils.PreferencesManager
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -56,6 +63,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val backStackState by navController.currentBackStackEntryAsState()
             val currentDestination = backStackState?.destination
+            val sharedPreferences = PreferencesManager(LocalContext.current)
             FoodwayTheme {
 //                val showBottomAppBar = currentDestination?.let { destination ->
 //                    bottomAppBarItems.find {
@@ -85,7 +93,9 @@ class MainActivity : ComponentActivity() {
                                 ProfileCustomer(
                                     vm = vm,
                                     idCustomer = id,
-                                    onNavigate = { navController.navigate(AppDestination.ProfileCustomer.route) }
+                                    onNavigate = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
                                 )
                             }
                             composable("${AppDestination.ProfileEstablishment.route}/{idEstablishment}") {
@@ -93,7 +103,17 @@ class MainActivity : ComponentActivity() {
                                 val vm by inject<ProfileEstablishmentViewModel>()
                                 ProfileEstablishment(
                                     vm = vm,
-                                    idEstablishment = id
+                                    idEstablishment = id,
+                                    sharedPreferences = sharedPreferences,
+                                    onPostCommentSuccess = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateToMenu = { idEstablishment, establishmentName ->
+                                        navController.navigate("${AppDestination.MenuEstablishment.route}/$idEstablishment/$establishmentName")
+                                    },
+                                    onUpvoteSuccess = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    }
                                 )
                             }
                             composable(AppDestination.SignUpCustomer.route) {
@@ -111,6 +131,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpCustomer.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier,
                                 )
@@ -123,7 +146,9 @@ class MainActivity : ComponentActivity() {
                                     },
                                     vm = vm,
                                     modifier = Modifier,
-                                    onGoBack = {}
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepOneSignUpCustomer.route)
+                                    }
                                 )
                             }
                             composable(AppDestination.StepThreeSignUpCustomer.route) {
@@ -141,6 +166,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier
                                 )
@@ -151,6 +179,9 @@ class MainActivity : ComponentActivity() {
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepThreeSignUpEstablishment.route)
                                     },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepOneSignUpEstablishment.route)
+                                    },
                                     vm = vm,
                                     modifier = Modifier
                                 )
@@ -160,6 +191,9 @@ class MainActivity : ComponentActivity() {
                                 StepThreeEstablishment(
                                     onStepComplete = {
                                         navController.navigate(AppDestination.StepFourSignUpEstablishment.route)
+                                    },
+                                    onGoBack = {
+                                        navController.navigate(AppDestination.StepTwoSignUpEstablishment.route)
                                     },
                                     vm = vm,
                                     modifier = Modifier
@@ -175,10 +209,20 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                 )
                             }
-                            composable(AppDestination.MenuEstablishment.route) {
+                            composable("${AppDestination.MenuEstablishment.route}/{idEstablishment}/{establishmentName}") {
+                                val id = UUID.fromString(it.arguments?.getString("idEstablishment"))
+                                val establishmentName = it.arguments?.getString("establishmentName")
                                 val vm by inject<MenuEstablishmentViewModel>()
                                 MenuEstablishment(
-                                    vm = vm
+                                    vm = vm,
+                                    idEstablishment = id,
+                                    establishmentName = establishmentName!!,
+//                                    onNavigateToProfile = { route, idProfile ->
+//                                        navController.navigate("${route}/$idProfile")
+//                                    },
+                                    onGoBack = {
+                                        navController.navigate("${AppDestination.ProfileEstablishment.route}/$id")
+                                    },
                                 )
                             }
                             composable(AppDestination.SignIn.route) {
@@ -186,27 +230,107 @@ class MainActivity : ComponentActivity() {
                                 SignIn(
                                     vm = vm,
                                     onNavigate = {
-                                        navController.navigate(AppDestination.SignUpCustomer.route)
+                                        navController.navigate(AppDestination.SelectUserType.route)
                                     },
                                     onNavigateSuccessSignInTo = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
                                 )
                             }
+                            composable(AppDestination.SelectUserType.route) {
+                                SelectUserType(
+                                    onNavigate = { route ->
+                                        navController.navigate(route)
+                                    }
+                                )
+                            }
                             composable(AppDestination.SearchUser.route) {
                                 val vm by inject<SearchUserViewModel>()
                                 SearchUser(
                                     vm = vm,
-                                    onNavigate = {
-                                        navController.navigate(AppDestination.SearchUser.route)
+                                    onNavigateToEstablishment = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateToCustomer = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateToFavorites = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    sharedPreferences = sharedPreferences
+                                )
+                            }
+                            composable(AppDestination.EditCustomerProfile.route) {
+                                val vm by inject<EditViewModel>()
+                                EditCustomerProfile(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditCustomerAccount.route)
+                                    },
+                                    onNavigateSuccessEdit = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
+                                    onNavigateSuccessEditImage = { route ->
+                                        navController.navigate(route)
                                     }
                                 )
                             }
-                            composable(AppDestination.EditProfileCustomer.route) {
-                                EditCustomerProfile()
+                            composable(AppDestination.EditCustomerAccount.route) {
+                                val vm by inject<EditViewModel>()
+                                EditCustomerAccount(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = { id ->
+                                        navController.navigate(
+                                            "${AppDestination.ProfileCustomer.route}/${id}"
+                                        )
+                                    },
+                                    onNavigateEditProfile = {
+                                        navController.navigate(AppDestination.EditCustomerProfile.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.EditEstablishmentProfile.route) {
+                                val vm by inject<EditViewModel>()
+                                EditEstablishmentProfile(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = { route, idProfile ->
+                                        navController.navigate("${route}/$idProfile")
+                                    },
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
+                                    onNavigateSuccessEditImage = { route ->
+                                        navController.navigate(route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.EditEstablishmentAccount.route) {
+                                val vm by inject<EditViewModel>()
+                                EditEstablishmentAccount(
+                                    sharedPreferences = sharedPreferences,
+                                    vm = vm,
+                                    onNavigateSuccessEdit = {
+                                        navController.navigate(AppDestination.ProfileEstablishment.route)
+                                    },
+                                    onNavigateEditProfile = {
+                                        navController.navigate(AppDestination.EditEstablishmentProfile.route)
+                                    }
+                                )
                             }
                         }
-                    })
+                    }
+                )
             }
         }
         startKoin {
@@ -236,7 +360,15 @@ fun MainApp(
             if (
                 currentRoute?.route != AppDestination.Welcome.route &&
                 currentRoute?.route != AppDestination.SignIn.route &&
-                currentRoute?.route != AppDestination.SignUpCustomer.route
+                currentRoute?.route != AppDestination.SignUpCustomer.route &&
+                currentRoute?.route != AppDestination.SelectUserType.route &&
+                currentRoute?.route != AppDestination.StepOneSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepTwoSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepThreeSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepFourSignUpEstablishment.route &&
+                currentRoute?.route != AppDestination.StepOneSignUpCustomer.route &&
+                currentRoute?.route != AppDestination.StepTwoSignUpCustomer.route &&
+                currentRoute?.route != AppDestination.StepThreeSignUpCustomer.route
             ) {
                 Box(
                     modifier = Modifier
@@ -246,7 +378,8 @@ fun MainApp(
                 ) {
                     NavBarComponent(
                         items = items,
-                        onItemSelected = onNavigate
+                        onItemSelected = onNavigate,
+                        sharedPreferences = PreferencesManager(LocalContext.current)
                     )
                 }
             }

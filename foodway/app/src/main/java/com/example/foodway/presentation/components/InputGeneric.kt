@@ -31,11 +31,12 @@ fun InputGeneric(
     @StringRes
     inputLabel: Int,
     @DrawableRes
-    icon: Int,
+    icon: Int = 0,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation,
     labelState: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
 ) {
 
     var mutableLabelState by remember { mutableStateOf("") }
@@ -48,10 +49,12 @@ fun InputGeneric(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = stringResource(id = inputLabel)
-                )
+                if (icon != 0) {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = stringResource(id = inputLabel)
+                    )
+                }
                 Text(
                     text = stringResource(id = inputLabel),
                     modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp)
@@ -65,8 +68,6 @@ fun InputGeneric(
             unfocusedLabelColor = colorResource(id = R.color.black),
         ),
         shape = RoundedCornerShape(25.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+        modifier = modifier
     )
 }

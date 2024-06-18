@@ -27,7 +27,7 @@ fun CardInfoUser(
         modifier = Modifier
             .border(1.dp, Color.LightGray, RoundedCornerShape(10.dp))
             .width(350.dp)
-            .height(120.dp)
+            .height(100.dp)
             .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
@@ -47,7 +47,8 @@ fun CardInfoUser(
                 description = R.string.comments,
                 size = 20.dp,
                 fontSize = 14,
-                widthIndicator = 40.dp
+                widthIndicator = 40.dp,
+                onclick = {}
             )
         }
         Column(
@@ -70,7 +71,8 @@ fun CardInfoUser(
                 description = R.string.upvotes,
                 size = 20.dp,
                 fontSize = 14,
-                widthIndicator = 35.dp
+                widthIndicator = 35.dp,
+                onclick = {}
             )
         }
     }

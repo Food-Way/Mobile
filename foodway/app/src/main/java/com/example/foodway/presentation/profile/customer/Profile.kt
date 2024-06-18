@@ -18,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodway.R
+import com.example.foodway.presentation.components.ProfileImage
+
 @Composable
 fun Profile(
     photo: String,
@@ -56,10 +58,10 @@ fun Profile(
                 )
             }
         }
-        //ProfileImage(
-         //   photo = photo,
-         //   size = 75.dp
-       // )
+        ProfileImage(
+            photo = photo,
+            size = 80.dp
+        )
     }
 }
 
