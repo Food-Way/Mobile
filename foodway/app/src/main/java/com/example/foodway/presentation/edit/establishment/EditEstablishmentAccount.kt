@@ -54,7 +54,7 @@ fun EditEstablishmentAccount(
     vm: EditViewModel,
     sharedPreferences: PreferencesManager,
     onNavigateSuccessEdit: () -> Unit,
-    onNavigateEditProfile: () -> Unit
+    onNavigateConfiguration: () -> Unit
 ) {
 
     val state by vm.state.observeAsState()
@@ -241,14 +241,14 @@ fun EditEstablishmentAccount(
                                     )
                                 }
                                 ButtonGeneric(
-                                    text = stringResource(id = R.string.edit_perfil),
+                                    text = "Opções",
                                     textSize = 18,
                                     modifier = Modifier
                                         .width(143.dp)
                                         .height(43.dp),
                                     isPrimary = false,
                                     onClick = {
-                                        onNavigateEditProfile()
+                                        onNavigateConfiguration()
                                     }
                                 )
                             }

@@ -52,7 +52,7 @@ fun EditCustomerAccount(
     vm: EditViewModel,
     sharedPreferences: PreferencesManager,
     onNavigateSuccessEdit: (ProfileId) -> Unit,
-    onNavigateEditProfile: () -> Unit,
+    onNavigateConfiguration: () -> Unit,
 ) {
 
     val state by vm.state.observeAsState()
@@ -224,16 +224,15 @@ fun EditCustomerAccount(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     ButtonGeneric(
-                        text = stringResource(id = R.string.edit_perfil),
+                        text = "Opções",
                         textSize = 18,
                         modifier = Modifier
                             .width(270.dp)
                             .height(43.dp),
-                        isPrimary = false,
-                        onClick = {
-                            onNavigateEditProfile()
-                        }
-                    )
+                        isPrimary = false
+                    ) {
+                        onNavigateConfiguration()
+                    }
                 }
             }
         }

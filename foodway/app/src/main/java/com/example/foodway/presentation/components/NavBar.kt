@@ -62,7 +62,7 @@ fun NavBarComponent(
                         when (index) {
                             0 -> "${AppDestination.ProfileEstablishment.route}/$idUser"
                             1 -> AppDestination.SearchUser.route
-                            2 -> AppDestination.EditEstablishmentProfile.route
+                            2 -> AppDestination.ConfigurationEstablishment.route
                             else -> ""
                         }
                     }
@@ -70,7 +70,7 @@ fun NavBarComponent(
                         when (index) {
                             0 -> "${AppDestination.ProfileCustomer.route}/$idUser"
                             1 -> AppDestination.SearchUser.route
-                            2 -> AppDestination.EditCustomerProfile.route
+                            2 -> AppDestination.ConfigurationCustomer.route
                             else -> ""
                         }
                     }
