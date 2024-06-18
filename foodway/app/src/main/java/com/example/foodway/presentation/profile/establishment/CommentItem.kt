@@ -48,6 +48,7 @@ fun generateRandomName(): String {
 @Composable
 fun CommentItem(
     idComment: UUID,
+    userName: String = "",
     photo: String,
     comment: String,
     rate: Double,
@@ -107,7 +108,7 @@ fun CommentItem(
                             sizeStar = 20
                         )
                     } else {
-                        Text(text = generateRandomName())
+                        Text(text = userName ?: "")
                     }
                 }
             }

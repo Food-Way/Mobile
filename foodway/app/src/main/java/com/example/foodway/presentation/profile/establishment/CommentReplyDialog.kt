@@ -110,6 +110,7 @@ fun CommentReplyDialog(
                             height = 180.dp,
                             isChild = true,
                             idComment = commentChild.idPost,
+                            userName = commentChild.userName,
                             photo = commentChild.userPhoto,
                             comment = commentChild.comment,
                             rate = 0.0,
