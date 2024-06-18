@@ -46,7 +46,8 @@ fun SquareCard(
             CoilImage(
                 photo = photo,
                 description = name,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                type = "card"
             )
             Text(
                 text = name,

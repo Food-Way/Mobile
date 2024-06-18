@@ -51,8 +51,8 @@ fun CardUser(
             containerColor = Color.Transparent
         ),
         modifier = Modifier
-            .width(95.dp)
-            .height(130.dp)
+            .width(110.dp)
+            .height(140.dp)
             .border(1.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp))
             .clickable {
                 onNavigateToProfile(
@@ -80,7 +80,7 @@ fun CardUser(
                     fontSize = 12.sp
                 )
             }
-            ProfileImage(photo = photo, size = 55.dp)
+            ProfileImage(photo = photo, size = 80.dp)
             Row {
                 RateUser(rate = rate)
             }

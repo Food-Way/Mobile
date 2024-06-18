@@ -66,6 +66,7 @@
     <string name="save">Salvar</string>
     <string name="edit_account_emoji">Editar conta 🛠️</string>
     <string name="edit_account">Editar conta</string>
+    <string name="logout">Sair</string>
 
     <!--Edit - Account -->
     <string name="surname">Sobrenome</string>

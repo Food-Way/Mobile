@@ -52,6 +52,7 @@ fun EditCustomerProfile(
     onNavigateEditAccount: () -> Unit,
     onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
     onNavigateSuccessEditImage: (Destination) -> Unit,
+    onLogout: () -> Unit,
     sharedPreferences: PreferencesManager,
 ) {
     val state by vm.state.observeAsState()
@@ -205,6 +206,19 @@ fun EditCustomerProfile(
                             isPrimary = false
                         ) {
                             onNavigateEditAccount()
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        ButtonGeneric(
+                            text = stringResource(id = R.string.logout),
+                            textSize = 18,
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(43.dp),
+                            isPrimary = false
+                        ) {
+                            onLogout()
                         }
                     }
                 }

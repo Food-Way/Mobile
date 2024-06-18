@@ -58,7 +58,7 @@ fun SearchUser(
             ) {
                 Row(
                     modifier = Modifier
-                        .width(350.dp)
+                        .width(380.dp)
                         .padding(20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -82,13 +82,14 @@ fun SearchUser(
                             photo = photo,
                             description = stringResource(id = R.string.image_profile_desc),
                             modifier = Modifier
-                                .size(75.dp)
+                                .size(80.dp)
                                 .clip(CircleShape)
                                 .border(
                                     2.dp,
                                     colorResource(id = R.color.light_gray),
                                     RoundedCornerShape(50.dp)
-                                )
+                                ),
+                            type = "profile"
                         )
                     } else {
                         Image(

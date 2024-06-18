@@ -65,7 +65,7 @@ fun ListCardUser(
 
     Card(
         modifier = Modifier
-            .width(300.dp)
+            .width(350.dp)
             .padding(bottom = 10.dp)
             .border(2.dp, colorResource(id = R.color.light_gray), RoundedCornerShape(10.dp))
             .clickable {
@@ -85,7 +85,7 @@ fun ListCardUser(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .padding(8.dp, 5.dp),
+                .padding(15.dp, 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (photo != null && photo != "") {
@@ -95,8 +95,8 @@ fun ListCardUser(
                     description = stringResource(id = R.string.image_establishment_desc),
                     modifier = Modifier
                         .size(80.dp)
-                        .clip(CircleShape)
-                        .padding(0.dp),
+                        .clip(CircleShape),
+                    type = "profile"
                 )
             } else {
                 Image(
@@ -164,9 +164,9 @@ fun ListCardUser(
                 Row {
                     Text(
                         modifier = Modifier
-                            .width(150.dp)
+                            .width(192.dp)
                             .padding(5.dp),
-                        text = description,
+                        text =  if(description == "" || description == null) "Sem descrição" else description,
                         fontSize = 9.sp,
                         lineHeight = 11.sp
                     )

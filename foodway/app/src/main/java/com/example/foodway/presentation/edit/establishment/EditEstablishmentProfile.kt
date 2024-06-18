@@ -52,6 +52,7 @@ fun EditEstablishmentProfile(
     sharedPreferences: PreferencesManager,
     onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
     onNavigateSuccessEditImage: (Destination) -> Unit,
+    onLogout: () -> Unit,
     onNavigateEditAccount: () -> Unit
 ) {
 
@@ -157,6 +158,9 @@ fun EditEstablishmentProfile(
                                 name = it
                             },
                         )
+                        
+                        Spacer(modifier = Modifier.height(15.dp))
+                        
                         InputGeneric(
                             inputLabel = profileEstablishmentInputInfos[0].inputLabel,
                             icon = profileEstablishmentInputInfos[0].icon,
@@ -169,6 +173,9 @@ fun EditEstablishmentProfile(
                                 description = it
                             },
                         )
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
                         InputGeneric(
                             inputLabel = profileEstablishmentInputInfos[1].inputLabel,
                             icon = profileEstablishmentInputInfos[1].icon,
@@ -182,7 +189,7 @@ fun EditEstablishmentProfile(
                             },
                         )
 
-                        Spacer(modifier = Modifier.height(30.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         ButtonGeneric(
                             text = stringResource(id = R.string.save),
@@ -226,6 +233,19 @@ fun EditEstablishmentProfile(
                             isPrimary = false
                         ) {
                             onNavigateEditAccount()
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        ButtonGeneric(
+                            text = stringResource(id = R.string.logout),
+                            textSize = 18,
+                            modifier = Modifier
+                                .width(270.dp)
+                                .height(43.dp),
+                            isPrimary = false
+                        ) {
+                            onLogout()
                         }
                     }
                 }

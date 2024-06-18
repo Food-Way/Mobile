@@ -136,7 +136,7 @@ fun EditEstablishmentAccount(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.SpaceAround
                         ) {
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
 
                             InputGeneric(
                                 inputLabel = personalEstablishmentInputInfos[1].inputLabel,
@@ -211,28 +211,45 @@ fun EditEstablishmentAccount(
                                 },
                             )
 
-                            Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(20.dp))
 
-                            ButtonGeneric(
-                                text = stringResource(id = R.string.save_button),
-                                textSize = 18,
+                            Row(
                                 modifier = Modifier
-                                    .width(250.dp)
-                                    .height(45.dp),
-                                isPrimary = true
+                                    .width(300.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                vm.editAccount(
-                                    UUID.fromString(sharedPreferences.getSavedData("id", "")),
-                                    editEstablishmentAccount = EditEstablishmentAccount(
-                                        name = name,
-                                        email = email,
-                                        newEmail = newEmail,
-                                        password = password,
-                                        newPassword = newPassword,
-                                        cep = cep
-                                    ),
-                                    onNavigateSuccess = { onNavigateSuccessEdit },
-                                    sharedPreferences = sharedPreferences
+                                ButtonGeneric(
+                                    text = stringResource(id = R.string.save_button),
+                                    textSize = 18,
+                                    modifier = Modifier
+                                        .width(143.dp)
+                                        .height(45.dp),
+                                    isPrimary = true
+                                ) {
+                                    vm.editAccount(
+                                        UUID.fromString(sharedPreferences.getSavedData("id", "")),
+                                        editEstablishmentAccount = EditEstablishmentAccount(
+                                            name = name,
+                                            email = email,
+                                            newEmail = newEmail,
+                                            password = password,
+                                            newPassword = newPassword,
+                                            cep = cep
+                                        ),
+                                        onNavigateSuccess = { onNavigateSuccessEdit },
+                                        sharedPreferences = sharedPreferences
+                                    )
+                                }
+                                ButtonGeneric(
+                                    text = stringResource(id = R.string.edit_perfil),
+                                    textSize = 18,
+                                    modifier = Modifier
+                                        .width(143.dp)
+                                        .height(43.dp),
+                                    isPrimary = false,
+                                    onClick = {
+                                        onNavigateEditProfile()
+                                    }
                                 )
                             }
                         }

@@ -271,6 +271,10 @@ class MainActivity : ComponentActivity() {
                                     onNavigateSuccessEdit = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    },
                                     onNavigateSuccessEditImage = { route ->
                                         navController.navigate(route)
                                     }
@@ -301,6 +305,10 @@ class MainActivity : ComponentActivity() {
                                     },
                                     onNavigateEditAccount = {
                                         navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
                                     },
                                     onNavigateSuccessEditImage = { route ->
                                         navController.navigate(route)

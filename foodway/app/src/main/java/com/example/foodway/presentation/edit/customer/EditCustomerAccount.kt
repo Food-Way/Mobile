@@ -220,6 +220,20 @@ fun EditCustomerAccount(
                             sharedPreferences = sharedPreferences,
                         )
                     }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    ButtonGeneric(
+                        text = stringResource(id = R.string.edit_perfil),
+                        textSize = 18,
+                        modifier = Modifier
+                            .width(270.dp)
+                            .height(43.dp),
+                        isPrimary = false,
+                        onClick = {
+                            onNavigateEditProfile()
+                        }
+                    )
                 }
             }
         }

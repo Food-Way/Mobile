@@ -120,7 +120,7 @@ fun TabScreen(
 
     Column(
         modifier = Modifier
-            .width(300.dp)
+            .width(350.dp)
             .height(650.dp)
     ) {
         TabRow(

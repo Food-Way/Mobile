@@ -87,6 +87,7 @@ fun ProductCard(
                 modifier = Modifier
                     .height(70.dp)
                     .fillMaxWidth(),
+                type = "cardProduct"
             )
 
             Spacer(modifier = Modifier.height(4.dp))

@@ -88,7 +88,8 @@ fun CommentItem(
                 ) {
                     ProfileImage(
                         photo = photo,
-                        size = 35.dp
+                        size = 35.dp,
+                        type = "miniProfile"
                     )
 
                     Spacer(modifier = Modifier.width(10.dp))

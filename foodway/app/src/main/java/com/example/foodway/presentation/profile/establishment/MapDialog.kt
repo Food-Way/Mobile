@@ -83,25 +83,25 @@ fun MapScreen(
         properties = properties,
         uiSettings = uiSettings
     ) {
-        MarkerInfoWindow(
-            state = MarkerState(position = coordinates),
-            icon = BitmapDescriptorFactory.fromResource(R.drawable.location_icon)
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .border(
-                        BorderStroke(1.dp, Color.Black),
-                        RoundedCornerShape(10)
-                    )
-                    .clip(RoundedCornerShape(10))
-                    .background(Color.Blue)
-                    .padding(20.dp)
-            ) {
-                Text(establishmentName, fontWeight = FontWeight.Bold, color = Color.White)
-                Text(culinary, fontWeight = FontWeight.Medium, color = Color.White)
-            }
-        }
+//        MarkerInfoWindow(
+//            state = MarkerState(position = coordinates),
+//            icon = BitmapDescriptorFactory.fromResource(R.drawable.location_icon)
+//        ) {
+//            Column(
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.Center,
+//                modifier = Modifier
+//                    .border(
+//                        BorderStroke(1.dp, Color.Black),
+//                        RoundedCornerShape(10)
+//                    )
+//                    .clip(RoundedCornerShape(10))
+//                    .background(Color.Blue)
+//                    .padding(20.dp)
+//            ) {
+//                Text(establishmentName, fontWeight = FontWeight.Bold, color = Color.White)
+//                Text(culinary, fontWeight = FontWeight.Medium, color = Color.White)
+//            }
+//        }
     }
 }

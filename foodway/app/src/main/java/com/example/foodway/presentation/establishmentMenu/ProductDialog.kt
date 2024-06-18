@@ -75,7 +75,8 @@ fun ProductDialog(
         CoilImage(
             photo = photo,
             description = description,
-            modifier = modifier
+            modifier = modifier,
+            type = "cardProductDialog"
         )
 
         Spacer(modifier = Modifier.height(24.dp))
