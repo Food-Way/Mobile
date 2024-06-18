@@ -53,7 +53,7 @@ fun EditEstablishmentProfile(
     onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
     onNavigateSuccessEditImage: (Destination) -> Unit,
     onLogout: () -> Unit,
-    onNavigateEditAccount: () -> Unit
+    onNavigateConfiguration: () -> Unit
 ) {
 
     val state by vm.state.observeAsState()
@@ -225,28 +225,28 @@ fun EditEstablishmentProfile(
                         Spacer(modifier = Modifier.height(20.dp))
 
                         ButtonGeneric(
-                            text = stringResource(id = R.string.edit_account),
+                            text = "Opções",
                             textSize = 18,
                             modifier = Modifier
                                 .width(270.dp)
                                 .height(43.dp),
                             isPrimary = false
                         ) {
-                            onNavigateEditAccount()
+                            onNavigateConfiguration()
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+//                        Spacer(modifier = Modifier.height(20.dp))
 
-                        ButtonGeneric(
-                            text = stringResource(id = R.string.logout),
-                            textSize = 18,
-                            modifier = Modifier
-                                .width(270.dp)
-                                .height(43.dp),
-                            isPrimary = false
-                        ) {
-                            onLogout()
-                        }
+//                        ButtonGeneric(
+//                            text = stringResource(id = R.string.logout),
+//                            textSize = 18,
+//                            modifier = Modifier
+//                                .width(270.dp)
+//                                .height(43.dp),
+//                            isPrimary = false
+//                        ) {
+//                            onLogout()
+//                        }
                     }
                 }
             }

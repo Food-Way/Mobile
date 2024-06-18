@@ -49,7 +49,7 @@ import java.util.UUID
 @Composable
 fun EditCustomerProfile(
     vm: EditViewModel,
-    onNavigateEditAccount: () -> Unit,
+    onNavigateConfiguration: () -> Unit,
     onNavigateSuccessEdit: (Destination, ProfileId) -> Unit,
     onNavigateSuccessEditImage: (Destination) -> Unit,
     onLogout: () -> Unit,
@@ -198,27 +198,14 @@ fun EditCustomerProfile(
                         Spacer(modifier = Modifier.height(20.dp))
 
                         ButtonGeneric(
-                            text = stringResource(id = R.string.edit_account),
+                            text = "Opções",
                             textSize = 18,
                             modifier = Modifier
                                 .width(320.dp)
                                 .height(43.dp),
                             isPrimary = false
                         ) {
-                            onNavigateEditAccount()
-                        }
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        ButtonGeneric(
-                            text = stringResource(id = R.string.logout),
-                            textSize = 18,
-                            modifier = Modifier
-                                .width(320.dp)
-                                .height(43.dp),
-                            isPrimary = false
-                        ) {
-                            onLogout()
+                            onNavigateConfiguration()
                         }
                     }
                 }

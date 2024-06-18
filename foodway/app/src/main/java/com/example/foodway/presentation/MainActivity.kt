@@ -23,6 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.foodway.R
 import com.example.foodway.di.appModule
 import com.example.foodway.presentation.components.NavBarComponent
+import com.example.foodway.presentation.configuration.customer.ConfigurationCustomer
+import com.example.foodway.presentation.configuration.establishment.ConfigurationEstablishment
 import com.example.foodway.presentation.edit.EditViewModel
 import com.example.foodway.presentation.edit.customer.EditCustomerAccount
 import com.example.foodway.presentation.edit.customer.EditCustomerProfile
@@ -265,8 +267,8 @@ class MainActivity : ComponentActivity() {
                                 EditCustomerProfile(
                                     sharedPreferences = sharedPreferences,
                                     vm = vm,
-                                    onNavigateEditAccount = {
-                                        navController.navigate(AppDestination.EditCustomerAccount.route)
+                                    onNavigateConfiguration = {
+                                        navController.navigate(AppDestination.ConfigurationCustomer.route)
                                     },
                                     onNavigateSuccessEdit = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
@@ -290,8 +292,8 @@ class MainActivity : ComponentActivity() {
                                             "${AppDestination.ProfileCustomer.route}/${id}"
                                         )
                                     },
-                                    onNavigateEditProfile = {
-                                        navController.navigate(AppDestination.EditCustomerProfile.route)
+                                    onNavigateConfiguration = {
+                                        navController.navigate(AppDestination.ConfigurationCustomer.route)
                                     }
                                 )
                             }
@@ -303,8 +305,8 @@ class MainActivity : ComponentActivity() {
                                     onNavigateSuccessEdit = { route, idProfile ->
                                         navController.navigate("${route}/$idProfile")
                                     },
-                                    onNavigateEditAccount = {
-                                        navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    onNavigateConfiguration = {
+                                        navController.navigate(AppDestination.ConfigurationEstablishment.route)
                                     },
                                     onLogout = {
                                         sharedPreferences.clearData()
@@ -323,8 +325,37 @@ class MainActivity : ComponentActivity() {
                                     onNavigateSuccessEdit = {
                                         navController.navigate(AppDestination.ProfileEstablishment.route)
                                     },
+                                    onNavigateConfiguration = {
+                                        navController.navigate(AppDestination.ConfigurationEstablishment.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.ConfigurationEstablishment.route) {
+                                ConfigurationEstablishment(
+
                                     onNavigateEditProfile = {
                                         navController.navigate(AppDestination.EditEstablishmentProfile.route)
+                                    },
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditEstablishmentAccount.route)
+                                    },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
+                                    }
+                                )
+                            }
+                            composable(AppDestination.ConfigurationCustomer.route) {
+                                ConfigurationCustomer(
+                                    onNavigateEditProfile = {
+                                        navController.navigate(AppDestination.EditCustomerProfile.route)
+                                    },
+                                    onNavigateEditAccount = {
+                                        navController.navigate(AppDestination.EditCustomerAccount.route)
+                                    },
+                                    onLogout = {
+                                        sharedPreferences.clearData()
+                                        navController.navigate(AppDestination.SignIn.route)
                                     }
                                 )
                             }

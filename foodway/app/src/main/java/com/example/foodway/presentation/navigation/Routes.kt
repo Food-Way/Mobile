@@ -21,4 +21,6 @@ sealed class AppDestination(val route: String) {
     object EditEstablishmentProfile: AppDestination("editEstablishmentProfile")
     object EditEstablishmentAccount: AppDestination("editEstablishmentAccount")
     object SelectUserType: AppDestination("selectUserType")
+    object ConfigurationEstablishment: AppDestination("configurationEstablishment")
+    object ConfigurationCustomer: AppDestination("configurationCustomer")
 }
