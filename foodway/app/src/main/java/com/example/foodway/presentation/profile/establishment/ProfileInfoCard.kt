@@ -158,24 +158,24 @@ fun ProfileInfoCard(
                             )
                         }
                     )
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .width(35.dp)
-                            .height(35.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(colorResource(id = R.color.black))
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.location_white_icon),
-                            contentDescription = "",
-                            tint = colorResource(android.R.color.white),
-                            modifier = Modifier
-                                .width(25.dp)
-                                .height(25.dp)
-                                .clickable { showModal = !showModal }
-                        )
-                    }
+//                    Box(
+//                        contentAlignment = Alignment.Center,
+//                        modifier = Modifier
+//                            .width(35.dp)
+//                            .height(35.dp)
+//                            .clip(RoundedCornerShape(20.dp))
+//                            .background(colorResource(id = R.color.black))
+//                    ) {
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.location_white_icon),
+//                            contentDescription = "",
+//                            tint = colorResource(android.R.color.white),
+//                            modifier = Modifier
+//                                .width(25.dp)
+//                                .height(25.dp)
+//                                .clickable { showModal = !showModal }
+//                        )
+//                    }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceAround,
